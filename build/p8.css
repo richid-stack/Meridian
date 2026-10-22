@@ -1,0 +1,29 @@
+/* ===== M5: global ===== */
+.lensb{border:1px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:5px 12px;font:500 12px "JetBrains Mono",monospace}
+.fx{font:500 13px "JetBrains Mono",monospace;color:var(--mute)}
+.fx2{display:block;font:500 13px "JetBrains Mono",monospace;color:#8DA69B;margin:0 0 14px}
+.fx3{display:block;font:400 12px "JetBrains Mono",monospace;color:var(--mute);margin-top:2px}
+.fxl{margin-top:6px;font:500 13px "JetBrains Mono",monospace;color:var(--mute);min-height:18px}
+.srcb{margin:0 0 16px;border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:12px 14px}
+.srcb b{font:600 14px "Instrument Sans",sans-serif}
+.srcb p{margin:4px 0 10px;font-size:13px;color:var(--mute);line-height:1.45}
+.srcb>div{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.srcb .p3b{padding:8px 14px;font-size:13px}
+.lnk2{border:0;background:none;color:var(--accent);font:600 13px "Instrument Sans",sans-serif;padding:8px 2px;text-decoration:underline;text-underline-offset:3px}
+#v-prefs h2{font:500 22px Newsreader,serif;margin:30px 0 8px}
+#v-prefs .pvw{display:flex;align-items:baseline;gap:10px;margin-top:14px;padding:14px 16px;border:1px solid var(--rule);border-radius:12px;background:var(--surface)}
+#v-prefs .pvw span{font-size:13px;color:var(--mute)}
+#v-prefs .pvw b{font:500 22px "JetBrains Mono",monospace}
+#v-prefs .pvw em{font:500 15px "JetBrains Mono",monospace;font-style:normal;color:var(--mute)}
+.sw3{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-top:1px solid var(--rule);font-size:16px}
+.sw3 small{display:block;font-size:13px;color:var(--mute);margin-top:2px;max-width:270px}
+.sw3 .mono{font:500 14px "JetBrains Mono",monospace;color:var(--mute)}
+.sw3 button{position:relative;flex:none;width:48px;height:28px;border-radius:14px;border:0;background:var(--rule)}
+.sw3 button::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--bg);transition:transform .2s}
+.sw3 button[aria-checked="true"]{background:var(--panel)}
+.sw3 button[aria-checked="true"]::after{transform:translateX(20px);background:var(--gold)}
+#v-explore .ai .askb{margin-top:10px;border:1px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:8px 14px;font:600 13px "Instrument Sans",sans-serif}
+#v-explore .ai[hidden]{display:none}
+#v-explore .es{text-align:center}
+#v-explore [data-ent-block] h2{margin-top:34px}
+#v-explore .ai span{display:block}

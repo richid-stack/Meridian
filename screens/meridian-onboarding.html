@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Welcome — Meridian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1F4F2;--ink:#0E1A16;--mute:#55635D;--rule:#D3DAD6;--accent:#8F6708;--panel:#0B2A21;--gold:#E3B341;--surface:#FAFBFA;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16}}
+:root[data-theme="dark"]{--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:560px;margin:0 auto;padding:0 20px 150px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg)}
+.bar .in{max-width:560px;margin:0 auto;padding:10px 12px;display:flex;align-items:center;gap:8px;min-height:56px}
+.bk{width:40px;height:40px;border:0;background:none;color:var(--ink);display:grid;place-items:center;border-radius:8px;flex:none}
+.bk[hidden]{display:none}
+.seg{flex:1;display:flex;gap:6px}.seg[hidden]{display:none}.logo[hidden]{display:none}.skip[hidden]{display:none}
+.seg i{flex:1;height:3px;border-radius:2px;background:var(--rule)}
+.seg i.on{background:var(--accent)}
+.logo{font:600 22px/1 Newsreader,Georgia,serif;letter-spacing:-.01em;padding-left:8px}
+.logo i{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;margin-left:3px}
+.skip{border:0;background:none;color:var(--mute);font:500 15px "Instrument Sans",sans-serif;padding:8px 10px;flex:none}
+h1{font:500 clamp(34px,9.4vw,46px)/1.05 Newsreader,Georgia,serif;letter-spacing:-.02em;margin:26px 0 10px}
+.sub{margin:0 0 22px;font:400 19px/1.5 Newsreader,Georgia,serif;color:var(--mute)}
+.hint{margin:0 0 14px;font-size:14px;color:var(--mute)}
+section[hidden]{display:none}
+.hero{margin-top:26px;background:var(--panel);color:#E9EFEA;border-radius:14px;padding:16px 16px 6px}
+.hero .h{display:flex;justify-content:space-between;font-size:13px;color:#8DA69B;margin-bottom:6px}
+.hero .h b{color:#E9EFEA;font-weight:600}
+.hr{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid rgba(233,239,234,.14);opacity:0;animation:up .5s ease forwards}
+.hr:nth-of-type(2){animation-delay:.25s}.hr:nth-of-type(3){animation-delay:.5s}.hr:nth-of-type(4){animation-delay:.75s}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hr{animation:none;opacity:1}}
+.hr b{display:block;font:500 18px/1.25 Newsreader,Georgia,serif}
+.hr small{font-size:13px;color:#8DA69B}
+.hr .m{margin-left:auto;font:500 13px "JetBrains Mono",monospace;color:var(--gold);flex:none}
+.pe{flex:none;width:40px;height:48px;background:#0F3A2D;color:var(--gold);border:1px solid rgba(233,239,234,.14);border-radius:4px;display:grid;place-items:center;font:500 14px Newsreader,serif}
+.co{flex:none;width:40px;height:40px;background:#0F3A2D;color:var(--gold);border:1px solid rgba(233,239,234,.14);border-radius:10px;display:grid;place-items:center;font:600 17px Newsreader,serif}
+.dl{flex:none;width:40px;height:40px;border-radius:50%;background:conic-gradient(var(--gold) 64%,rgba(233,239,234,.2) 0);display:grid;place-items:center}
+.dl span{width:30px;height:30px;border-radius:50%;background:var(--panel)}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;border-top:1px solid var(--rule);background:none;color:var(--ink);padding:16px 0;font:inherit}
+.opt:last-of-type{border-bottom:1px solid var(--rule)}
+.opt b{display:block;font:500 20px/1.25 Newsreader,Georgia,serif}
+.opt small{font-size:14px;color:var(--mute)}
+.ck{margin-left:auto;flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;color:transparent}
+.opt[aria-pressed="true"] .ck,.fl[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:11px 18px;font:500 16px "Instrument Sans",sans-serif}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cnt{margin-top:18px;font:500 13px "JetBrains Mono",monospace;color:var(--mute)}
+.pp{display:flex;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--rule)}
+.pp .pe{width:44px;height:54px;font-size:16px;background:var(--panel)}
+.pp b{display:block;font:500 19px/1.25 Newsreader,Georgia,serif}
+.pp small{font-size:13px;color:var(--mute);line-height:1.3;display:block}
+.fl{margin-left:auto;flex:none;border:1px solid var(--ink);background:none;color:var(--ink);border-radius:999px;padding:9px 16px;font:600 14px "Instrument Sans",sans-serif}
+.fl[aria-pressed="true"]{color:var(--bg)}
+.done{margin-top:22px;background:var(--panel);color:#E9EFEA;border-radius:14px;padding:18px}
+.done .g{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(233,239,234,.14);border-radius:8px;overflow:hidden}
+.done .g div{background:var(--panel);padding:12px 12px 12px 0}
+.done .g div:nth-child(even){padding-left:14px}
+.done .g span{display:block;font-size:12px;color:#8DA69B}
+.done .g strong{font:500 30px/1.2 "JetBrains Mono",monospace;letter-spacing:-.03em}
+.done p{margin:14px 0 0;font-size:14px;color:#8DA69B;line-height:1.5}
+.done p b{color:var(--gold);font-weight:500}
+.ft{position:fixed;left:0;right:0;bottom:0;background:var(--bg);padding:12px 20px calc(14px + env(safe-area-inset-bottom,0px));z-index:6}
+.ft .in{max-width:520px;margin:0 auto}
+.go{width:100%;border:0;border-radius:12px;background:var(--panel);color:var(--gold);padding:16px;font:600 16px "Instrument Sans",sans-serif}
+.go:disabled{opacity:.35}
+.ol{width:100%;margin-top:8px;border:0;background:none;color:var(--ink);padding:12px;font:500 15px "Instrument Sans",sans-serif}
+.ol[hidden]{display:none}
+.legal{margin:10px 0 0;font-size:12px;color:var(--mute);text-align:center}
+.warn{margin:16px 0 0;font-size:14px;color:var(--mute);display:none}
+.warn.on{display:block}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<button class="bk" id="bk" aria-label="Back" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+<span class="logo" id="lg">Meridian<i></i></span>
+<div class="seg" id="seg" hidden><i></i><i></i><i></i></div>
+<button class="skip" id="sk" hidden>Skip</button>
+</div></div>
+
+<main class="wrap">
+<section id="s0">
+<h1>Everyone in African business, in one place.</h1>
+<p class="sub">People, companies, books, and deals, with an AI that explains it all.</p>
+<div class="hero"><div class="h"><b>Today on Meridian</b><span>Sample</span></div>
+<div class="hr"><div class="pe">AB</div><div><b>Ama Boateng</b><small>Founder, Kora Freight</small></div><span class="m">Live</span></div>
+<div class="hr"><div class="co">K</div><div><b>Kora Freight</b><small>Raised $64M, Series B</small></div><span class="m">$180M</span></div>
+<div class="hr"><div class="dl"><span></span></div><div><b>Aya Health seed round</b><small>Open to community investors</small></div><span class="m">64%</span></div>
+</div>
+</section>
+
+<section id="s1" hidden>
+<h1>What brings you to Meridian?</h1>
+<p class="hint">Choose all that apply. You can change this later.</p>
+<button class="opt" aria-pressed="false" data-k="learn"><div><b>Learn about business</b><small>Founders, companies, and the ideas behind them</small></div><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span></button>
+<button class="opt" aria-pressed="false" data-k="follow"><div><b>Follow people shaping business</b><small>Their thinking, interviews, and updates</small></div><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span></button>
+<button class="opt" aria-pressed="false" data-k="raise"><div><b>Raise money for my company</b><small>Reach investors and build in public</small></div><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span></button>
+<button class="opt" aria-pressed="false" data-k="invest"><div><b>Invest in startups</b><small>Review rounds and back founders</small></div><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span></button>
+<button class="opt" aria-pressed="false" data-k="meet"><div><b>Meet people and find work</b><small>Communities, events, and jobs</small></div><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span></button>
+<p class="warn" id="warn">Investing needs a quick identity check later. You can browse rounds right away.</p>
+</section>
+
+<section id="s2" hidden>
+<h1>What do you want to follow?</h1>
+<p class="hint">Pick at least three. They shape your daily briefing.</p>
+<div class="chips" id="chips"></div>
+<div class="cnt" id="cnt">0 selected</div>
+</section>
+
+<section id="s3" hidden>
+<h1>People worth following</h1>
+<p class="hint">Start with a few. Their posts and interviews will appear in your feed.</p>
+<div id="ppl"></div>
+</section>
+
+<section id="s4" hidden>
+<h1>Your Meridian is ready.</h1>
+<p class="sub">Your first briefing is built around what you picked.</p>
+<div class="done"><div class="g"><div><span>Sectors</span><strong id="ns">0</strong></div><div><span>People</span><strong id="np">0</strong></div></div>
+<p id="lst"></p></div>
+</section>
+</main>
+
+<div class="ft"><div class="in">
+<button class="go" id="go">Get started</button>
+<button class="ol" id="ol">I already have an account</button>
+<p class="legal" id="lg2">By continuing you agree to the Terms and Privacy Policy.</p>
+</div></div>
+
+<script>
+var sectors=['Fintech','Agritech','Logistics','Health','Energy','Media','Retail','Real estate','Education','Manufacturing','Climate','AI and data'];
+var people=[['AB','Ama Boateng','Founder and CEO, Kora Freight'],['KO','Kunle Okafor','Partner, Sahel Ventures'],['NM','Nia Mensah','CEO, Aya Health'],['TD','Tunde Dlamini','CFO, Zuri Energy'],['FK','Fatou Keita','Head of operations, Kora Freight']];
+var step=0,S=[],P=[],I=[];
+var $=function(i){return document.getElementById(i)};
+var cw=$('chips');
+sectors.forEach(function(n){var b=document.createElement('button');b.className='chip';b.textContent=n;b.setAttribute('aria-pressed','false');
+b.onclick=function(){var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);S=on?S.concat(n):S.filter(function(x){return x!==n});upd()};cw.appendChild(b)});
+var pw=$('ppl');
+people.forEach(function(p){var d=document.createElement('div');d.className='pp';
+d.innerHTML='<div class="pe">'+p[0]+'</div><div><b>'+p[1]+'</b><small>'+p[2]+'</small></div><button class="fl" aria-pressed="false">Follow</button>';
+var f=d.querySelector('.fl');f.onclick=function(){var on=f.getAttribute('aria-pressed')!=='true';f.setAttribute('aria-pressed',on);f.textContent=on?'Following':'Follow';P=on?P.concat(p[1]):P.filter(function(x){return x!==p[1]});upd()};pw.appendChild(d)});
+document.querySelectorAll('.opt').forEach(function(o){o.onclick=function(){var on=o.getAttribute('aria-pressed')!=='true';o.setAttribute('aria-pressed',on);var k=o.dataset.k;I=on?I.concat(k):I.filter(function(x){return x!==k});upd()}});
+function upd(){
+$('cnt').textContent=S.length+' selected'+(S.length<3?', choose '+(3-S.length)+' more':'');
+$('warn').className='warn'+(I.indexOf('invest')>-1?' on':'');
+var go=$('go');go.disabled=(step===1&&I.length<1)||(step===2&&S.length<3);
+$('ns').textContent=S.length;$('np').textContent=P.length;
+$('lst').innerHTML=S.length?'<b>Following:</b> '+S.slice(0,4).join(', ')+(S.length>4?' and '+(S.length-4)+' more':''):'';
+}
+function show(n){
+step=n;
+for(var i=0;i<5;i++)$('s'+i).hidden=i!==n;
+$('bk').hidden=n===0;$('lg').hidden=n>0;$('seg').hidden=n===0||n===4;$('sk').hidden=n<2||n>3;
+$('ol').hidden=n!==0;$('lg2').hidden=n!==0;
+document.querySelectorAll('#seg i').forEach(function(x,i){x.className=i<n?'on':''});
+$('go').textContent=['Get started','Continue','Continue','Continue','Open my briefing'][n];
+window.scrollTo(0,0);upd();
+}
+$('go').onclick=function(){if(step<4)show(step+1)};
+$('bk').onclick=function(){if(step>0)show(step-1)};
+$('sk').onclick=function(){show(step+1)};
+show(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meridian design system</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1F4F2;--ink:#0E1A16;--mute:#55635D;--rule:#D3DAD6;--accent:#8F6708;--panel:#0B2A21;--gold:#E3B341;--surface:#FAFBFA;--risk:#A4432B;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16;--risk:#E8836B}}
+:root[data-theme="dark"]{--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16;--risk:#E8836B}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 80px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+header .in{max-width:720px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font:600 22px/1 Newsreader,Georgia,serif;letter-spacing:-.01em}
+.logo i{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;margin-left:3px}
+.tg{border:1px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:7px 14px;font:500 14px "Instrument Sans",sans-serif}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hero{padding:30px 0 6px}
+h1{font:500 clamp(36px,10vw,54px)/1.03 Newsreader,Georgia,serif;letter-spacing:-.02em;margin:0 0 12px}
+.hero p{margin:0;font:400 20px/1.5 Newsreader,Georgia,serif;color:var(--mute)}
+h2{font:500 28px/1.2 Newsreader,serif;margin:52px 0 6px;letter-spacing:-.01em}
+.cap{margin:0 0 14px;font-size:15px;color:var(--mute)}
+h3{font:600 14px "Instrument Sans",sans-serif;margin:26px 0 8px}
+.pr{border-top:1px solid var(--rule);padding:14px 0}
+.pr b{font:500 19px/1.3 Newsreader,serif;display:block;margin-bottom:2px}
+.pr span{font-size:15px;color:var(--mute)}
+.sw{display:flex;gap:14px;align-items:center;padding:11px 0;border-top:1px solid var(--rule)}
+.sw i{flex:none;width:44px;height:44px;border-radius:8px;border:1px solid var(--rule)}
+.sw b{font:500 14px "JetBrains Mono",monospace;display:block}
+.sw span{font-size:13px;color:var(--mute);display:block;line-height:1.35}
+.sw em{margin-left:auto;font:400 12px "JetBrains Mono",monospace;font-style:normal;color:var(--mute);text-align:right;flex:none}
+.ty{padding:16px 0;border-top:1px solid var(--rule)}
+.ty small{display:block;font:400 12px "JetBrains Mono",monospace;color:var(--mute);margin-top:6px}
+.sp{display:flex;align-items:center;gap:14px;padding:6px 0;font:500 12px "JetBrains Mono",monospace;color:var(--mute)}
+.sp i{display:block;height:12px;background:var(--accent);border-radius:2px}
+.sp span{width:34px;flex:none}
+.rd{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.rd div{text-align:center;font:400 12px "JetBrains Mono",monospace;color:var(--mute)}
+.rd i{display:block;width:64px;height:64px;background:var(--panel);margin-bottom:6px}
+.demo{padding:18px 0;border-top:1px solid var(--rule)}
+.demo>small{display:block;font:400 12px "JetBrains Mono",monospace;color:var(--mute);margin-bottom:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:600 14px/1 "Instrument Sans",sans-serif;padding:11px 18px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg)}
+.btn.o{background:none;color:var(--ink);border-color:var(--rule)}
+.go{border:0;border-radius:12px;background:var(--panel);color:var(--gold);padding:14px 22px;font:600 16px "Instrument Sans",sans-serif}
+.chip{border:1px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:8px 14px;font:500 14px "Instrument Sans",sans-serif}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tabs{display:flex;gap:22px;border-bottom:1px solid var(--rule)}
+.tabs span{padding:10px 0;font:500 15px "Instrument Sans",sans-serif;color:var(--mute);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs .on{color:var(--ink);border-color:var(--accent)}
+.pe{width:44px;height:54px;background:var(--panel);color:var(--gold);border-radius:4px;display:grid;place-items:center;font:500 17px Newsreader,serif}
+.co{width:48px;height:48px;background:var(--panel);color:var(--gold);border-radius:12px;display:grid;place-items:center;font:600 20px Newsreader,serif}
+.bk{width:38px;height:54px;border-radius:2px 5px 5px 2px;box-shadow:inset 3px 0 0 rgba(0,0,0,.25);background:#5B3A29}
+.po{width:44px;height:44px;border-radius:50%;background:var(--panel);color:var(--gold);display:grid;place-items:center}
+.dl{width:44px;height:44px;border-radius:50%;background:conic-gradient(var(--accent) 38%,var(--rule) 0);display:grid;place-items:center;font:500 11px "JetBrains Mono",monospace}
+.dl span{width:34px;height:34px;border-radius:50%;background:var(--bg);display:grid;place-items:center}
+.ents{display:flex;gap:20px;align-items:flex-end;flex-wrap:wrap}
+.ents>div{text-align:center;font-size:12px;color:var(--mute)}
+.ents>div>*:first-child{margin:0 auto 6px}
+.panel{background:var(--panel);color:#E9EFEA;border-radius:14px;padding:16px}
+.panel .g{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(233,239,234,.14);border-radius:8px;overflow:hidden}
+.panel .g div{background:var(--panel);padding:10px 10px 10px 0}
+.panel .g div:nth-child(even){padding-left:14px}
+.panel .g span{display:block;font-size:12px;color:#8DA69B}
+.panel .g strong{font:500 24px/1.3 "JetBrains Mono",monospace;letter-spacing:-.03em}
+.panel .up{font:500 13px "JetBrains Mono",monospace;color:var(--gold);margin-top:10px;display:block}
+.bar{height:6px;background:var(--rule);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:64%;background:var(--accent);border-radius:3px}
+.r{display:flex;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--rule)}
+.r b{display:block;font:500 19px/1.25 Newsreader,serif}
+.r span{font-size:14px;color:var(--mute)}
+.sf{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;color:var(--mute);font-size:16px}
+.ai{border-left:2px solid var(--accent);padding:2px 0 2px 14px;font:400 18px/1.5 Newsreader,serif}
+.ai b{display:block;font:600 13px "Instrument Sans",sans-serif}
+.rk{font:400 17px/1.45 Newsreader,serif}
+.rk li{position:relative;padding:4px 0 4px 22px;list-style:none}
+.rk li::before{content:"";position:absolute;left:2px;top:14px;width:10px;height:2px;background:var(--accent)}
+.rk .x::before{background:var(--risk)}
+.rk ul{margin:0;padding:0}
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.dd h3{margin-top:0}
+.dd p{margin:0 0 8px;font-size:15px}
+.ok h3{color:var(--accent)}
+.no h3{color:var(--risk)}
+@media (max-width:480px){.dd{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="in"><span class="logo">Meridian<i></i></span><button class="tg" id="tg">Switch theme</button></div></header>
+
+<main class="wrap">
+<div class="hero"><h1>Design system</h1><p>One language for a product that reads like a newspaper and works like a terminal.</p></div>
+
+<h2>Principles</h2>
+<div class="pr"><b>Editorial surface, terminal core</b><span>Reading is set in serif on a quiet page. Numbers live in dark panels with mono type.</span></div>
+<div class="pr"><b>Rules, not cards</b><span>Hairlines separate content. A bordered card is reserved for the one action that matters on a screen.</span></div>
+<div class="pr"><b>One accent</b><span>Gold marks what is live, linked, or actionable. Nothing else competes with it.</span></div>
+<div class="pr"><b>Every fact earns its place</b><span>Real content, honest risk, and sources shown next to any AI summary.</span></div>
+
+<h2>Color</h2>
+<p class="cap">Each token lists its light value above its dark value. Use the theme button to compare.</p>
+<div class="sw"><i style="background:var(--bg)"></i><div><b>--bg</b><span>Page background</span></div><em>#F1F4F2<br>#08120F</em></div>
+<div class="sw"><i style="background:var(--surface)"></i><div><b>--surface</b><span>Inputs, the one bordered card</span></div><em>#FAFBFA<br>#0D1A16</em></div>
+<div class="sw"><i style="background:var(--ink)"></i><div><b>--ink</b><span>Text, primary button</span></div><em>#0E1A16<br>#E8EEEA</em></div>
+<div class="sw"><i style="background:var(--mute)"></i><div><b>--mute</b><span>Secondary text</span></div><em>#55635D<br>#93A29B</em></div>
+<div class="sw"><i style="background:var(--rule)"></i><div><b>--rule</b><span>Hairlines, empty tracks</span></div><em>#D3DAD6<br>#21312B</em></div>
+<div class="sw"><i style="background:var(--accent)"></i><div><b>--accent</b><span>Links, progress, markers</span></div><em>#8F6708<br>#E3B341</em></div>
+<div class="sw"><i style="background:var(--panel)"></i><div><b>--panel</b><span>Data panels, portraits</span></div><em>#0B2A21<br>#0F3A2D</em></div>
+<div class="sw"><i style="background:var(--gold)"></i><div><b>--gold</b><span>Numbers and icons on panels</span></div><em>#E3B341<br>both</em></div>
+<div class="sw"><i style="background:var(--risk)"></i><div><b>--risk</b><span>Risks and negative moves</span></div><em>#A4432B<br>#E8836B</em></div>
+
+<h2>Typography</h2>
+<p class="cap">Newsreader for reading, Instrument Sans for interface, JetBrains Mono for data.</p>
+<div class="ty"><div style="font:500 44px/1.05 Newsreader,serif;letter-spacing:-.02em">Display headline</div><small>Newsreader 500, 34 to 52px, tracking -0.02em</small></div>
+<div class="ty"><div style="font:500 24px/1.2 Newsreader,serif">Section heading</div><small>Newsreader 500, 22 to 24px</small></div>
+<div class="ty"><div style="font:400 20px/1.55 Newsreader,serif">Lede paragraph for profiles and companies.</div><small>Newsreader 400, 20px, line height 1.55</small></div>
+<div class="ty"><div style="font:400 16px/1.5 'Instrument Sans',sans-serif">Interface text and body copy in the sans.</div><small>Instrument Sans 400, 16px</small></div>
+<div class="ty"><div style="font:500 13px 'Instrument Sans',sans-serif;color:var(--mute)">Label and caption text</div><small>Instrument Sans 500, 13px, sentence case, never all caps</small></div>
+<div class="ty"><div style="font:500 26px 'JetBrains Mono',monospace;letter-spacing:-.03em;font-variant-numeric:tabular-nums">$180M  6,412</div><small>JetBrains Mono 500, tabular figures, tracking -0.03em</small></div>
+
+<h2>Space and shape</h2>
+<p class="cap">A 4pt grid. Page margin is 20px.</p>
+<div class="sp"><span>4</span><i style="width:4px"></i></div>
+<div class="sp"><span>8</span><i style="width:8px"></i></div>
+<div class="sp"><span>12</span><i style="width:12px"></i></div>
+<div class="sp"><span>16</span><i style="width:16px"></i></div>
+<div class="sp"><span>24</span><i style="width:24px"></i></div>
+<div class="sp"><span>36</span><i style="width:36px"></i></div>
+<h3>Radius</h3>
+<div class="rd"><div><i style="border-radius:4px"></i>4 portrait</div><div><i style="border-radius:12px"></i>12 field</div><div><i style="border-radius:14px"></i>14 panel</div><div><i style="border-radius:50%"></i>full</div></div>
+
+<h2>Components</h2>
+<div class="demo"><small>Buttons</small><div class="row"><button class="btn">Follow</button><button class="btn o">Save</button><button class="go">Continue with $250</button></div></div>
+<div class="demo"><small>Filter chips</small><div class="row"><button class="chip on">All</button><button class="chip">People</button><button class="chip">Companies</button></div></div>
+<div class="demo"><small>Tabs</small><div class="tabs"><span class="on">Overview</span><span>Timeline</span><span>Books</span></div></div>
+<div class="demo"><small>Entity icons: person, company, book, podcast, deal</small><div class="ents"><div><div class="pe">AB</div>Person</div><div><div class="co">K</div>Company</div><div><div class="bk"></div>Book</div><div><div class="po"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></div>Podcast</div><div><div class="dl"><span>38%</span></div>Deal</div></div></div>
+<div class="demo"><small>Data panel</small><div class="panel"><div class="g"><div><span>Valuation</span><strong>$180M</strong></div><div><span>Total raised</span><strong>$64M</strong></div></div><span class="up">+212% revenue, five years</span></div></div>
+<div class="demo"><small>Progress</small><div class="bar"><i></i></div></div>
+<div class="demo"><small>List row</small><div class="r" style="border-top:0"><div class="co">K</div><div><b>Kora Freight</b><span>Digital freight network, Accra</span></div></div></div>
+<div class="demo"><small>Search field</small><div class="sf"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>Search people, companies, books</div></div>
+<div class="demo"><small>AI summary, always with its sources</small><div class="ai"><b>Summary</b>Freight in West Africa is consolidating around a few digital networks.<div style="font:400 13px 'Instrument Sans',sans-serif;color:var(--mute);margin-top:4px">Drawn from 4 profiles and 2 interviews</div></div></div>
+<div class="demo"><small>Strengths and risks, equal weight</small><ul class="rk" style="margin:0;padding:0"><li>Revenue run rate grew 212%.</li><li class="x">Investment is illiquid and could be lost.</li></ul></div>
+
+<h2>Rules</h2>
+<div class="dd" style="margin-top:14px">
+<div class="ok"><h3>Do</h3><p>Use sentence case for every label.</p><p>Show units and sources beside numbers.</p><p>Design loading, empty, and error states.</p><p>Keep tap targets at 44px or larger.</p></div>
+<div class="no"><h3>Avoid</h3><p>Gradients, glass, or emoji as icons.</p><p>Cards around everything.</p><p>All caps labels and arrow suffixes.</p><p>A second accent color.</p></div>
+</div>
+</main>
+
+<script>
+document.getElementById('tg').addEventListener('click',function(){
+var r=document.documentElement,dark=getComputedStyle(r).getPropertyValue('--bg').trim().toLowerCase()==='#08120f';
+r.dataset.theme=dark?'light':'dark';
+});
+</script>
+</body>
+</html>

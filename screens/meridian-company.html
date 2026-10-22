@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kora Freight — Meridian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1F4F2;--ink:#0E1A16;--mute:#55635D;--rule:#D3DAD6;--accent:#8F6708;--panel:#0B2A21;--panel-ink:#E9EFEA;--panel-mute:#8DA69B;--gold:#E3B341;--surface:#FAFBFA;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16}}
+:root[data-theme="dark"]{--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 120px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+header .in{max-width:720px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font:600 22px/1 Newsreader,Georgia,serif;letter-spacing:-.01em}
+.logo i{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;margin-left:3px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--panel);color:var(--gold);display:grid;place-items:center;font:500 14px Newsreader,serif}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.head{display:flex;gap:16px;align-items:center;padding:28px 0 16px}
+.lg{flex:none;width:72px;height:72px;background:var(--panel);color:var(--gold);display:grid;place-items:center;font:600 30px/1 Newsreader,serif;border-radius:16px}
+h1{font:500 clamp(34px,9vw,50px)/1.02 Newsreader,Georgia,serif;letter-spacing:-.02em;margin:0 0 4px}
+.tag{margin:0;color:var(--mute);font-size:15px}
+.acts{display:flex;gap:8px;margin:0 0 24px}
+.btn{font:600 14px/1 "Instrument Sans",sans-serif;padding:11px 18px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg)}
+.btn.o{background:none;color:var(--ink);border-color:var(--rule)}
+.panel{background:var(--panel);color:var(--panel-ink);border-radius:14px;padding:18px 18px 12px}
+.ph{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--panel-mute);margin-bottom:14px}
+.ph b{color:var(--panel-ink);font-weight:600;font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(233,239,234,.14);border-radius:8px;overflow:hidden}
+.grid div{background:var(--panel);padding:12px 12px 12px 0}
+.grid div:nth-child(even){padding-left:14px}
+.grid span{display:block;font-size:12px;color:var(--panel-mute)}
+.grid strong{font:500 26px/1.2 "JetBrains Mono",ui-monospace,monospace;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.chart{margin-top:16px}
+.chart p{margin:0 0 4px;font-size:12px;color:var(--panel-mute)}
+.chart svg{display:block;width:100%;height:auto}
+.chart text{font:500 11px "JetBrains Mono",monospace;fill:#E9EFEA}
+.chart .m{fill:#8DA69B;font-family:"Instrument Sans",sans-serif;font-weight:400}
+h2{font:500 24px/1.2 Newsreader,serif;margin:36px 0 10px}
+.lede{font:400 20px/1.55 Newsreader,Georgia,serif;margin:28px 0 0}
+.lede a{color:inherit;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:3px}
+dl{margin:0}
+dl div{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:11px 0;border-top:1px solid var(--rule);font-size:15px}
+dl div:last-child{border-bottom:1px solid var(--rule)}
+dt{color:var(--mute)}dd{margin:0}
+.ppl{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:0 20px}
+.ppl::-webkit-scrollbar{display:none}
+.p{flex:none;width:92px;text-decoration:none;color:inherit}
+.p div{width:92px;height:112px;background:var(--panel);color:var(--gold);display:grid;place-items:center;font:500 32px Newsreader,serif;border-radius:4px;margin-bottom:8px}
+.p b{display:block;font:500 15px/1.25 "Instrument Sans",sans-serif}
+.p span{font-size:13px;color:var(--mute);line-height:1.3;display:block}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font-weight:500;color:var(--mute);font-size:13px;text-align:right;padding:0 0 8px}
+th:first-child,td:first-child{text-align:left}
+td{padding:12px 0;border-top:1px solid var(--rule);text-align:right;font:500 14px "JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+td:first-child{font:500 15px "Instrument Sans",sans-serif}
+tr.me td{color:var(--accent)}
+.news{padding:14px 0;border-top:1px solid var(--rule)}
+.news b{font:500 19px/1.3 Newsreader,Georgia,serif;display:block;margin-bottom:2px}
+.news span{font-size:14px;color:var(--mute)}
+.round{margin-top:36px;border:1px solid var(--rule);border-radius:14px;padding:20px 18px;background:var(--surface)}
+.round h2{margin:0 0 6px;font-size:22px}
+.round p{margin:0;font-size:15px;color:var(--mute)}
+.bar{height:6px;background:var(--rule);border-radius:3px;margin:16px 0 8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px;width:38%}
+.fund{display:flex;justify-content:space-between;font:500 13px "JetBrains Mono",monospace;color:var(--mute);margin-bottom:16px}
+.fund b{color:var(--ink);font-weight:500}
+.round .btn{width:100%;padding:14px}
+.round small{display:block;margin-top:12px;font-size:12px;color:var(--mute);line-height:1.4}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav div{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav button{border:0;background:none;color:var(--mute);padding:10px 0 9px;font:500 11px "Instrument Sans",sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button[aria-current="page"]{color:var(--ink)}
+nav button[aria-current="page"] svg{color:var(--accent)}
+.note{margin-top:28px;font-size:13px;color:var(--mute)}
+</style>
+</head>
+<body>
+<header><div class="in"><span class="logo">Meridian<i></i></span><span class="av" aria-hidden="true">R</span></div></header>
+
+<main class="wrap">
+<div class="head"><div class="lg" aria-hidden="true">K</div><div><h1>Kora Freight</h1><p class="tag">Digital freight network<br>Accra, Ghana</p></div></div>
+<div class="acts"><button class="btn">Follow</button><button class="btn o">Save</button><button class="btn o">Share</button></div>
+
+<div class="panel">
+<div class="ph"><b>Snapshot</b><span>Series B, 2025</span></div>
+<div class="grid">
+<div><span>Valuation</span><strong>$180M</strong></div>
+<div><span>Total raised</span><strong>$64M</strong></div>
+<div><span>Revenue run rate</span><strong>$22M</strong></div>
+<div><span>Team</span><strong>212</strong></div>
+</div>
+<div class="chart"><p>Funding by round, $M</p>
+<svg viewBox="0 0 300 118" role="img" aria-label="Series A raised 14 million dollars in 2022; Series B raised 50 million dollars in 2025">
+<line x1="0" y1="92" x2="300" y2="92" stroke="rgba(233,239,234,.2)"/>
+<rect x="60" y="66" width="70" height="26" fill="#E3B341" opacity=".55" rx="2"/><text x="95" y="60" text-anchor="middle">14</text>
+<rect x="170" y="14" width="70" height="78" fill="#E3B341" rx="2"/><text x="205" y="8" text-anchor="middle">50</text>
+<text class="m" x="95" y="108" text-anchor="middle">Series A, 2022</text><text class="m" x="205" y="108" text-anchor="middle">Series B, 2025</text>
+</svg></div>
+</div>
+
+<p class="lede">Kora Freight connects more than 9,000 truck operators with manufacturers across <a href="#">Ghana</a>, Côte d'Ivoire and Nigeria, matching loads in minutes instead of days. It was founded to fix a simple waste: trucks returning empty.</p>
+
+<h2>Key facts</h2>
+<dl>
+<div><dt>Founded</dt><dd>2019, Accra</dd></div>
+<div><dt>Sector</dt><dd>Logistics and freight technology</dd></div>
+<div><dt>Stage</dt><dd>Series B</dd></div>
+<div><dt>Markets</dt><dd>Ghana, Côte d'Ivoire, Nigeria</dd></div>
+</dl>
+
+<h2>Leadership</h2>
+<div class="ppl">
+<a class="p" href="#"><div>AB</div><b>Ama Boateng</b><span>Founder and CEO</span></a>
+<a class="p" href="#"><div>JA</div><b>Joel Asante</b><span>CTO</span></a>
+<a class="p" href="#"><div>FK</div><b>Fatou Keita</b><span>Head of operations</span></a>
+</div>
+
+<h2>How it compares</h2>
+<table>
+<thead><tr><th>Company</th><th>Operators</th><th>Countries</th><th>Raised</th></tr></thead>
+<tbody>
+<tr class="me"><td>Kora Freight</td><td>9,000</td><td>3</td><td>$64M</td></tr>
+<tr><td>Nakala</td><td>11,200</td><td>1</td><td>$28M</td></tr>
+<tr><td>Haulr</td><td>6,400</td><td>2</td><td>$41M</td></tr>
+</tbody></table>
+
+<h2>In the news</h2>
+<div class="news"><b>Kora Freight raises $50M to expand across West Africa</b><span>Meridian Desk, 3 months ago</span></div>
+<div class="news"><b>Why empty trucks cost the continent billions</b><span>Podcast with Ama Boateng, 48 min</span></div>
+<div class="news"><b>Inside Kora's route-matching engine</b><span>Interview with Joel Asante, 22 min</span></div>
+
+<section class="round">
+<h2>Community round</h2>
+<p>Back the next stage of Kora Freight alongside 214 other investors.</p>
+<div class="bar"><i></i></div>
+<div class="fund"><span><b>$760K</b> raised</span><span>Target $2M</span></div>
+<button class="btn">Review the round</button>
+<small>Available to verified investors in eligible countries. Investing involves risk, including loss of capital.</small>
+</section>
+
+<p class="note">Sample page with placeholder data.</p>
+</main>
+
+<nav aria-label="Main"><div>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/></svg>Today</button>
+<button aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>Explore</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>Community</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Capital</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>You</button>
+</div></nav>
+</body>
+</html>

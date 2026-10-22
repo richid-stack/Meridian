@@ -1,0 +1,127 @@
+#v-invest .sg{display:flex;gap:6px;margin:16px 0 0}
+#v-invest .sg i{flex:1;height:3px;border-radius:2px;background:var(--rule)}
+#v-invest .sg i.on{background:var(--accent)}
+#v-invest .lead{margin:6px 0 0;font:400 19px/1.5 Newsreader,Georgia,serif;color:var(--mute)}
+.amt{display:flex;align-items:baseline;gap:6px;border:1px solid var(--rule);background:var(--surface);border-radius:14px;padding:12px 18px;margin:20px 0 10px}
+.amt:focus-within{border-color:var(--ink)}
+.amt span{font:500 34px "JetBrains Mono",monospace;color:var(--mute)}
+.amt input{flex:1;min-width:0;border:0;outline:0;background:none;font:500 40px "JetBrains Mono",monospace;letter-spacing:-.04em;color:var(--ink)}
+.qc{display:flex;gap:8px;flex-wrap:wrap}
+.qc button,.pv button{border:1px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:9px 16px;font:500 14px "JetBrains Mono",monospace}
+.pv button{font-family:"Instrument Sans",sans-serif}
+.qc button[aria-pressed="true"],.pv button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.er{margin-top:8px;font-size:13px;color:var(--risk);min-height:18px}
+.sm{margin-top:14px}
+.sm div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid var(--rule);font-size:15px}
+.sm div:last-child{border-bottom:1px solid var(--rule)}
+.sm span{color:var(--mute)}
+.sm b{font:500 15px "JetBrains Mono",monospace;text-align:right}
+.sm b.sx{font-family:"Instrument Sans",sans-serif;font-weight:500}
+.ackh{margin:26px 0 0;font:500 22px Newsreader,serif}
+.ackr,.ro{display:flex;gap:14px;align-items:center;width:100%;text-align:left;border:0;border-top:1px solid var(--rule);background:none;color:var(--ink);padding:15px 0;font:inherit}
+.ackr{align-items:flex-start;font-size:15px;line-height:1.45}
+.ackr:last-of-type,.ro:last-of-type{border-bottom:1px solid var(--rule)}
+.ro b{display:block;font:500 20px/1.25 Newsreader,serif}
+.ro small{font-size:14px;color:var(--mute)}
+.tick{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;color:transparent;margin-left:auto}
+.ackr .tick{margin:0 0 0;order:-1}
+.ackr[aria-pressed="true"] .tick,.ro[aria-pressed="true"] .tick{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.fld2{margin-top:16px}
+.fld2 label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.fld2 input{display:block;width:100%;border:1px solid var(--rule);background:var(--surface);border-radius:12px;padding:13px 14px;font:400 17px "JetBrains Mono",monospace;color:var(--ink)}
+.pv{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.nt{margin:14px 0 0;font-size:14px;color:var(--mute)}
+.cta{margin-top:24px;width:100%;border:0;border-radius:12px;background:var(--panel);color:var(--gold);padding:16px;font:600 16px "Instrument Sans",sans-serif}
+.cta:disabled{opacity:.35}
+.cta.o{background:none;border:1px solid var(--rule);color:var(--ink);margin-top:10px}
+.lg2{margin:12px 0 0;font-size:12px;color:var(--mute);text-align:center;line-height:1.4}
+.fin{text-align:center;padding:44px 6px 0}
+.fin .ic2{width:60px;height:60px;border-radius:50%;background:var(--panel);color:var(--gold);display:grid;place-items:center;margin:0 auto 16px}
+.fin.bad .ic2{background:var(--risk);color:#fff}
+.fin p{color:var(--mute);font-size:15px;margin:6px 0 4px}
+.fin .rf{font:500 14px "JetBrains Mono",monospace;color:var(--ink);margin:14px 0 22px}
+#v-portfolio .panel,#v-watch .al{border-radius:14px}
+#v-portfolio .panel{background:var(--panel);color:#E9EFEA;padding:18px 18px 12px;margin-top:22px}
+#v-portfolio .panel .ph{font-size:13px;color:#8DA69B}
+#v-portfolio .panel .big{font:500 40px/1.15 "JetBrains Mono",monospace;letter-spacing:-.04em;margin:2px 0 12px}
+#v-portfolio .panel .big span{font-size:14px;color:#8DA69B;letter-spacing:0;margin-left:6px}
+#v-portfolio .g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(233,239,234,.14);border-radius:8px;overflow:hidden}
+#v-portfolio .g div{background:var(--panel);padding:10px 8px 10px 0}
+#v-portfolio .g div+div{padding-left:12px}
+#v-portfolio .g span{display:block;font-size:12px;color:#8DA69B}
+#v-portfolio .g strong{font:500 20px/1.4 "JetBrains Mono",monospace;letter-spacing:-.03em}
+.uf2{display:flex;gap:3px;height:14px;margin:6px 0 12px}.uf2 i{display:block;border-radius:2px}
+.lg3 div{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--rule);font-size:15px}
+.lg3 i{flex:none;width:10px;height:10px;border-radius:2px}.lg3 b{margin-left:auto;font:500 14px "JetBrains Mono",monospace}
+.ps{border-top:1px solid var(--rule)}
+.ph2{display:flex;gap:14px;align-items:center;width:100%;text-align:left;border:0;background:none;color:var(--ink);padding:14px 0;font:inherit}
+.ph2 .ct{flex:none;width:44px;height:44px;border-radius:12px;background:var(--panel);color:var(--gold);display:grid;place-items:center;font:600 18px Newsreader,serif}
+.ph2 b{display:block;font:500 20px/1.25 Newsreader,serif}.ph2 small{font-size:14px;color:var(--mute)}
+.ph2 em{margin-left:auto;flex:none;text-align:right;font:500 15px "JetBrains Mono",monospace;font-style:normal}
+.ph2 em small{display:block;font:400 12px "Instrument Sans",sans-serif}
+.ph2 em small.gd{color:var(--accent)}
+.pd{padding:0 0 16px 58px}
+.pd[hidden]{display:none}
+.pd .sm{margin:0 0 12px}
+.pd .up{border-left:2px solid var(--accent);padding-left:12px;margin:0 0 14px}
+.pd .up small{font-size:13px;color:var(--mute)}
+.pd .up p{margin:2px 0 0;font:400 16px/1.45 Newsreader,serif}
+.act2 div{padding:12px 0;border-top:1px solid var(--rule);font-size:15px}
+.act2 small{display:block;font-size:13px;color:var(--mute)}
+.wr{display:flex;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--rule);cursor:pointer}
+.rg2{flex:none;width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--rule) 0);display:grid;place-items:center}
+.rg2 span{width:41px;height:41px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font:500 12px "JetBrains Mono",monospace}
+.wr b{display:block;font:500 21px/1.25 Newsreader,serif}.wr small{font-size:14px;color:var(--mute)}
+.wr .bm,.wt{border:0;background:none;color:var(--ink);width:40px;height:40px;border-radius:8px;display:grid;place-items:center;margin-left:auto;flex:none}
+.wt{margin-left:0}
+.wr .bm[aria-pressed="true"] svg,.wt[aria-pressed="true"] svg{fill:currentColor}
+#v-deal .hb .t,#v-deal header .t{display:flex;align-items:center;gap:4px}
+.al{display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid var(--rule);background:var(--surface);padding:14px 16px;margin:18px 0 6px;font-size:15px}
+.al button{position:relative;flex:none;width:48px;height:28px;border-radius:14px;border:0;background:var(--rule)}
+.al button::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--bg);transition:transform .2s}
+.al button[aria-checked="true"]{background:var(--panel)}
+.al button[aria-checked="true"]::after{transform:translateX(20px);background:var(--gold)}
+#v-compare .sel{margin-top:16px}
+#v-compare .sel p{margin:0 0 8px;font-size:13px;font-weight:600}
+#v-compare .cm{width:100%;border-collapse:collapse;margin-top:22px}
+#v-compare .cm th{font:500 21px/1.2 Newsreader,serif;text-align:right;padding:0 0 10px}
+#v-compare .cm th:first-child{width:34%}
+#v-compare .cm td{padding:12px 0;border-top:1px solid var(--rule);text-align:right;font:500 15px "JetBrains Mono",monospace;vertical-align:top}
+#v-compare .cm td:first-child{text-align:left;font:400 14px "Instrument Sans",sans-serif;color:var(--mute)}
+#v-compare .bar2{height:6px;background:var(--rule);border-radius:3px;margin:6px 0 0 auto;overflow:hidden;width:100%}
+#v-compare .bar2 i{display:block;height:100%;background:var(--accent)}
+#v-compare .ai2{margin-top:26px;border-left:2px solid var(--accent);padding:2px 0 2px 14px}
+#v-compare .ai2 b{font-size:13px;font-weight:600}
+#v-compare .ai2 p{margin:6px 0 0;font:400 17px/1.5 Newsreader,Georgia,serif}
+#v-compare .ai2 span{display:block;margin-top:8px;font-size:13px;color:var(--mute)}
+#v-ai .aw{max-width:720px;margin:0 auto;padding:0 20px 130px}
+#v-ai .intro{padding:30px 0 6px}
+#v-ai .intro h1{font:500 clamp(32px,8.6vw,42px)/1.05 Newsreader,serif;letter-spacing:-.02em;margin:0 0 8px}
+#v-ai .intro p{margin:0;font:400 18px/1.5 Newsreader,serif;color:var(--mute)}
+#v-ai .sg2{display:flex;flex-direction:column;gap:8px;margin-top:20px}
+#v-ai .sg2 button{text-align:left;border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:12px;padding:13px 16px;font:500 15px "Instrument Sans",sans-serif}
+#v-ai .um{align-self:flex-end;max-width:84%;background:var(--panel);color:#E9EFEA;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:16px;line-height:1.4}
+#v-ai .am{border-left:2px solid var(--accent);padding:2px 0 2px 14px;margin:6px 0}
+#v-ai .am b.k{font-size:13px;font-weight:600;display:block;margin-bottom:4px}
+#v-ai .am p{margin:0 0 10px;font:400 18px/1.5 Newsreader,Georgia,serif}
+#v-ai .am ul{margin:0 0 10px;padding:0;list-style:none}
+#v-ai .am li{position:relative;padding:3px 0 3px 20px;font:400 18px/1.45 Newsreader,serif}
+#v-ai .am li::before{content:"";position:absolute;left:0;top:15px;width:10px;height:2px;background:var(--accent)}
+#v-ai .am .sr{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+#v-ai .am .sr small{width:100%;font-size:12px;color:var(--mute)}
+#v-ai .am .sr button{border:1px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:7px 12px;font:500 13px "Instrument Sans",sans-serif}
+#v-ai .am .nt2{font-size:12px;color:var(--mute);margin:8px 0 0}
+#v-ai .cv2{display:flex;flex-direction:column;gap:14px;padding-top:22px}
+#v-ai .th2{display:flex;gap:4px;padding:6px 0}
+#v-ai .th2 span{width:6px;height:6px;border-radius:50%;background:var(--mute);animation:pulse 1.2s ease-in-out infinite}
+#v-ai .th2 span:nth-child(2){animation-delay:.2s}#v-ai .th2 span:nth-child(3){animation-delay:.4s}
+@media (prefers-reduced-motion:reduce){#v-ai .th2 span{animation:none}}
+#v-ai .tin{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--rule);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));z-index:6}
+#v-ai .tin div{max-width:688px;margin:0 auto;display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:5px 5px 5px 18px}
+#v-ai .tin input{flex:1;min-width:0;border:0;outline:0;background:none;font:400 16px "Instrument Sans",sans-serif;color:var(--ink);padding:8px 0}
+#v-ai .tin button{width:40px;height:40px;border-radius:50%;border:0;background:var(--panel);color:var(--gold);display:grid;place-items:center}
+
+#v-compare .cm th,#v-compare .cm td{padding-left:10px}
+#v-compare .cm th:first-child,#v-compare .cm td:first-child{padding-left:0}
+#v-compare .sx2{font:400 15px "Instrument Sans",sans-serif}
+#v-compare .sub3{display:block;font:400 12px "Instrument Sans",sans-serif;color:var(--mute);margin-top:2px}

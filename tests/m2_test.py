@@ -1,0 +1,50 @@
+from playwright.sync_api import sync_playwright
+U="file:///home/claude/meridian/dist/meridian-app.html"; FX="/home/claude/meridian/tests/fx/"
+with sync_playwright() as p:
+    b=p.chromium.launch()
+    ctx=b.new_context(viewport={"width":390,"height":844},device_scale_factor=2,color_scheme="light")
+    pg=ctx.new_page(); errs=[]; pg.on("pageerror",lambda e:errs.append(str(e)))
+    pg.goto(U,wait_until="domcontentloaded"); pg.wait_for_timeout(400); pg.click("#v-onboarding [data-i=ol]")
+    pg.click("#nav [data-go=you]"); pg.click("#v-you [data-view=edit]"); pg.wait_for_timeout(200)
+    print("photo block:",pg.evaluate("!!document.querySelector('#v-edit .phs')"),"| save disabled:",pg.is_disabled("#v-edit .svb")); pg.screenshot(path="m2-edit0.png")
+    with pg.expect_file_chooser() as fc: pg.click("#v-edit [data-pick=photo]")
+    fc.value.set_files([FX+"portrait.jpg"]); pg.wait_for_timeout(600)
+    print("cropper open:",not pg.evaluate("document.getElementById('crop').hidden"),"| frame:",pg.evaluate("(()=>{const f=document.querySelector('#crop .frame');return Math.round(f.offsetWidth)+'x'+Math.round(f.offsetHeight)})()")); pg.screenshot(path="m2-crop-avatar.png")
+    box=pg.locator("#crop .frame").bounding_box()
+    pg.mouse.move(box["x"]+100,box["y"]+100); pg.mouse.down(); pg.mouse.move(box["x"]+60,box["y"]+60,steps=5); pg.mouse.up()
+    pg.fill("#crop input[type=range]","180"); pg.wait_for_timeout(100)
+    pos=pg.evaluate("(()=>{const i=document.querySelector('#crop .frame img');return [Math.round(parseFloat(i.style.left)),Math.round(parseFloat(i.style.top)),Math.round(parseFloat(i.style.width))]})()")
+    print("img after pan+zoom (left,top,width):",pos); pg.screenshot(path="m2-crop-zoom.png")
+    pg.click("#crop .ok"); pg.wait_for_timeout(300)
+    print("avatar preview img:",pg.evaluate("!!document.querySelector('#v-edit .avp img')"),"| size:",pg.evaluate("(()=>{const i=new Image();i.src=document.querySelector('#v-edit .avp img').src;return i.naturalWidth+'x'+i.naturalHeight})()"),"| save enabled:",not pg.is_disabled("#v-edit .svb"))
+    with pg.expect_file_chooser() as fc: pg.click("#v-edit [data-pick=cover]")
+    fc.value.set_files([FX+"landscape.jpg"]); pg.wait_for_timeout(700)
+    print("cover frame:",pg.evaluate("(()=>{const f=document.querySelector('#crop .frame');return Math.round(f.offsetWidth)+'x'+Math.round(f.offsetHeight)})()")); pg.screenshot(path="m2-crop-cover.png")
+    pg.click("#crop .ok"); pg.wait_for_timeout(300); pg.screenshot(path="m2-edit1.png")
+    pg.click("#v-edit .back"); print("discard prompt:",pg.evaluate("!document.querySelector('#v-edit .dcf').hidden")); pg.click("#v-edit [data-d=n]")
+    pg.click("#v-edit .svb"); pg.wait_for_timeout(400)
+    print("view:",pg.evaluate("[...document.querySelectorAll('.view.on')].map(v=>v.id).join()"))
+    print("You avatar img:",pg.evaluate("!!document.querySelector('#v-you .pe img')"),"| header avatar img:",pg.evaluate("!!document.querySelector('#v-home .av img')"),"| cover:",pg.evaluate("!!document.querySelector('#v-you .cvr') && getComputedStyle(document.querySelector('#v-you .cvr')).backgroundImage.startsWith('url')"))
+    pg.screenshot(path="m2-you.png")
+    pg.click("#nav [data-go=community]"); pg.wait_for_timeout(200)
+    print("compose avatar enhanced after open:",end=" ")
+    pg.click("#v-community .fab"); pg.wait_for_timeout(500); print(pg.evaluate("!!document.querySelector('#v-compose .wh .pe img')")); pg.screenshot(path="m2-compose-avatar.png"); pg.click("#v-compose [data-i=cx]")
+    pg.fill("#v-compose [data-i=tx]","Posting with my new photo") if False else None
+    # post as Rich -> avatar tile in feed
+    pg.click("#v-community .fab"); pg.wait_for_timeout(300); pg.fill("#v-compose [data-i=tx]","Posting with my new photo"); pg.click("#v-compose [data-i=pst]"); pg.wait_for_timeout(300)
+    print("feed post avatar enhanced:",pg.evaluate("!!document.querySelector('#v-community .live + .post .pe img')")); pg.evaluate("window.scrollTo(0,0)"); pg.screenshot(path="m2-feed-avatar.png")
+    # rename -> key changes
+    pg.click("#nav [data-go=you]"); pg.click("#v-you [data-view=edit]"); pg.wait_for_timeout(200)
+    pg.fill("#v-edit #ef-n","Kofi"); pg.click("#v-edit .svb"); pg.wait_for_timeout(300)
+    print("after rename to Kofi, you avatar img:",pg.evaluate("!!document.querySelector('#v-you .pe img')"),"| header av img:",pg.evaluate("!!document.querySelector('#v-home .av img')"),"| text:",pg.inner_text("#v-home .av") if not pg.evaluate("!!document.querySelector('#v-home .av img')") else "(img)")
+    # remove
+    pg.click("#v-you [data-view=edit]"); pg.click("#v-edit [data-rm=photo]"); pg.click("#v-edit [data-rm=cover]"); pg.click("#v-edit .svb"); pg.wait_for_timeout(300)
+    print("after remove: you pe text:",repr(pg.inner_text("#v-you .pe")),"| cover gone:",pg.evaluate("!document.querySelector('#v-you .cvr')"),"| header av text:",pg.inner_text("#v-home .av"))
+    # bad avatar file
+    pg.click("#v-you [data-view=edit]")
+    with pg.expect_file_chooser() as fc: pg.click("#v-edit [data-pick=photo]")
+    fc.value.set_files([FX+"fake.jpg"]); pg.wait_for_timeout(500); print("fake avatar -> toast:",pg.inner_text("#toast"))
+    print("ovx:",pg.evaluate("document.documentElement.scrollWidth - window.innerWidth"),"| ERRORS:",errs)
+    # dark screenshots
+    pg.emulate_media(color_scheme="dark"); pg.wait_for_timeout(200); pg.screenshot(path="m2-edit-dark.png")
+    b.close()

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Explore — Meridian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1F4F2;--ink:#0E1A16;--mute:#55635D;--rule:#D3DAD6;--accent:#8F6708;--panel:#0B2A21;--gold:#E3B341;--surface:#FAFBFA;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16}}
+:root[data-theme="dark"]{--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 120px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+header .in{max-width:720px;margin:0 auto;padding:12px 20px 0}
+.sf{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:2px 6px 2px 14px;margin-bottom:12px}
+.sf:focus-within{border-color:var(--ink)}
+.sf svg{flex:none;color:var(--mute)}
+.sf input{flex:1;min-width:0;border:0;outline:0;background:none;font:400 17px "Instrument Sans",sans-serif;color:var(--ink);padding:12px 0}
+.sf input::placeholder{color:var(--mute)}
+.clr{display:none;border:0;background:none;color:var(--accent);font:500 15px "Instrument Sans",sans-serif;padding:8px 10px}
+[data-mode="results"] .clr{display:block}
+.chips{display:none;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 20px 12px;margin:0 -20px}
+.chips::-webkit-scrollbar{display:none}
+[data-mode="results"] .chips{display:flex}
+.chip{flex:none;border:1px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:8px 14px;font:500 14px "Instrument Sans",sans-serif}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[data-mode="browse"] .res,[data-mode="results"] .brw{display:none}
+h2{font:500 24px/1.2 Newsreader,serif;margin:34px 0 8px}
+.brw h2:first-child{margin-top:26px}
+.ai{margin-top:22px;border-left:2px solid var(--accent);padding:2px 0 2px 14px}
+.ai b{font-size:13px;font-weight:600}
+.ai p{margin:6px 0 4px;font:400 18px/1.5 Newsreader,Georgia,serif}
+.ai span{font-size:13px;color:var(--mute)}
+.r{display:flex;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--rule);text-decoration:none;color:inherit}
+.r[hidden]{display:none}
+.r:first-of-type{margin-top:0}
+.ic{flex:none;width:48px;display:grid;place-items:center}
+.pe{width:44px;height:54px;background:var(--panel);color:var(--gold);border-radius:4px;display:grid;place-items:center;font:500 17px Newsreader,serif}
+.co{width:48px;height:48px;background:var(--panel);color:var(--gold);border-radius:12px;display:grid;place-items:center;font:600 20px Newsreader,serif}
+.bk{width:38px;height:54px;border-radius:2px 5px 5px 2px;box-shadow:inset 3px 0 0 rgba(0,0,0,.25);background:#5B3A29}
+.po{width:44px;height:44px;border-radius:50%;background:var(--panel);color:var(--gold);display:grid;place-items:center}
+.dl{width:44px;height:44px;border-radius:50%;background:conic-gradient(var(--accent) 38%,var(--rule) 0);display:grid;place-items:center;font:500 11px "JetBrains Mono",monospace}
+.dl span{width:34px;height:34px;border-radius:50%;background:var(--bg);display:grid;place-items:center}
+.r b{display:block;font:500 19px/1.25 Newsreader,Georgia,serif}
+.r span.m{font-size:14px;color:var(--mute)}
+.kd{margin-left:auto;font-size:12px;color:var(--mute);flex:none}
+.tr{counter-reset:n}
+.tr .r::before{counter-increment:n;content:counter(n);flex:none;width:20px;font:500 14px "JetBrains Mono",monospace;color:var(--accent)}
+.sec{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+.sec a{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-top:1px solid var(--rule);text-decoration:none;color:inherit;font-size:16px}
+.sec a span{font:500 13px "JetBrains Mono",monospace;color:var(--mute)}
+.rk{display:block;padding:16px 0;border-top:1px solid var(--rule);text-decoration:none;color:inherit}
+.rk b{font:500 21px/1.25 Newsreader,Georgia,serif;display:block}
+.rk span{font-size:14px;color:var(--mute)}
+.shelf{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:0 20px}
+.shelf::-webkit-scrollbar{display:none}
+.sh{flex:none;width:96px;text-decoration:none;color:inherit}
+.sh div{height:136px;border-radius:3px 8px 8px 3px;box-shadow:inset 5px 0 0 rgba(0,0,0,.25);padding:12px 10px;color:#fff;font:600 14px/1.2 Newsreader,serif;display:flex;align-items:flex-end;margin-bottom:8px}
+.sh span{font-size:13px;color:var(--mute);line-height:1.3;display:block}
+.empty{display:none;padding:40px 0;color:var(--mute);font-size:15px}
+.note{margin-top:30px;font-size:13px;color:var(--mute)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav div{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav button{border:0;background:none;color:var(--mute);padding:10px 0 9px;font:500 11px "Instrument Sans",sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button[aria-current="page"]{color:var(--ink)}
+nav button[aria-current="page"] svg{color:var(--accent)}
+</style>
+</head>
+<body data-mode="browse" id="b">
+<header><div class="in">
+<div class="sf"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><input id="q" aria-label="Search people, companies, books and more" placeholder="Search people, companies, books" autocomplete="off"><button class="clr" id="clr">Clear</button></div>
+<div class="chips" role="group" aria-label="Filter results">
+<button class="chip" aria-pressed="true" data-f="all">All</button><button class="chip" aria-pressed="false" data-f="pe">People</button><button class="chip" aria-pressed="false" data-f="co">Companies</button><button class="chip" aria-pressed="false" data-f="bk">Books</button><button class="chip" aria-pressed="false" data-f="po">Podcasts</button><button class="chip" aria-pressed="false" data-f="dl">Deals</button>
+</div></div></header>
+
+<main class="wrap">
+<div class="brw">
+<h2>Trending this week</h2>
+<div class="tr">
+<a class="r" href="#"><div><b>Ama Boateng</b><span class="m">Person, Founder of Kora Freight</span></div></a>
+<a class="r" href="#"><div><b>Aya Health</b><span class="m">Company, raising a $2M seed</span></div></a>
+<a class="r" href="#"><div><b>Zero to One</b><span class="m">Book, Peter Thiel</span></div></a>
+<a class="r" href="#"><div><b>Cross-border payments</b><span class="m">Topic, 214 profiles</span></div></a>
+</div>
+
+<h2>Browse by sector</h2>
+<div class="sec">
+<a href="#">Fintech<span>1,204</span></a><a href="#">Agritech<span>512</span></a>
+<a href="#">Logistics<span>388</span></a><a href="#">Health<span>341</span></a>
+<a href="#">Energy<span>276</span></a><a href="#">Media<span>190</span></a>
+</div>
+
+<h2>Rankings</h2>
+<a class="rk" href="#"><b>Africa's fastest-growing startups, 2026</b><span>50 companies, updated monthly</span></a>
+<a class="rk" href="#"><b>Founders under 40 to know</b><span>50 people, chosen by the community</span></a>
+
+<h2>Books founders are reading</h2>
+<div class="shelf">
+<a class="sh" href="#"><div style="background:#1F4E79">Zero to One</div><span>Peter Thiel</span></a>
+<a class="sh" href="#"><div style="background:#5B3A29">The Goal</div><span>Eliyahu Goldratt</span></a>
+<a class="sh" href="#"><div style="background:#7A2E3A">Things Fall Apart</div><span>Chinua Achebe</span></a>
+<a class="sh" href="#"><div style="background:#2F5D3A">The Hard Thing</div><span>Ben Horowitz</span></a>
+</div>
+</div>
+
+<div class="res">
+<div class="ai"><b>Summary</b><p>Freight and logistics in West Africa is consolidating around a few digital networks, led by Kora Freight, with 9,000 operators across three countries.</p><span>Drawn from 4 profiles and 2 interviews</span></div>
+<h2 id="rt">Results</h2>
+<div id="list">
+<a class="r" href="#" data-t="pe"><div class="ic"><div class="pe">AB</div></div><div><b>Ama Boateng</b><span class="m">Founder and CEO, Kora Freight</span></div><span class="kd">Person</span></a>
+<a class="r" href="#" data-t="co"><div class="ic"><div class="co">K</div></div><div><b>Kora Freight</b><span class="m">Digital freight network, Accra</span></div><span class="kd">Company</span></a>
+<a class="r" href="#" data-t="co"><div class="ic"><div class="co">N</div></div><div><b>Nakala</b><span class="m">Freight marketplace, Lagos</span></div><span class="kd">Company</span></a>
+<a class="r" href="#" data-t="bk"><div class="ic"><div class="bk"></div></div><div><b>The Goal</b><span class="m">Eliyahu Goldratt</span></div><span class="kd">Book</span></a>
+<a class="r" href="#" data-t="po"><div class="ic"><div class="po"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></div></div><div><b>Why empty trucks cost Africa billions</b><span class="m">Ama Boateng, 48 min</span></div><span class="kd">Podcast</span></a>
+<a class="r" href="#" data-t="dl"><div class="ic"><div class="dl"><span>38%</span></div></div><div><b>Kora Freight community round</b><span class="m">$760K of $2M, 19 days left</span></div><span class="kd">Deal</span></a>
+</div>
+<div class="empty" id="em">Nothing here yet. Try another filter.</div>
+</div>
+
+<p class="note">Sample screen with placeholder data.</p>
+</main>
+
+<nav aria-label="Main"><div>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/></svg>Today</button>
+<button aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>Explore</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>Community</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Capital</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>You</button>
+</div></nav>
+
+<script>
+var b=document.getElementById('b'),q=document.getElementById('q'),rt=document.getElementById('rt'),em=document.getElementById('em'),f='all';
+function up(){
+var v=q.value.trim();b.dataset.mode=v?'results':'browse';
+rt.textContent=v?'Results for \u201C'+v+'\u201D':'Results';
+var n=0;document.querySelectorAll('#list .r').forEach(function(r){var s=f==='all'||r.dataset.t===f;r.hidden=!s;if(s)n++});
+em.style.display=n?'none':'block';
+}
+q.addEventListener('input',up);
+document.getElementById('clr').addEventListener('click',function(){q.value='';f='all';document.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',c.dataset.f==='all')});up();q.focus()});
+document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){f=c.dataset.f;document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===c)});up()})});
+</script>
+</body>
+</html>

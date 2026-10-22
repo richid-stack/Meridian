@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Community — Meridian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1F4F2;--ink:#0E1A16;--mute:#55635D;--rule:#D3DAD6;--accent:#8F6708;--panel:#0B2A21;--gold:#E3B341;--surface:#FAFBFA;--live:#C0392B;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16;--live:#E8836B}}
+:root[data-theme="dark"]{--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16;--live:#E8836B}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 150px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg)}
+header .in{max-width:720px;margin:0 auto;padding:12px 20px 0}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.logo{font:600 22px/1 Newsreader,Georgia,serif;letter-spacing:-.01em}
+.logo i{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;margin-left:3px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--panel);color:var(--gold);display:grid;place-items:center;font:500 14px Newsreader,serif}
+.tabs{display:flex;gap:24px;border-bottom:1px solid var(--rule);margin:0 -20px;padding:0 20px}
+.tab{border:0;background:none;padding:12px 0 11px;font:500 15px "Instrument Sans",sans-serif;color:var(--mute);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--ink);border-color:var(--accent)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.live{margin:20px 0 4px;background:var(--panel);color:#E9EFEA;border-radius:14px;padding:16px}
+.live .l{display:flex;align-items:center;gap:8px;font-size:13px;color:#8DA69B}
+.live .l i{width:8px;height:8px;border-radius:50%;background:#E8836B}
+.live .l b{color:#E9EFEA;font-weight:600}
+.live h3{font:500 24px/1.2 Newsreader,Georgia,serif;margin:10px 0 6px;letter-spacing:-.01em}
+.live p{margin:0 0 14px;font-size:14px;color:#8DA69B}
+.live .f{display:flex;align-items:center;justify-content:space-between}
+.live .f span{font:500 13px "JetBrains Mono",monospace;color:#8DA69B}
+.join{border:0;border-radius:999px;background:var(--gold);color:#0B2A21;padding:10px 20px;font:600 14px "Instrument Sans",sans-serif}
+.post{display:flex;gap:12px;padding:18px 0;border-top:1px solid var(--rule)}
+.live+.post{margin-top:16px}
+.pe{flex:none;width:40px;height:48px;background:var(--panel);color:var(--gold);border-radius:4px;display:grid;place-items:center;font:500 15px Newsreader,serif}
+.bd{min-width:0;flex:1}
+.who{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;line-height:1.3}
+.who b{font-weight:600;font-size:15px}
+.who svg{align-self:center;color:var(--accent)}
+.who span{font-size:14px;color:var(--mute)}
+.role{font-size:13px;color:var(--mute);margin-bottom:6px}
+.tx{margin:0;font-size:16px;line-height:1.5}
+.tx.s{font:400 20px/1.4 Newsreader,Georgia,serif}
+.kd{font:500 13px "Instrument Sans",sans-serif;color:var(--accent);margin-bottom:2px;display:block}
+.ans{margin-top:12px;border-left:2px solid var(--accent);padding:2px 0 2px 12px}
+.ans small{display:block;font-size:13px;color:var(--mute);margin-bottom:2px}
+.ans p{margin:0;font:400 17px/1.45 Newsreader,Georgia,serif}
+.pl{margin-top:12px;display:grid;gap:8px}
+.op{position:relative;overflow:hidden;text-align:left;border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:10px;padding:12px 14px;font:500 15px "Instrument Sans",sans-serif;display:flex;justify-content:space-between;gap:10px}
+.op::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);opacity:.2;transition:width .5s ease}
+.op span,.op em{position:relative}
+.op em{font:500 14px "JetBrains Mono",monospace;font-style:normal;display:none}
+.voted .op em{display:block}
+.voted .op::before{width:var(--w)}
+.op.me{border-color:var(--ink)}
+.pv{margin-top:8px;font:400 13px "JetBrains Mono",monospace;color:var(--mute)}
+.emb{margin-top:12px;display:flex;gap:12px;align-items:center;border:1px solid var(--rule);border-radius:12px;padding:12px;background:var(--surface);text-decoration:none;color:inherit}
+.dl{flex:none;width:44px;height:44px;border-radius:50%;background:conic-gradient(var(--accent) 64%,var(--rule) 0);display:grid;place-items:center;font:500 11px "JetBrains Mono",monospace}
+.dl span{width:34px;height:34px;border-radius:50%;background:var(--surface);display:grid;place-items:center}
+.emb b{display:block;font:500 17px/1.25 Newsreader,Georgia,serif}
+.emb small{font-size:13px;color:var(--mute)}
+.act{display:flex;gap:26px;margin-top:12px}
+.act button{display:flex;align-items:center;gap:6px;border:0;background:none;color:var(--mute);padding:6px 0;font:500 13px "JetBrains Mono",monospace}
+.act button[aria-pressed="true"]{color:var(--accent)}
+.fab{position:fixed;right:20px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--panel);color:var(--gold);display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:7}
+.note{margin-top:28px;font-size:13px;color:var(--mute)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav div{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav button{border:0;background:none;color:var(--mute);padding:10px 0 9px;font:500 11px "Instrument Sans",sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button[aria-current="page"]{color:var(--ink)}
+nav button[aria-current="page"] svg{color:var(--accent)}
+</style>
+</head>
+<body>
+<header><div class="in">
+<div class="top"><span class="logo">Meridian<i></i></span><span class="av" aria-hidden="true">R</span></div>
+<div class="tabs" role="tablist"><button class="tab" role="tab" aria-selected="true">For you</button><button class="tab" role="tab" aria-selected="false">Following</button><button class="tab" role="tab" aria-selected="false">Groups</button></div>
+</div></header>
+
+<main class="wrap">
+<div class="live"><div class="l"><i></i><b>Live now</b><span>312 listening</span></div>
+<h3>Building a logistics network across borders</h3><p>Ask me anything with Ama Boateng, founder of Kora Freight.</p>
+<div class="f"><span>Started 12 min ago</span><button class="join">Join</button></div></div>
+
+<article class="post"><div class="pe" aria-hidden="true">NM</div><div class="bd">
+<div class="who"><b>Nia Mensah</b><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-label="Verified"><path d="M5 12l5 5 9-10"/></svg><span>2h</span></div>
+<div class="role">CEO, Aya Health</div>
+<p class="tx s">We spent 14 months building for clinics with no reliable power. The lesson: design for the worst hour of the day, not the average one.</p>
+<div class="act"><button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>24</button><button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4M3 11V9a2 2 0 012-2h16M7 21l-4-4 4-4M21 13v2a2 2 0 01-2 2H3"/></svg>61</button><button class="lk" aria-pressed="false" data-n="340"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg><span>340</span></button></div></div></article>
+
+<article class="post"><div class="pe" aria-hidden="true">TD</div><div class="bd">
+<span class="kd">Question</span>
+<div class="who"><b>Tunde Dlamini</b><span>5h</span></div>
+<div class="role">CFO, Zuri Energy</div>
+<p class="tx s">How do you price a product when your customers pay in cedis but your costs are in dollars?</p>
+<div class="ans"><small>Top answer from Kunle Okafor, Sahel Ventures</small><p>Index your price to a dollar band, review it every quarter, and tell customers the rule upfront.</p></div>
+<div class="act"><button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>86</button><button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4M3 11V9a2 2 0 012-2h16M7 21l-4-4 4-4M21 13v2a2 2 0 01-2 2H3"/></svg>12</button><button class="lk" aria-pressed="false" data-n="129"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg><span>129</span></button></div></div></article>
+
+<article class="post"><div class="pe" aria-hidden="true">FK</div><div class="bd">
+<span class="kd">Poll</span>
+<div class="who"><b>Fatou Keita</b><span>8h</span></div>
+<div class="role">Head of operations, Kora Freight</div>
+<p class="tx s">What is the biggest constraint on scaling in West Africa right now?</p>
+<div class="pl" id="pl">
+<button class="op" style="--w:41%"><span>Access to capital</span><em>41%</em></button>
+<button class="op" style="--w:27%"><span>Hiring senior talent</span><em>27%</em></button>
+<button class="op" style="--w:22%"><span>Currency risk</span><em>22%</em></button>
+<button class="op" style="--w:10%"><span>Regulation</span><em>10%</em></button>
+</div><div class="pv" id="pv">1,204 votes. Vote to see results.</div></div></article>
+
+<article class="post"><div class="pe" aria-hidden="true">KO</div><div class="bd">
+<div class="who"><b>Kunle Okafor</b><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-label="Verified"><path d="M5 12l5 5 9-10"/></svg><span>1d</span></div>
+<div class="role">Partner, Sahel Ventures</div>
+<p class="tx">Backing this one personally. The founders ship, and the clinics they serve had no option before.</p>
+<a class="emb" href="#"><div class="dl"><span>64%</span></div><div><b>Aya Health seed round</b><small>$1.28M of $2M, 11 days left</small></div></a>
+<div class="act"><button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>18</button><button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4M3 11V9a2 2 0 012-2h16M7 21l-4-4 4-4M21 13v2a2 2 0 01-2 2H3"/></svg>34</button><button class="lk" aria-pressed="false" data-n="212"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg><span>212</span></button></div></div></article>
+
+<p class="note">Sample feed with placeholder data.</p>
+</main>
+
+<button class="fab" aria-label="New post"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+
+<nav aria-label="Main"><div>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/></svg>Today</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>Explore</button>
+<button aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>Community</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Capital</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>You</button>
+</div></nav>
+
+<script>
+document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.setAttribute('aria-selected',x===t)})})});
+document.querySelectorAll('.lk').forEach(function(b){b.addEventListener('click',function(){
+var on=b.getAttribute('aria-pressed')!=='true',n=+b.dataset.n+(on?1:0);
+b.setAttribute('aria-pressed',on);b.querySelector('span').textContent=n;
+b.querySelector('svg').setAttribute('fill',on?'currentColor':'none');})});
+var pl=document.getElementById('pl');
+pl.querySelectorAll('.op').forEach(function(o){o.addEventListener('click',function(){
+if(pl.classList.contains('voted'))return;
+pl.classList.add('voted');o.classList.add('me');
+document.getElementById('pv').textContent='1,205 votes. Thanks for voting.';})});
+</script>
+</body>
+</html>

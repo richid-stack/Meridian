@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meridian: Today</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1F4F2;--ink:#0E1A16;--mute:#55635D;--rule:#D3DAD6;--accent:#8F6708;--panel:#0B2A21;--panel-ink:#E9EFEA;--panel-mute:#8DA69B;--gold:#E3B341;--down:#E8836B;--surface:#FAFBFA;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16}}
+:root[data-theme="dark"]{--bg:#08120F;--ink:#E8EEEA;--mute:#93A29B;--rule:#21312B;--accent:#E3B341;--panel:#0F3A2D;--surface:#0D1A16}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 120px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+header .in{max-width:720px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font:600 22px/1 Newsreader,Georgia,serif;letter-spacing:-.01em}
+.logo i{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;margin-left:3px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--panel);color:var(--gold);display:grid;place-items:center;font:500 14px Newsreader,serif}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.date{padding:26px 0 4px;font-size:14px;color:var(--mute)}
+h1{font:500 clamp(34px,9vw,48px)/1.05 Newsreader,Georgia,serif;letter-spacing:-.02em;margin:0 0 18px}
+.askf{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:4px 6px 4px 14px;margin-bottom:22px}
+.askf svg{flex:none;color:var(--accent)}
+.askf input{flex:1;min-width:0;border:0;background:none;font:400 16px "Instrument Sans",sans-serif;color:var(--ink);padding:11px 0}
+.askf input::placeholder{color:var(--mute)}
+.mk{background:var(--panel);color:var(--panel-ink);border-radius:14px;padding:14px 0 12px}
+.mkh{display:flex;justify-content:space-between;padding:0 16px 10px;font-size:13px;color:var(--panel-mute)}
+.mkh b{color:var(--panel-ink);font-weight:600}
+.row{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 16px;gap:0}
+.row::-webkit-scrollbar{display:none}
+.t{flex:none;width:118px;padding:2px 14px 2px 0;margin-right:14px;border-right:1px solid rgba(233,239,234,.14)}
+.t:last-child{border-right:0}
+.t span{display:block;font-size:12px;color:var(--panel-mute)}
+.t strong{display:block;font:500 17px/1.3 "JetBrains Mono",ui-monospace,monospace;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.t em{font:500 12px "JetBrains Mono",monospace;font-style:normal;color:var(--gold)}
+.t em.d{color:var(--down)}
+.t svg{display:block;width:100%;height:20px;margin-top:4px}
+.lead{padding:30px 0 6px}
+.lead small,.k{font:500 13px "Instrument Sans",sans-serif;color:var(--accent)}
+.lead h2{font:500 clamp(30px,8vw,42px)/1.08 Newsreader,Georgia,serif;letter-spacing:-.02em;margin:8px 0 12px}
+.lead p.by{font-size:14px;color:var(--mute);margin:0 0 16px}
+.brief{border-left:2px solid var(--accent);padding:2px 0 2px 14px;margin:0}
+.brief b{font-size:13px;font-weight:600}
+.brief ul{margin:6px 0 0;padding:0;list-style:none}
+.brief li{font:400 17px/1.45 Newsreader,Georgia,serif;margin-bottom:6px}
+h3.sec{font:500 22px/1.2 Newsreader,serif;margin:34px 0 12px;display:flex;justify-content:space-between;align-items:baseline}
+h3.sec a{font:500 14px "Instrument Sans",sans-serif;color:var(--accent);text-decoration:none}
+.ppl{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:0 20px}
+.ppl::-webkit-scrollbar{display:none}
+.p{flex:none;width:92px;text-decoration:none;color:inherit}
+.p div{width:92px;height:112px;background:var(--panel);color:var(--gold);display:grid;place-items:center;font:500 32px Newsreader,serif;border-radius:4px;margin-bottom:8px}
+.p b{display:block;font:500 15px/1.25 "Instrument Sans",sans-serif}
+.p span{font-size:13px;color:var(--mute);line-height:1.3;display:block}
+.it{padding:18px 0;border-top:1px solid var(--rule)}
+.it .k{display:block;margin-bottom:6px}
+.it h4{font:500 21px/1.25 Newsreader,Georgia,serif;margin:0 0 6px;letter-spacing:-.01em}
+.it p{margin:0;color:var(--mute);font-size:15px}
+.bar{height:6px;background:var(--rule);border-radius:3px;margin:12px 0 8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.fund{display:flex;justify-content:space-between;font:500 13px "JetBrains Mono",monospace;color:var(--mute)}
+.fund b{color:var(--ink);font-weight:500}
+.iv{display:flex;gap:14px;align-items:center}
+.play{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:var(--panel);color:var(--gold);display:grid;place-items:center}
+.book{display:flex;gap:14px}
+.sp{flex:none;width:52px;height:74px;border-radius:2px 5px 5px 2px;padding:8px 6px;font:600 10px/1.15 Newsreader,serif;color:#fff;display:flex;align-items:flex-end;box-shadow:inset 3px 0 0 rgba(0,0,0,.25);background:#1F4E79}
+.q{display:flex;gap:10px;font-size:14px;color:var(--mute);margin-top:10px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav div{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav button{border:0;background:none;color:var(--mute);padding:10px 0 9px;font:500 11px "Instrument Sans",sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button[aria-current="page"]{color:var(--ink)}
+nav button[aria-current="page"] svg{color:var(--accent)}
+.note{margin-top:30px;font-size:13px;color:var(--mute)}
+</style>
+</head>
+<body>
+<header><div class="in"><span class="logo">Meridian<i></i></span><span class="av" aria-hidden="true">R</span></div></header>
+
+<main class="wrap">
+<div class="date">Tuesday, 29 September</div>
+<h1>Good morning</h1>
+<div class="askf"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><input aria-label="Ask anything" placeholder="Ask anything about business"></div>
+
+<div class="mk">
+<div class="mkh"><b>Markets</b><span>Sample data</span></div>
+<div class="row">
+<div class="t"><span>GSE Composite</span><strong>6,412</strong><em>+0.84%</em><svg viewBox="0 0 60 20" preserveAspectRatio="none"><polyline fill="none" stroke="#E3B341" stroke-width="1.5" points="0,16 12,14 24,15 36,9 48,7 60,3"/></svg></div>
+<div class="t"><span>USD/GHS</span><strong>12.18</strong><em class="d">-0.31%</em><svg viewBox="0 0 60 20" preserveAspectRatio="none"><polyline fill="none" stroke="#E8836B" stroke-width="1.5" points="0,4 12,6 24,5 36,11 48,13 60,16"/></svg></div>
+<div class="t"><span>NGX All-Share</span><strong>121,540</strong><em>+0.42%</em><svg viewBox="0 0 60 20" preserveAspectRatio="none"><polyline fill="none" stroke="#E3B341" stroke-width="1.5" points="0,15 12,16 24,11 36,12 48,7 60,6"/></svg></div>
+<div class="t"><span>Cocoa</span><strong>7,860</strong><em>+1.9%</em><svg viewBox="0 0 60 20" preserveAspectRatio="none"><polyline fill="none" stroke="#E3B341" stroke-width="1.5" points="0,17 12,15 24,12 36,10 48,6 60,2"/></svg></div>
+<div class="t"><span>Gold</span><strong>2,684</strong><em class="d">-0.12%</em><svg viewBox="0 0 60 20" preserveAspectRatio="none"><polyline fill="none" stroke="#E8836B" stroke-width="1.5" points="0,6 12,5 24,9 36,8 48,12 60,11"/></svg></div>
+</div></div>
+
+<article class="lead">
+<small>Lead story</small>
+<h2>The quiet race to build Africa's first continental payments rail</h2>
+<p class="by">By Meridian Desk, 6 min read</p>
+<div class="brief"><b>In brief</b>
+<ul><li>Three fintechs are now competing for one cross-border standard.</li><li>Central banks are watching, and two have signalled support.</li><li>The winner could cut remittance costs by a third.</li></ul></div>
+</article>
+
+<h3 class="sec">People to watch<a href="#">See all</a></h3>
+<div class="ppl">
+<a class="p" href="#"><div>AB</div><b>Ama Boateng</b><span>Founder, Kora Freight</span></a>
+<a class="p" href="#"><div>KO</div><b>Kunle Okafor</b><span>Partner, Sahel Ventures</span></a>
+<a class="p" href="#"><div>NM</div><b>Nia Mensah</b><span>CEO, Aya Health</span></a>
+<a class="p" href="#"><div>TD</div><b>Tunde Dlamini</b><span>CFO, Zuri Energy</span></a>
+</div>
+
+<h3 class="sec">For you</h3>
+<div class="it"><span class="k">Raising now</span><h4>Aya Health opens a $2M seed round for rural clinics</h4><p>Backed by 38 community investors so far.</p>
+<div class="bar"><i style="width:64%"></i></div><div class="fund"><span><b>$1.28M</b> raised</span><span>64%, 11 days left</span></div></div>
+
+<div class="it"><span class="k">Interview</span>
+<div class="iv"><button class="play" aria-label="Play"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></button><div><h4 style="margin:0 0 2px">Why empty trucks cost Africa billions</h4><p>Ama Boateng, 48 min</p></div></div></div>
+
+<div class="it"><span class="k">Book of the week</span>
+<div class="book"><div class="sp">Zero to One</div><div><h4>Zero to One</h4><p>Peter Thiel. Read by 412 founders on Meridian this month.</p></div></div></div>
+
+<div class="it"><span class="k">Community question</span><h4>How do you price a product when your customers pay in cedis but your costs are in dollars?</h4>
+<div class="q"><span>86 replies</span><span>Top answer by Kunle Okafor</span></div></div>
+
+<p class="note">Sample screen with placeholder data.</p>
+</main>
+
+<nav aria-label="Main"><div>
+<button aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/></svg>Today</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>Explore</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>Community</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Capital</button>
+<button><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>You</button>
+</div></nav>
+</body>
+</html>
