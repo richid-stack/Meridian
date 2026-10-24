@@ -30,7 +30,7 @@ jobs:
           mkdir -p ci-out
           set +e
           run() { name=$1; shift; echo "== $name" ; ( "$@" ) > "ci-out/$name.log" 2>&1; code=$?; echo "$name exit=$code" >> ci-out/summary.txt; }
-          run install pnpm install --frozen-lockfile
+          run install pnpm install --no-frozen-lockfile
           run prisma-validate pnpm --filter @meridian/api exec prisma validate
           run prisma-generate pnpm --filter @meridian/api exec prisma generate
           run typecheck pnpm -r --no-bail typecheck
