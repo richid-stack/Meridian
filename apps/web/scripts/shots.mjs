@@ -19,7 +19,12 @@ for (const [w, h] of sizes) {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     if (overflow > 0) errors.push(`horizontal overflow ${overflow}px at ${w} ${scheme}`);
     // tap target check (44px)
-    const small = await page.evaluate(() => [...document.querySelectorAll('button, a, input')].filter((e) => { const r = e.getBoundingClientRect(); return r.height > 0 && r.height < 44; }).map((e) => e.outerHTML.slice(0, 60)));
+    const small = await page.evaluate(() => [...document.querySelectorAll('button, a, input')].filter((e) => {
+      if (e.tagName === 'A' && getComputedStyle(e).display === 'inline') return false; // inline text links are exempt (WCAG 2.2 target size)
+      const box = e.tagName === 'INPUT' ? (e.closest('label') ?? e) : e;
+      const r = box.getBoundingClientRect();
+      return r.height > 0 && r.height < 44;
+    }).map((e) => e.outerHTML.slice(0, 60)));
     if (small.length) errors.push(`small tap targets at ${w} ${scheme}: ${small.join(' | ')}`);
     await ctx.close();
   }
