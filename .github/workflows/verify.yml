@@ -1,0 +1,48 @@
+name: Verify
+on:
+  workflow_dispatch:
+  push:
+    branches: ["feat/**", "chore/**", "fix/**"]
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_USER: meridian, POSTGRES_PASSWORD: meridian, POSTGRES_DB: meridian }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U meridian" --health-interval 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://meridian:meridian@localhost:5432/meridian
+      REDIS_URL: redis://localhost:6379
+      JWT_ACCESS_SECRET: ci-access-secret-123456
+      JWT_REFRESH_SECRET: ci-refresh-secret-123456
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Run checks and capture logs
+        shell: bash
+        run: |
+          mkdir -p ci-out
+          run() { name=$1; shift; echo "== $name" ; ( "$@" ) > "ci-out/$name.log" 2>&1; code=$?; echo "$name exit=$code" >> ci-out/summary.txt; }
+          run install pnpm install --no-frozen-lockfile
+          run prisma-validate pnpm --filter @meridian/api exec prisma validate
+          run prisma-generate pnpm --filter @meridian/api exec prisma generate
+          run typecheck pnpm -r --no-bail typecheck
+          run api-test pnpm --filter @meridian/api test
+          run api-build pnpm --filter @meridian/api build
+          run web-build pnpm --filter @meridian/web build
+          cp pnpm-lock.yaml ci-out/ 2>/dev/null || true
+          cat ci-out/summary.txt
+      - name: Publish logs to ci-logs branch
+        if: always()
+        run: |
+          cd ci-out
+          git init -q -b ci-logs
+          git config user.name ci && git config user.email ci@example.com
+          git add -A && git commit -q -m "ci logs for ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" ci-logs
