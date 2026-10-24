@@ -1,0 +1,14 @@
+{
+  "name": "@meridian/domain",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pure, framework-free logic ported from the prototype (no React, no fetch)",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "echo lint",
+    "test": "vitest run --passWithNoTests"
+  }
+}

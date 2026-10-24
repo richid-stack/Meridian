@@ -1,0 +1,18 @@
+{
+  "name": "@meridian/i18n",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Messages and locale config (en, fr)",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "echo lint",
+    "test": "vitest run --passWithNoTests"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./messages/*": "./messages/*"
+  }
+}

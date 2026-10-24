@@ -1,0 +1,17 @@
+{
+  "name": "@meridian/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Component library built from @meridian/tokens",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "echo lint",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@meridian/tokens": "workspace:*"
+  }
+}

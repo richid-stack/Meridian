@@ -1,0 +1,4 @@
+# Frontend (Rich) owns everything unless noted. Backend co-founder owns the API contract.
+*                       @richid-stack
+/packages/api-client/   @richid-stack
+/docs/API-CONTRACT.md   @richid-stack
