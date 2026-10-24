@@ -25,3 +25,4 @@ export * from './components/RiskNotice';
 export * from './components/SourceLabel';
 export * from './components/AiLabel';
 export * from './components/VisuallyHidden';
+export * from './components/ProgressBar';

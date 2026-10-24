@@ -1,11 +1,4 @@
-import type { ReactNode } from 'react';
 import styles from './Skeleton.module.css';
-
-export interface SkeletonProps {
-  children?: ReactNode;
-  className?: string;
-}
-
-export function Skeleton({ children, className }: SkeletonProps) {
-  return <div className={[styles.root, className].filter(Boolean).join(' ')}>{children}</div>;
+export function Skeleton({ width = '100%', height = 14 }: { width?: number | string; height?: number | string }) {
+  return <span className={styles.root} style={{ width, height }} aria-hidden="true" />;
 }

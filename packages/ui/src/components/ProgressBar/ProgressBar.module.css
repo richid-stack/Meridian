@@ -1,0 +1,2 @@
+.track { height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.fill { display: block; height: 100%; background: var(--accent); border-radius: 3px; }

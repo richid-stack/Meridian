@@ -1,3 +1,4 @@
-.root {
-  /* TODO(phase5): style from tokens */
-}
+.root { border-left: 2px solid var(--accent); padding: 2px 0 2px 14px; }
+.label { display: block; font: 600 13px var(--font-ui); }
+.text { font: 400 18px/1.5 var(--font-read); }
+.sources { font: 400 13px var(--font-ui); color: var(--mute); margin-top: 4px; }

@@ -1,11 +1,12 @@
 import type { ReactNode } from 'react';
 import styles from './EmptyState.module.css';
 
-export interface EmptyStateProps {
-  children?: ReactNode;
-  className?: string;
-}
-
-export function EmptyState({ children, className }: EmptyStateProps) {
-  return <div className={[styles.root, className].filter(Boolean).join(' ')}>{children}</div>;
+export function EmptyState({ title, children, action }: { title: string; children?: ReactNode; action?: ReactNode }) {
+  return (
+    <div className={styles.root}>
+      <h3 className={styles.title}>{title}</h3>
+      {children ? <p className={styles.body}>{children}</p> : null}
+      {action}
+    </div>
+  );
 }

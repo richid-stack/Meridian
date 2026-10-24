@@ -1,11 +1,12 @@
-import type { ReactNode } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
+import { cx } from '../../cx';
 import styles from './Pill.module.css';
 
-export interface PillProps {
-  children?: ReactNode;
-  className?: string;
+export interface PillProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  selected?: boolean;
 }
 
-export function Pill({ children, className }: PillProps) {
-  return <div className={[styles.root, className].filter(Boolean).join(' ')}>{children}</div>;
+/** Filter chip. A toggle button; `selected` sets aria-pressed. */
+export function Pill({ selected, className, type = 'button', ...rest }: PillProps) {
+  return <button type={type} aria-pressed={selected} className={cx(styles.root, selected && styles.on, className)} {...rest} />;
 }

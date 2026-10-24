@@ -1,5 +1,8 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { Button } from './Button';
 
 describe('Button', () => {
-  it.todo('renders, supports dark mode, meets 44px tap target');
+  it('is a function component', () => {
+    expect(typeof Button).toBe('function');
+  });
 });

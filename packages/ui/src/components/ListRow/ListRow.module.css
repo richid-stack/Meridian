@@ -1,3 +1,4 @@
-.root {
-  /* TODO(phase5): style from tokens */
-}
+.root { display: flex; gap: 14px; align-items: center; padding: 12px 0; min-height: var(--tap); border-top: 1px solid var(--rule); }
+.main { min-width: 0; flex: 1; }
+.title { display: block; font: 500 19px/1.25 var(--font-read); }
+.meta { font: 400 14px var(--font-ui); color: var(--mute); }

@@ -1,11 +1,10 @@
-import type { ReactNode } from 'react';
 import styles from './SourceLabel.module.css';
 
-export interface SourceLabelProps {
-  children?: ReactNode;
-  className?: string;
-}
-
-export function SourceLabel({ children, className }: SourceLabelProps) {
-  return <div className={[styles.root, className].filter(Boolean).join(' ')}>{children}</div>;
+export function SourceLabel({ label, source, href }: { label: string; source: string; href?: string }) {
+  return (
+    <span className={styles.root}>
+      {label}{' '}
+      {href ? <a href={href} className={styles.link} rel="noopener noreferrer">{source}</a> : source}
+    </span>
+  );
 }

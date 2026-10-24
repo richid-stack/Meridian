@@ -39,7 +39,8 @@ jobs:
           run migration-sql bash -c "cd apps/api && pnpm exec prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > ../../ci-out/0001_init.sql"
           run db-migrate pnpm --filter @meridian/api exec prisma migrate deploy
           run api-smoke bash -c "cd apps/api && (PORT=4000 CORS_ORIGINS=http://localhost:3000 node dist/main.js > ../../ci-out/api-server.log 2>&1 &) && sleep 8 && curl -fsS localhost:4000/health && curl -fsS localhost:4000/ready && curl -fsS -o /dev/null -w 'docs %{http_code}\\n' localhost:4000/docs && curl -sS -w ' http %{http_code}\\n' localhost:4000/v1/news"
-          run web-build pnpm --filter @meridian/web build
+          NEXT_PUBLIC_ENABLE_DEV_ROUTES=true run web-build pnpm --filter @meridian/web build
+          run web-shots bash -c "cd apps/web && pnpm exec playwright install --with-deps chromium && (pnpm start > ../../ci-out/web-server.log 2>&1 &) && sleep 8 && node scripts/shots.mjs"
           cp pnpm-lock.yaml ci-out/ 2>/dev/null || true
           cat ci-out/summary.txt
       - name: Publish logs to ci-logs branch
