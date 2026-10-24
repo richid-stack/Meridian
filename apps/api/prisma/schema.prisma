@@ -1,0 +1,373 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  MEMBER
+  FOUNDER
+  INVESTOR
+  MODERATOR
+  ADMIN
+}
+
+enum EntityKind {
+  PERSON
+  COMPANY
+}
+
+enum ClaimStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum DealStatus {
+  DRAFT
+  OPEN
+  CLOSED
+}
+
+enum InvestmentStatus {
+  INTENT
+  PENDING
+  CONFIRMED
+  FAILED
+  REFUNDED
+}
+
+enum UploadStatus {
+  PENDING
+  READY
+  REJECTED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String?  @unique
+  phone        String?  @unique
+  passwordHash String?
+  displayName  String
+  role         Role     @default(MEMBER)
+  region       String?
+  currency     String   @default("USD")
+  locale       String   @default("en")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sessions      Session[]
+  posts         Post[]
+  uploads       Upload[]
+  investments   Investment[]
+  ledger        LedgerEntry[]
+  watches       Watch[]
+  notifications Notification[]
+  messages      Message[]
+  threads       ThreadMember[]
+  groups        GroupMember[]
+  claims        Claim[]
+  corrections   Correction[]
+  hostedRooms   LiveRoom[]
+  kyc           KycProfile?
+  auditLogs     AuditLog[]
+}
+
+model Session {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshHash String
+  userAgent   String?
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+}
+
+model KycProfile {
+  userId      String   @id
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status      String   @default("pending")
+  providerRef String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Entity {
+  id          String     @id @default(uuid())
+  kind        EntityKind
+  slug        String     @unique
+  name        String
+  headline    String?
+  country     String?
+  verified    Boolean    @default(false)
+  claimedById String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  sources     Source[]
+  claims      Claim[]
+  corrections Correction[]
+  watches     Watch[]
+  deals       Deal[]
+
+  @@index([kind, name])
+}
+
+model Source {
+  id          String   @id @default(uuid())
+  entityId    String
+  entity      Entity   @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  title       String
+  url         String
+  publisher   String?
+  retrievedAt DateTime @default(now())
+
+  @@index([entityId])
+}
+
+model Claim {
+  id        String      @id @default(uuid())
+  entityId  String
+  entity    Entity      @relation(fields: [entityId], references: [id])
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  status    ClaimStatus @default(PENDING)
+  evidence  Json?
+  createdAt DateTime    @default(now())
+
+  @@index([entityId])
+  @@index([userId])
+}
+
+model Correction {
+  id        String      @id @default(uuid())
+  entityId  String
+  entity    Entity      @relation(fields: [entityId], references: [id])
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  field     String
+  proposed  String
+  status    ClaimStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+
+  @@index([entityId])
+}
+
+model Watch {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entityId  String
+  entity    Entity   @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, entityId])
+}
+
+model Group {
+  id        String        @id @default(uuid())
+  slug      String        @unique
+  name      String
+  about     String?
+  createdAt DateTime      @default(now())
+  members   GroupMember[]
+  posts     Post[]
+}
+
+model GroupMember {
+  groupId  String
+  group    Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt DateTime @default(now())
+
+  @@id([groupId, userId])
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  groupId   String?
+  group     Group?   @relation(fields: [groupId], references: [id])
+  body      String
+  createdAt DateTime @default(now())
+  uploads   Upload[]
+
+  @@index([authorId, createdAt])
+  @@index([groupId, createdAt])
+}
+
+model Upload {
+  id        String       @id @default(uuid())
+  ownerId   String
+  owner     User         @relation(fields: [ownerId], references: [id])
+  postId    String?
+  post      Post?        @relation(fields: [postId], references: [id])
+  kind      String
+  key       String       @unique
+  mime      String
+  sizeBytes Int
+  altText   String?
+  status    UploadStatus @default(PENDING)
+  createdAt DateTime     @default(now())
+
+  @@index([ownerId])
+}
+
+model Deal {
+  id        String     @id @default(uuid())
+  entityId  String
+  entity    Entity     @relation(fields: [entityId], references: [id])
+  title     String
+  status    DealStatus @default(DRAFT)
+  riskNote  String
+  createdAt DateTime   @default(now())
+  rounds    Round[]
+}
+
+model Round {
+  id        String       @id @default(uuid())
+  dealId    String
+  deal      Deal         @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  name      String
+  currency  String
+  target    Decimal      @db.Decimal(18, 2)
+  raised    Decimal      @default(0) @db.Decimal(18, 2)
+  opensAt   DateTime?
+  closesAt  DateTime?
+  investments Investment[]
+
+  @@index([dealId])
+}
+
+model Investment {
+  id          String           @id @default(uuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id])
+  roundId     String
+  round       Round            @relation(fields: [roundId], references: [id])
+  amount      Decimal          @db.Decimal(18, 2)
+  currency    String
+  status      InvestmentStatus @default(INTENT)
+  providerRef String?          @unique
+  idempotencyKey String        @unique
+  createdAt   DateTime         @default(now())
+  ledger      LedgerEntry[]
+
+  @@index([userId])
+  @@index([roundId])
+}
+
+model LedgerEntry {
+  id           String      @id @default(uuid())
+  userId       String
+  user         User        @relation(fields: [userId], references: [id])
+  investmentId String?
+  investment   Investment? @relation(fields: [investmentId], references: [id])
+  type         String
+  amount       Decimal     @db.Decimal(18, 2)
+  currency     String
+  createdAt    DateTime    @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model Thread {
+  id        String         @id @default(uuid())
+  createdAt DateTime       @default(now())
+  members   ThreadMember[]
+  messages  Message[]
+}
+
+model ThreadMember {
+  threadId String
+  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lastReadAt DateTime?
+
+  @@id([threadId, userId])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  threadId  String
+  thread    Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  senderId  String
+  sender    User     @relation(fields: [senderId], references: [id])
+  body      String
+  createdAt DateTime @default(now())
+
+  @@index([threadId, createdAt])
+}
+
+model Notification {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind      String
+  payload   Json
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model Story {
+  id          String    @id @default(uuid())
+  title       String
+  summary     String?
+  topic       String?
+  region      String?
+  publishedAt DateTime
+  articles    Article[]
+
+  @@index([publishedAt])
+}
+
+model Article {
+  id          String   @id @default(uuid())
+  storyId     String
+  story       Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  outlet      String
+  url         String   @unique
+  lang        String   @default("en")
+  publishedAt DateTime
+
+  @@index([storyId])
+}
+
+model Episode {
+  id          String @id @default(uuid())
+  title       String
+  sourceKind  String
+  sourceRef   String
+  durationSec Int
+  chapters    Json?
+  transcript  String?
+}
+
+model LiveRoom {
+  id       String   @id @default(uuid())
+  title    String
+  hostId   String
+  host     User     @relation(fields: [hostId], references: [id])
+  startsAt DateTime
+  status   String   @default("scheduled")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actorId   String?
+  actor     User?    @relation(fields: [actorId], references: [id])
+  action    String
+  target    String?
+  meta      Json?
+  createdAt DateTime @default(now())
+
+  @@index([actorId, createdAt])
+}

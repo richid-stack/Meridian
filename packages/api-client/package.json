@@ -12,6 +12,7 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@meridian/domain": "workspace:*"
+    "@meridian/domain": "workspace:*",
+    "@meridian/contracts": "workspace:*"
   }
 }

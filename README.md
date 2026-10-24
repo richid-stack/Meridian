@@ -6,6 +6,8 @@ Business, everywhere. A mobile-first platform for markets, news, people, communi
 | Path | What it is |
 |---|---|
 | `apps/web` | The product: Next.js (App Router) + TypeScript |
+| `apps/api` | The backend: NestJS + Prisma + PostgreSQL + Redis |
+| `packages/contracts` | Zod schemas: one source of truth for API shapes |
 | `packages/tokens` | Design tokens (colors, type, spacing), light + dark |
 | `packages/ui` | Component library built from tokens |
 | `packages/domain` | Pure logic: money, news clustering, search, entities |
@@ -13,6 +15,7 @@ Business, everywhere. A mobile-first platform for markets, news, people, communi
 | `packages/i18n` | English + French messages |
 | `packages/config` | Shared ESLint and TypeScript presets |
 | `e2e` | Playwright end-to-end tests |
+| `docker-compose.yml`, `infra` | Local services and infrastructure |
 | `docs` | Architecture, routes, design system, contract, ADRs |
 | `prototype` | The original single-file app (reference only, frozen) |
 
@@ -20,6 +23,10 @@ Business, everywhere. A mobile-first platform for markets, news, people, communi
 ```
 corepack enable
 pnpm install
-pnpm dev
+docker compose up -d
+cp apps/api/.env.example apps/api/.env
+pnpm --filter @meridian/api db:migrate
+pnpm dev                      # web on :3000
+pnpm --filter @meridian/api dev   # api on :4000, docs on /docs
 ```
 Read `docs/ARCHITECTURE.md` first, then `docs/MIGRATION-PLAN.md`.

@@ -1,0 +1,17 @@
+{
+  "name": "@meridian/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Zod schemas = single source of truth for API shapes (used by api, api-client, web)",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "echo lint",
+    "test": "vitest run --passWithNoTests"
+  }
+}

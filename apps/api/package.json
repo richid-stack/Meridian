@@ -1,0 +1,63 @@
+{
+  "name": "@meridian/api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nest start --watch",
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "lint": "echo lint",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "jest --passWithNoTests",
+    "test:e2e": "jest --config test/jest-e2e.json --passWithNoTests",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "ts-node prisma/seed.ts",
+    "openapi": "ts-node scripts/export-openapi.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-fastify": "^11.0.0",
+    "@nestjs/config": "^4.0.0",
+    "@nestjs/swagger": "^8.0.0",
+    "@nestjs/jwt": "^11.0.0",
+    "@nestjs/throttler": "^6.0.0",
+    "@nestjs/bullmq": "^11.0.0",
+    "@nestjs/terminus": "^11.0.0",
+    "@fastify/helmet": "^12.0.0",
+    "@fastify/cookie": "^11.0.0",
+    "@fastify/cors": "^10.0.0",
+    "@prisma/client": "^6.0.0",
+    "bullmq": "^5.0.0",
+    "ioredis": "^5.4.0",
+    "zod": "^3.23.0",
+    "argon2": "^0.41.0",
+    "nestjs-pino": "^4.0.0",
+    "pino": "^9.0.0",
+    "reflect-metadata": "^0.2.0",
+    "rxjs": "^7.8.0",
+    "@meridian/contracts": "workspace:*",
+    "@meridian/domain": "workspace:*"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/testing": "^11.0.0",
+    "prisma": "^6.0.0",
+    "typescript": "^5.6.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.0",
+    "@types/jest": "^29.5.0",
+    "supertest": "^7.0.0",
+    "@types/supertest": "^6.0.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^22.0.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$"
+  }
+}

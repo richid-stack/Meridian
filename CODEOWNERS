@@ -2,3 +2,5 @@
 *                       @richid-stack
 /packages/api-client/   @richid-stack
 /docs/API-CONTRACT.md   @richid-stack
+/apps/api/               @richid-stack
+/packages/contracts/      @richid-stack

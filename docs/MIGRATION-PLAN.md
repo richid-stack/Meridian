@@ -19,3 +19,15 @@ Order matters: foundations, then shared pieces, then screens by user value.
 | 12 | Port e2e suites from Python to Playwright TS | prototype/tests |
 
 The prototype stays in `prototype/` as the visual and behavioral reference until step 12 passes.
+
+## Backend track (parallel)
+| Step | Work |
+|---|---|
+| B0 | Skeleton (this branch), local stack up |
+| B1 | Contracts for auth, users, entities; first migration |
+| B2 | Auth + sessions + RBAC |
+| B3 | Entities, search, claims, corrections |
+| B4 | News ingestion jobs, feed, markets |
+| B5 | Community, uploads, messaging, notifications |
+| B6 | Deals, KYC, payments partner, ledger (after legal review) |
+| B7 | Assistant, moderation, admin, observability, load test |

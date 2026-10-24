@@ -1,0 +1,32 @@
+name: API
+on:
+  pull_request:
+    paths: ["apps/api/**", "packages/contracts/**"]
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_USER: meridian, POSTGRES_PASSWORD: meridian, POSTGRES_DB: meridian }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U meridian" --health-interval 5s --health-retries 10
+      redis:
+        image: redis:7
+        ports: ["6379:6379"]
+    env:
+      DATABASE_URL: postgresql://meridian:meridian@localhost:5432/meridian
+      REDIS_URL: redis://localhost:6379
+      JWT_ACCESS_SECRET: ci-access-secret-123456
+      JWT_REFRESH_SECRET: ci-refresh-secret-123456
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @meridian/api exec prisma generate
+      - run: pnpm --filter @meridian/api exec prisma migrate deploy
+      - run: pnpm --filter @meridian/api typecheck
+      - run: pnpm --filter @meridian/api test
+      - run: pnpm --filter @meridian/api test:e2e
