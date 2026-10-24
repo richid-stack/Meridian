@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Lightbox.module.css';
 
 export interface LightboxProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

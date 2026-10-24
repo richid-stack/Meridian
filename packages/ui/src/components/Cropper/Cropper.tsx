@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Cropper.module.css';
 
 export interface CropperProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

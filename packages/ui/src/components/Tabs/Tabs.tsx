@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Tabs.module.css';
 
 export interface TabsProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Sparkline.module.css';
 
 export interface SparklineProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

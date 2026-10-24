@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './IconButton.module.css';
 
 export interface IconButtonProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

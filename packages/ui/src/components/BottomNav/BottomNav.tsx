@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './BottomNav.module.css';
 
 export interface BottomNavProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

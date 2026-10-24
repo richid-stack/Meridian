@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './ListRow.module.css';
 
 export interface ListRowProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

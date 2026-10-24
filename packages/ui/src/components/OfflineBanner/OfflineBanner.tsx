@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './OfflineBanner.module.css';
 
 export interface OfflineBannerProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

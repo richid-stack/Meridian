@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Pill.module.css';
 
 export interface PillProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

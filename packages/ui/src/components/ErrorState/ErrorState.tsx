@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './ErrorState.module.css';
 
 export interface ErrorStateProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

@@ -14,5 +14,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./tokens.css": "./src/tokens.css"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.0",
+    "typescript": "^5.6.0"
   }
 }

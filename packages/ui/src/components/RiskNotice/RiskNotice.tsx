@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './RiskNotice.module.css';
 
 export interface RiskNoticeProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './EmptyState.module.css';
 
 export interface EmptyStateProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

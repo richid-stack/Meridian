@@ -14,5 +14,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./messages/*": "./messages/*"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.0",
+    "typescript": "^5.6.0"
   }
 }

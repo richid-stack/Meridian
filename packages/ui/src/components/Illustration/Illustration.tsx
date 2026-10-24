@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Illustration.module.css';
 
 export interface IllustrationProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

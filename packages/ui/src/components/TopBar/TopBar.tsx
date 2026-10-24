@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './TopBar.module.css';
 
 export interface TopBarProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

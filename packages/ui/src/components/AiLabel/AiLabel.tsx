@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './AiLabel.module.css';
 
 export interface AiLabelProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

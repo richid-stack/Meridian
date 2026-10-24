@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './SourceLabel.module.css';
 
 export interface SourceLabelProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

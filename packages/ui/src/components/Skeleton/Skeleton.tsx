@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Skeleton.module.css';
 
 export interface SkeletonProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

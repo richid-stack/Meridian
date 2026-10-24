@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Sheet.module.css';
 
 export interface SheetProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

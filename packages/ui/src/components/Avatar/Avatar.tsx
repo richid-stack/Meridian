@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Avatar.module.css';
 
 export interface AvatarProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

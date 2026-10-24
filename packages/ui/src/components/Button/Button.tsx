@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Button.module.css';
 
 export interface ButtonProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

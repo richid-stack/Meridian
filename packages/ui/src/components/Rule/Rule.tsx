@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import styles from './Rule.module.css';
 
 export interface RuleProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 
