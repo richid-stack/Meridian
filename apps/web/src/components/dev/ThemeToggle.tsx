@@ -3,8 +3,8 @@
 export function ThemeToggle() {
   const toggle = () => {
     const r = document.documentElement;
-    const dark = getComputedStyle(r).getPropertyValue('--bg').trim().toLowerCase() === '#08120f';
-    const next = dark ? 'light' : 'dark';
+    const current = r.dataset.theme ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
     r.dataset.theme = next;
     try { localStorage.setItem('theme', next); } catch { /* storage can be unavailable */ }
   };

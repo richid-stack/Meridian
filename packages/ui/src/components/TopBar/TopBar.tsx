@@ -1,11 +1,14 @@
 import type { ReactNode } from 'react';
 import styles from './TopBar.module.css';
 
-export interface TopBarProps {
-  children?: ReactNode;
-  className?: string;
-}
-
-export function TopBar({ children, className }: TopBarProps) {
-  return <div className={[styles.root, className].filter(Boolean).join(' ')}>{children}</div>;
+/** Sticky page header: wordmark left, optional actions right. */
+export function TopBar({ actions }: { actions?: ReactNode }) {
+  return (
+    <header className={styles.root}>
+      <div className={styles.in}>
+        <span className={styles.logo}>Meridian<i /></span>
+        <div className={styles.actions}>{actions}</div>
+      </div>
+    </header>
+  );
 }

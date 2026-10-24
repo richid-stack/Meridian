@@ -1,0 +1,8 @@
+.root { display: flex; flex-direction: column; gap: 4px; padding: 20px 12px; }
+.logo { font: 600 24px/1 var(--font-read); letter-spacing: -.01em; padding: 0 12px 20px; }
+.logo i { display: inline-block; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-left: 3px; }
+.item { display: flex; align-items: center; gap: 12px; min-height: var(--tap); padding: 0 12px; border-radius: var(--r-field); color: var(--mute); text-decoration: none; font: 500 16px var(--font-ui); }
+.item:hover { color: var(--ink); }
+.item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.on { color: var(--ink); background: var(--surface); }
+.on svg { color: var(--accent); }

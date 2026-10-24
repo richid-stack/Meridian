@@ -1,3 +1,5 @@
-.root {
-  /* TODO(phase5): style from tokens */
-}
+.root { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--rule); padding-top: var(--safe-top); }
+.in { max-width: 720px; margin: 0 auto; padding: 8px var(--margin); min-height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font: 600 22px/1 var(--font-read); letter-spacing: -.01em; }
+.logo i { display: inline-block; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-left: 3px; }
+.actions { display: flex; gap: 8px; align-items: center; }

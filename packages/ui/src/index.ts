@@ -26,3 +26,6 @@ export * from './components/SourceLabel';
 export * from './components/AiLabel';
 export * from './components/VisuallyHidden';
 export * from './components/ProgressBar';
+export * from './components/SideNav';
+export * from './components/nav-types';
+export * from './icons/nav';

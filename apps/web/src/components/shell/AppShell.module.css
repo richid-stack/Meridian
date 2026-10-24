@@ -1,0 +1,11 @@
+.root { min-height: 100dvh; }
+.side { display: none; }
+.main { min-width: 0; padding-bottom: calc(60px + var(--safe-bottom)); }
+.bottom { display: block; }
+
+@media (min-width: 1024px) {
+  .root { display: grid; grid-template-columns: 248px minmax(0, 1fr); }
+  .side { display: block; position: sticky; top: 0; height: 100dvh; border-right: 1px solid var(--rule); overflow-y: auto; }
+  .bottom { display: none; }
+  .main { padding-bottom: 48px; }
+}
