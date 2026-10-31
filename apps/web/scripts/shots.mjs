@@ -18,6 +18,11 @@ const pages = [
   ['company', '/en/companies/kora-freight', 'Community round'],
   ['company-fr', '/fr/companies/aya-health', 'Tour de table communautaire'],
   ['notfound', '/en/people/nobody', 'We could not find that page'],
+  ['news', '/en/news', 'Top stories'],
+  ['news-fr', '/fr/news', '\u00c0 la une'],
+  ['story', '/en/news/kora-abidjan-corridor', 'Mentioned'],
+  ['story-fr', '/en/news/freight-gains-ground', 'Translate to English'],
+  ['story-ai', '/en/news/commodity-prices-ease', 'Why it matters for African readers'],
 ];
 const sizes = [[390, 844], [360, 800], [1280, 800]];
 const browser = await chromium.launch();
@@ -104,6 +109,54 @@ for (const [name, path, mustSee] of pages) {
   await page.getByRole('link', { name: /Nakala/ }).first().click();
   await page.waitForURL(/companies\/nakala/);
   await page.getByText('Freight marketplace').first().waitFor({ timeout: 5000 }).catch(() => errors.push('profile flow: Nakala profile did not open'));
+  await ctx.close();
+}
+{
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await ctx.newPage();
+  page.on('pageerror', (e) => errors.push(`news flow: ${e}`));
+  // filter by topic through the URL
+  await page.goto(base + '/en/news', { waitUntil: 'networkidle' });
+  await page.getByRole('button', { name: 'Fintech' }).click();
+  await page.waitForURL(/topic=fintech/);
+  await page.getByText('Mobile money transfers pass a new monthly record').first().waitFor({ timeout: 5000 }).catch(() => errors.push('news flow: topic filter did not show fintech stories'));
+  if (await page.getByText('Solar-powered clinics reach rural districts').count()) errors.push('news flow: health story shown under Fintech');
+  if ((await page.getByRole('button', { name: 'Fintech' }).getAttribute('aria-pressed')) !== 'true') errors.push('news flow: Fintech chip not pressed');
+  // load more
+  await page.goto(base + '/en/news', { waitUntil: 'networkidle' });
+  const before = await page.locator('main a[href*="/news/"]').count();
+  await page.getByRole('link', { name: 'Load more' }).click();
+  await page.waitForURL(/page=2/);
+  await page.waitForFunction((n) => document.querySelectorAll('main a[href*="/news/"]').length > n, before, { timeout: 5000 }).catch(() => errors.push('news flow: Load more added no stories'));
+  // empty state and clear
+  await page.goto(base + '/en/news?region=south&topic=tech', { waitUntil: 'networkidle' });
+  await page.getByText('No stories here right now').waitFor({ timeout: 5000 }).catch(() => errors.push('news flow: empty state missing'));
+  await page.getByRole('link', { name: 'Clear filters' }).click();
+  await page.getByText('Top stories').first().waitFor({ timeout: 5000 });
+  // bad filter values do not break the page
+  await page.goto(base + '/en/news?region=mars&page=-1', { waitUntil: 'networkidle' });
+  await page.getByText('Top stories').first().waitFor({ timeout: 5000 }).catch(() => errors.push('news flow: bad query broke the page'));
+  // open a story, then a mentioned company
+  await page.getByRole('link', { name: /Kora Freight opens its Abidjan corridor/ }).first().click();
+  await page.waitForURL(/news\/kora-abidjan-corridor/);
+  await page.getByRole('heading', { name: 'Coverage from' , exact: false }).waitFor({ timeout: 5000 }).catch(() => errors.push('news flow: coverage list missing'));
+  await page.getByRole('link', { name: /Company\s*Kora Freight/ }).click();
+  await page.waitForURL(/companies\/kora-freight/);
+  // translate toggle
+  await page.goto(base + '/en/news/freight-gains-ground', { waitUntil: 'networkidle' });
+  await page.getByRole('heading', { level: 1, name: /Le fret transfrontalier/ }).waitFor({ timeout: 5000 }).catch(() => errors.push('news flow: original title missing'));
+  await page.getByRole('button', { name: 'Translate to English' }).click();
+  await page.getByRole('heading', { level: 1, name: 'Cross-border freight gains ground in West Africa' }).waitFor({ timeout: 5000 }).catch(() => errors.push('news flow: translation not shown'));
+  await page.getByText('Translated by Meridian AI').waitFor({ timeout: 2000 }).catch(() => errors.push('news flow: AI translation label missing'));
+  // report a problem
+  await page.getByRole('button', { name: 'Report a problem' }).click();
+  await page.getByText('Thanks, we will review this.').waitFor({ timeout: 2000 }).catch(() => errors.push('news flow: report confirmation missing'));
+  // external link is safe
+  const rel = await page.getByRole('link', { name: /Read at/ }).getAttribute('rel');
+  if (!rel || !rel.includes('noopener')) errors.push('news flow: external link lacks noopener');
+  // Home lead story and company news now resolve
+  await page.goto(base + '/en/news/continental-payments-rail', { waitUntil: 'networkidle' });
+  await page.getByRole('heading', { level: 1, name: /continental payments rail/ }).waitFor({ timeout: 5000 }).catch(() => errors.push('news flow: Home lead story did not open'));
   await ctx.close();
 }
 await browser.close();

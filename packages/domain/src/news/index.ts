@@ -1,3 +1,4 @@
 export * from './normalize';
 export * from './cluster';
-export * from './providers';
+export * from './query';
+export * from './time';

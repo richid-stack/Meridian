@@ -1,0 +1,47 @@
+import type { news } from '@meridian/domain';
+
+type RawAggregatorItem = news.RawAggregatorItem;
+type RawEventsItem = news.RawEventsItem;
+
+// Sample feeds from fictional outlets, in the two raw shapes the real providers will use.
+// `ago` is minutes before "now" so the sample always looks fresh. Real ingestion (backend job B4) stores real timestamps.
+
+type A = Omit<RawAggregatorItem, 'publishedAt'> & { ago: number };
+type B = Omit<RawEventsItem, 'pub'> & { ago: number };
+
+const A_ITEMS: A[] = [
+  { id: 'mobile-money-record', ago: 35, source: { name: 'Accra Business Daily' }, title: 'Mobile money transfers pass a new monthly record across West Africa', description: 'Operators report wallet-to-wallet transfers rose for a fifth straight month as merchants move away from cash.', url: 'https://example.com/a1', category: 'fintech', region: 'west' },
+  { id: 'kora-abidjan-corridor', ago: 95, source: { name: 'West Africa Wire' }, title: 'Kora Freight opens its Abidjan corridor', description: 'Kora Freight says load matching on the new route takes minutes as manufacturers shift cargo to digital platforms.', url: 'https://example.com/a2', category: 'logistics', region: 'west', tags: ['Kora Freight', 'Ama Boateng'] },
+  { id: 'solar-clinics-pilot', ago: 160, source: { name: 'Continental Wire' }, title: 'Solar-powered clinics reach rural districts in new pilot', description: 'Aya Health says its first clinics kept running through grid failures, with more sites planned this year.', url: 'https://example.com/a3', category: 'health', region: 'west', tags: ['Aya Health'] },
+  { id: 'nairobi-seed-record', ago: 210, source: { name: 'Nairobi Markets Review' }, title: 'Nairobi-based startups raise record seed funding in the quarter', description: 'Early-stage deals grew as local angel networks and regional funds wrote larger cheques.', url: 'https://example.com/a4', category: 'startups', region: 'east' },
+  { id: 'solar-storage-deal', ago: 300, source: { name: 'Cape Insight' }, title: 'Utility signs deal for large solar and storage project', description: 'The project pairs panels with batteries to supply evening demand and reduce reliance on diesel backup.', url: 'https://example.com/a5', category: 'energy', region: 'south' },
+  { id: 'payment-rules-draft', ago: 420, source: { name: 'Continental Wire' }, title: 'Regulators outline rules for cross-border digital payments', description: 'Draft guidance covers licensing, settlement timelines, and consumer protection for new payment networks.', url: 'https://example.com/a6', category: 'policy', region: 'north', africaRel: true },
+  { id: 'commodity-prices-ease', ago: 60, source: { name: 'Global Business Ledger' }, title: 'Commodity prices ease as global demand cools', description: 'Analysts say softer industrial demand pulled metals and agricultural benchmarks lower this week.', url: 'https://example.com/a7', category: 'markets', region: 'americas', africaRel: true, africaNote: 'Cocoa, gold, and oil exporters feel price swings quickly, which can move currencies and government budgets.' },
+  { id: 'helix-low-power-chips', ago: 250, source: { name: 'Pacific Trade Journal' }, title: 'Helix Semiconductors unveils a lower-power processor line', description: 'The company says the new chips cut energy use in data centres and phones, with shipments due next year.', url: 'https://example.com/a8', category: 'tech', region: 'asia', tags: ['Helix Semiconductors'] },
+  { id: 'aurora-delivery-pilots', ago: 380, source: { name: 'Euro Market Watch' }, title: 'Aurora Retail Group expands low-cost delivery pilots to emerging markets', description: 'The retailer will test cash-on-delivery and locker pickup in several cities before a wider rollout.', url: 'https://example.com/a9', category: 'retail', region: 'europe', tags: ['Aurora Retail Group'], africaRel: true, africaNote: 'African cities with strong mobile money use are natural test beds for cash-free delivery, which may open partnerships for local logistics firms.' },
+  { id: 'lumen-battery-plant', ago: 520, source: { name: 'Americas Energy Report' }, title: 'Lumen Grid announces a battery storage manufacturing plant', description: 'The plant aims to lower storage costs for utilities and large commercial customers.', url: 'https://example.com/a10', category: 'energy', region: 'americas', tags: ['Lumen Grid'], africaRel: true, africaNote: 'Cheaper batteries could speed up solar-plus-storage projects across the continent, where grid reliability is a daily constraint.' },
+  // Stories other screens link to (Home lead, Explore, company pages).
+  { id: 'continental-payments-rail', ago: 140, source: { name: 'Meridian Desk' }, title: "The quiet race to build Africa's first continental payments rail", description: 'Three fintechs are competing for one cross-border standard, and two central banks have signalled support. The winner could cut remittance costs by a third.', url: 'https://example.com/a11', category: 'fintech', region: 'pan', africaRel: true },
+  { id: 'cocoa-harvest-estimates', ago: 45, source: { name: 'Accra Ledger' }, title: 'Cocoa prices climb as harvest estimates fall', description: 'Traders cut crop forecasts for the main season, pushing benchmark prices higher for a third session.', url: 'https://example.com/a12', category: 'markets', region: 'west', africaRel: true, africaNote: 'Farmers and exporters in cocoa-growing countries gain from higher prices, but buyers may pay more for inputs and finance.' },
+  { id: 'central-bank-payments', ago: 230, source: { name: 'Lagos Courier' }, title: 'Central bank signals support for a cross-border payment standard', description: 'The bank said a shared standard would cut settlement times, subject to licensing and consumer protection rules.', url: 'https://example.com/a13', category: 'policy', region: 'west' },
+];
+
+const B_ITEMS: B[] = [
+  { id: 'mobile-money-high', ago: 70, src: 'Lagos Ledger', title: { en: 'Mobile money use reaches record high in West Africa' }, summary: { en: 'Transfers between wallets hit a high as more retailers accept digital payments.' }, link: 'https://example.com/b1', cat: 'fintech', loc: 'west', ents: [], lang: 'en' },
+  { id: 'freight-third-corridor', ago: 130, src: 'Lagos Ledger', title: { en: 'Cross-border freight network opens third corridor' }, summary: { en: 'Digital load matching is cutting waiting times for truck operators on the new route.' }, link: 'https://example.com/b2', cat: 'logistics', loc: 'west', ents: ['Kora Freight'], lang: 'en' },
+  { id: 'freight-gains-ground', ago: 190, src: 'Abidjan \u00c9conomie', title: { fr: "Le fret transfrontalier gagne du terrain en Afrique de l'Ouest", en: 'Cross-border freight gains ground in West Africa' }, summary: { fr: 'Les plateformes num\u00e9riques r\u00e9duisent les trajets \u00e0 vide et acc\u00e9l\u00e8rent le d\u00e9douanement.', en: 'Digital platforms are reducing empty trips and speeding up customs clearance.' }, link: 'https://example.com/b3', cat: 'logistics', loc: 'west', ents: [], lang: 'fr' },
+  { id: 'payment-rules-set-out', ago: 480, src: 'Maghreb Finance Weekly', title: { en: 'Regulators set out cross-border digital payment rules' }, summary: { en: 'The guidance asks payment networks to meet capital and reporting standards.' }, link: 'https://example.com/b4', cat: 'policy', loc: 'north', ents: [], lang: 'en' },
+  { id: 'commodity-prices-cool', ago: 90, src: 'Pacific Trade Journal', title: { en: 'Commodity prices cool as global demand slows' }, summary: { en: 'Benchmarks fell as manufacturers cut orders.' }, link: 'https://example.com/b5', cat: 'markets', loc: 'asia', ents: [], lang: 'en' },
+  { id: 'east-africa-funding-quarter', ago: 260, src: 'Kampala Tech Review', title: { en: 'Startup funding in East Africa hits record quarter' }, summary: { en: 'Founders say larger rounds are closing faster as regional investors compete.' }, link: 'https://example.com/b6', cat: 'startups', loc: 'east', ents: [], lang: 'en' },
+  { id: 'hospitals-adopt-solar', ago: 330, src: 'Southern Health Report', title: { en: 'Hospitals adopt solar power to cut outages' }, summary: { en: 'Backup systems with batteries now keep theatres and cold rooms running.' }, link: 'https://example.com/b7', cat: 'health', loc: 'south', ents: [], lang: 'en' },
+  { id: 'digital-lenders-capital-rules', ago: 600, src: 'Euro Market Watch', title: { en: 'Digital lenders face tougher capital rules in Europe' }, summary: { en: 'Supervisors want lenders to hold more capital against consumer loans.' }, link: 'https://example.com/b8', cat: 'fintech', loc: 'europe', ents: [], lang: 'en' },
+  { id: 'regional-fund-solar-startups', ago: 700, src: 'Dakar \u00c9conomie', title: { fr: "Un fonds r\u00e9gional soutient les start-up de l'\u00e9nergie solaire", en: 'A regional fund backs solar start-ups' }, summary: { fr: 'Le fonds pr\u00e9voit de financer vingt jeunes entreprises sur trois ans.', en: 'The fund plans to finance twenty young companies over three years.' }, link: 'https://example.com/b9', cat: 'energy', loc: 'west', ents: [], lang: 'fr' },
+];
+
+export function newsFeeds(now: number): { aggregator: RawAggregatorItem[]; events: RawEventsItem[] } {
+  const at = (ago: number) => new Date(now - ago * 60000).toISOString();
+  return {
+    aggregator: A_ITEMS.map(({ ago, ...r }) => ({ ...r, publishedAt: at(ago) })),
+    events: B_ITEMS.map(({ ago, ...r }) => ({ ...r, pub: at(ago) })),
+  };
+}
