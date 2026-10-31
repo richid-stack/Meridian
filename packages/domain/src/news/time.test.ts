@@ -9,5 +9,5 @@ describe('relativeAgo', () => {
   it('uses hours under a day', () => expect(relativeAgo(NOW - 180 * min, NOW, 'en')).toMatch(/^3 hr/));
   it('uses days after that', () => expect(relativeAgo(NOW - 2 * 1440 * min, NOW, 'en')).toMatch(/^2 days/));
   it('never says zero minutes', () => expect(relativeAgo(NOW, NOW, 'en')).toMatch(/^1 min/));
-  it('speaks French', () => expect(relativeAgo(NOW - 3 * 1440 * min, NOW, 'fr')).toMatch(/^il y a 3 j/));
+  it('speaks French', () => expect(relativeAgo(NOW - 3 * 1440 * min, NOW, 'fr').replace(/\s/g, ' ')).toBe('il y a 3 j'));
 });
