@@ -20,7 +20,8 @@
     "@meridian/tokens": "workspace:*",
     "@meridian/domain": "workspace:*",
     "@meridian/api-client": "workspace:*",
-    "@meridian/i18n": "workspace:*"
+    "@meridian/i18n": "workspace:*",
+    "@meridian/contracts": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
