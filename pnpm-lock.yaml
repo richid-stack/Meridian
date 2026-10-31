@@ -132,6 +132,9 @@ importers:
       '@meridian/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
+      '@meridian/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@meridian/domain':
         specifier: workspace:*
         version: link:../../packages/domain
@@ -187,6 +190,9 @@ importers:
       '@meridian/domain':
         specifier: workspace:*
         version: link:../domain
+      zod:
+        specifier: ^3.23.0
+        version: 3.25.76
     devDependencies:
       typescript:
         specifier: ^5.6.0
