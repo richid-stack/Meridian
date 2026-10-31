@@ -32,3 +32,4 @@ export * from './icons/nav';
 export * from './components/ProgressRing';
 export * from './components/TrendLine';
 export * from './components/TrendBars';
+export { cx } from './cx';
