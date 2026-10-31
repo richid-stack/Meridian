@@ -1,2 +1,1 @@
-// TODO(phase5): wire types for 'search' per docs/API-CONTRACT.md
-export {};
+export type { SearchHit, SearchKind, SearchResponse, Explore } from '@meridian/contracts';

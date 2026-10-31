@@ -29,3 +29,4 @@ export * from './components/ProgressBar';
 export * from './components/SideNav';
 export * from './components/nav-types';
 export * from './icons/nav';
+export * from './components/ProgressRing';

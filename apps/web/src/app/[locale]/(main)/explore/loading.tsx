@@ -1,3 +1,5 @@
+import { ExploreSkeleton } from '@/features/explore';
+
 export default function Loading() {
-  return null; // TODO(phase5): Explore skeleton
+  return <ExploreSkeleton />;
 }

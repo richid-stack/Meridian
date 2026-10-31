@@ -1,4 +1,7 @@
-.root { display: flex; align-items: center; gap: 10px; min-height: var(--tap); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r-field); padding: 0 14px; color: var(--mute); }
+.root { display: flex; align-items: center; gap: 10px; min-height: var(--tap); background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r-field); padding: 0 6px 0 14px; color: var(--mute); }
 .root:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
-.input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; color: var(--ink); font: 400 16px var(--font-ui); }
+.input { flex: 1; min-width: 0; min-height: var(--tap); border: 0; outline: 0; background: none; color: var(--ink); font: 400 17px var(--font-ui); appearance: none; }
 .input::placeholder { color: var(--mute); }
+.input::-webkit-search-cancel-button { display: none; }
+.clear { min-height: var(--tap); padding: 0 10px; border: 0; background: none; color: var(--accent); font: 500 15px var(--font-ui); cursor: pointer; }
+.clear:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--r-field); }

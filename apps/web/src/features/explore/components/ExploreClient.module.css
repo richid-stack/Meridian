@@ -1,0 +1,10 @@
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 var(--margin) 48px; }
+.h1 { font: 500 clamp(34px, 9vw, 48px)/1.05 var(--font-read); letter-spacing: -.02em; margin: 26px 0 16px; }
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 14px var(--margin) 12px; margin: 0 calc(var(--margin) * -1); }
+.chips::-webkit-scrollbar { display: none; }
+.chips > * { flex: none; }
+.count { font: 500 14px var(--font-ui); color: var(--mute); margin: 8px 0 12px; }
+.loading { padding-top: 16px; }
+.skelRow { display: flex; gap: 14px; align-items: center; padding: 14px 0; border-top: 1px solid var(--rule); }
+.skelText { flex: 1; display: grid; gap: 8px; }
+.note { margin-top: 30px; font-size: 13px; color: var(--mute); }
