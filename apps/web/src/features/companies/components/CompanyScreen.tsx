@@ -45,7 +45,7 @@ export async function CompanyScreen({ locale, id }: { locale: string; id: string
                 <Link key={l.id} href={`/${locale}/people/${l.id}`} className={styles.leader}>
                   <Avatar kind="person" name={l.name} size={92} fontSize={32} />
                   <b>{l.name}</b>
-                  <span>{l.role}</span>
+                  <span className={styles.leaderRole}>{l.role}</span>
                 </Link>
               ))}
             </div>

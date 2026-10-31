@@ -67,7 +67,7 @@
 .leaders::-webkit-scrollbar { display: none; }
 .leader { flex: none; width: 92px; text-decoration: none; color: inherit; }
 .leader b { display: block; font: 500 15px/1.25 var(--font-ui); margin-top: 8px; }
-.leader span:last-child { display: block; font-size: 13px; color: var(--mute); line-height: 1.3; }
+.leaderRole { display: block; font-size: 13px; color: var(--mute); line-height: 1.3; }
 .news { display: block; padding: 14px 0; border-top: 1px solid var(--rule); text-decoration: none; color: inherit; min-height: var(--tap); }
 .news b { font: 500 18px/1.3 var(--font-read); display: block; }
 .news span { font-size: 14px; color: var(--mute); }

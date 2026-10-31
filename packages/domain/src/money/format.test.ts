@@ -14,4 +14,8 @@ describe('formatSignedPercent', () => {
 
 describe('formatCompactMoney', () => {
   it('compacts millions', () => expect(formatCompactMoney(128_000_000, 'USD', 'en-US')).toBe('$1.28M'));
+  it('drops empty decimals', () => {
+    expect(formatCompactMoney(76_000_000, 'USD', 'en-US')).toBe('$760K');
+    expect(formatCompactMoney(200_000_000, 'USD', 'en-US')).toBe('$2M');
+  });
 });
