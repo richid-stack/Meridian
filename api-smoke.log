@@ -1,0 +1,2 @@
+{"status":"ok"}{"status":"ok","info":{"database":{"status":"up"}},"error":{},"details":{"database":{"status":"up"}}}docs 200
+{"message":"news","error":"Not Implemented","statusCode":501} http 501

@@ -1,0 +1,14 @@
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": PostgreSQL database "meridian", schema "public" at "localhost:5432"
+
+1 migration found in prisma/migrations
+
+Applying migration `0001_init`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_init/
+    └─ migration.sql
+      
+All migrations have been successfully applied.

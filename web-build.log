@@ -1,0 +1,71 @@
+
+> @meridian/web@0.0.0 build /home/runner/work/Meridian/Meridian/apps/web
+> next build
+
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+   ▲ Next.js 15.5.28
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 7.0s
+   Linting and checking validity of types ...
+
+   We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+   The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+   	- allowJs was set to true
+
+   Collecting page data ...
+   Generating static pages (0/3) ...
+ ✓ Generating static pages (3/3)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                     Size  First Load JS
+┌ ○ /_not-found                                275 B         102 kB
+├ ƒ /[locale]                                 2.3 kB         108 kB
+├ ƒ /[locale]/articles/[slug]                  275 B         102 kB
+├ ƒ /[locale]/assistant                        275 B         102 kB
+├ ƒ /[locale]/books/[bookId]                   275 B         102 kB
+├ ƒ /[locale]/capital                          275 B         102 kB
+├ ƒ /[locale]/capital/deals/[dealId]           275 B         102 kB
+├ ƒ /[locale]/capital/deals/[dealId]/invest    275 B         102 kB
+├ ƒ /[locale]/claim/[entityId]                 275 B         102 kB
+├ ƒ /[locale]/community                        275 B         102 kB
+├ ƒ /[locale]/companies/[companyId]            275 B         102 kB
+├ ƒ /[locale]/compare                          275 B         102 kB
+├ ƒ /[locale]/compose                          275 B         102 kB
+├ ƒ /[locale]/dev/design                       917 B         106 kB
+├ ƒ /[locale]/episodes/[episodeId]             275 B         102 kB
+├ ƒ /[locale]/explore                          138 B         130 kB
+├ ƒ /[locale]/groups/[groupId]                 275 B         102 kB
+├ ƒ /[locale]/live/[roomId]                    275 B         102 kB
+├ ƒ /[locale]/messages                         275 B         102 kB
+├ ƒ /[locale]/messages/[threadId]              275 B         102 kB
+├ ƒ /[locale]/news                             275 B         102 kB
+├ ƒ /[locale]/news/[storyId]                   275 B         102 kB
+├ ƒ /[locale]/notifications                    275 B         102 kB
+├ ƒ /[locale]/people/[personId]                275 B         102 kB
+├ ƒ /[locale]/people/[personId]/intro          275 B         102 kB
+├ ƒ /[locale]/portfolio                        275 B         102 kB
+├ ƒ /[locale]/watchlist                        275 B         102 kB
+├ ƒ /[locale]/welcome                          275 B         102 kB
+├ ƒ /[locale]/you                              275 B         102 kB
+├ ƒ /[locale]/you/edit                         275 B         102 kB
+├ ƒ /[locale]/you/founder                      275 B         102 kB
+└ ƒ /[locale]/you/preferences                  275 B         102 kB
++ First Load JS shared by all                 102 kB
+  ├ chunks/1349-84e7129bc6f54244.js            46 kB
+  ├ chunks/b9a823c8-147118435e6bc1af.js      54.2 kB
+  └ other shared chunks (total)              1.93 kB
+
+
+ƒ Middleware                                 33.9 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

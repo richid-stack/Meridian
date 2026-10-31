@@ -1,0 +1,17 @@
+Scope: 9 of 10 workspace projects
+packages/contracts typecheck$ tsc -p tsconfig.json
+packages/domain typecheck$ tsc -p tsconfig.json
+packages/i18n typecheck$ tsc -p tsconfig.json
+packages/tokens typecheck$ tsc -p tsconfig.json
+packages/tokens typecheck: Done
+packages/domain typecheck: Done
+packages/contracts typecheck: Done
+packages/i18n typecheck: Done
+apps/api typecheck$ tsc -p tsconfig.json --noEmit
+packages/api-client typecheck$ tsc -p tsconfig.json
+packages/ui typecheck$ tsc -p tsconfig.json
+packages/ui typecheck: Done
+packages/api-client typecheck: Done
+apps/api typecheck: Done
+apps/web typecheck$ tsc -p tsconfig.json --noEmit
+apps/web typecheck: Done
