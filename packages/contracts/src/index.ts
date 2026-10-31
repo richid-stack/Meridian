@@ -5,7 +5,6 @@ export * from './entities';
 export * from './claims';
 export * from './corrections';
 export * from './feed';
-export * from './markets';
 export * from './news';
 export * from './deals';
 export * from './investments';

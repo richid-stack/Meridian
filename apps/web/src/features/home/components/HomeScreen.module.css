@@ -1,0 +1,2 @@
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 var(--margin) 48px; }
+.me { display: grid; place-items: center; min-width: var(--tap); min-height: var(--tap); border-radius: 50%; }

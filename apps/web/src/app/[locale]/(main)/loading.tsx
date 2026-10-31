@@ -1,3 +1,5 @@
+import { HomeSkeleton } from '@/features/home';
+
 export default function Loading() {
-  return null; // TODO(phase5): Home skeleton
+  return <HomeSkeleton />;
 }

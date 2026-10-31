@@ -1,6 +1,10 @@
-import { ScreenPlaceholder } from '@/components/dev/ScreenPlaceholder';
+import { HomeScreen } from '@/features/home';
 
-export default async function HomePage() {
+// Rendered per request: the date and the feed change every day.
+export const dynamic = 'force-dynamic';
+export const metadata = { title: 'Meridian' };
 
-  return <ScreenPlaceholder name="Home" legacy="v-home" />;
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return <HomeScreen locale={locale} />;
 }

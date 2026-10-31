@@ -1,6 +1,7 @@
 :root {
   --bg: #F1F4F2; --surface: #FAFBFA; --ink: #0E1A16; --mute: #55635D; --rule: #D3DAD6;
   --accent: #8F6708; --panel: #0B2A21; --panel-line: transparent; --gold: #E3B341; --risk: #A4432B;
+  --panel-ink: #E9EFEA; --panel-mute: #8DA69B; --down: #E8836B;
   --font-read: var(--nf-read, 'Newsreader'), Georgia, serif;
   --font-ui: var(--nf-ui, 'Instrument Sans'), system-ui, sans-serif;
   --font-num: var(--nf-num, 'JetBrains Mono'), ui-monospace, monospace;
@@ -10,16 +11,16 @@
   --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px);
   color-scheme: light;
 }
-/* Dark is neutral near-black. Gold stays the one accent. */
+/* Dark: neutral near-black surfaces. The brand stays the same as light: deep-green panels, gold accent. */
 :root[data-theme='dark'] {
   --bg: #0B0B0C; --surface: #131314; --ink: #ECECEA; --mute: #9B9B96; --rule: #262627;
-  --accent: #E3B341; --panel: #171718; --panel-line: #2B2B2C; --risk: #E8836B;
+  --accent: #E3B341; --panel: #0B2A21; --panel-line: #1B4637; --risk: #E8836B;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --bg: #0B0B0C; --surface: #131314; --ink: #ECECEA; --mute: #9B9B96; --rule: #262627;
-    --accent: #E3B341; --panel: #171718; --panel-line: #2B2B2C; --risk: #E8836B;
+    --accent: #E3B341; --panel: #0B2A21; --panel-line: #1B4637; --risk: #E8836B;
     color-scheme: dark;
   }
 }

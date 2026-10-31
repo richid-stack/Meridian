@@ -3,3 +3,5 @@
 .logo { font: 600 22px/1 var(--font-read); letter-spacing: -.01em; }
 .logo i { display: inline-block; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-left: 3px; }
 .actions { display: flex; gap: 8px; align-items: center; }
+/* The desktop sidebar already carries the wordmark. */
+@media (min-width: 1024px) { .logo { visibility: hidden; } }

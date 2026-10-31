@@ -1,0 +1,2 @@
+.head { font: 500 22px/1.2 var(--font-read); margin: 34px 0 12px; display: flex; justify-content: space-between; align-items: center; }
+.link { font: 500 14px var(--font-ui); color: var(--accent); text-decoration: none; min-height: var(--tap); display: inline-flex; align-items: center; padding-left: 12px; }

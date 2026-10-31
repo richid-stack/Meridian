@@ -1,0 +1,15 @@
+.item { padding: 18px 0; border-top: 1px solid var(--rule); }
+.kind { display: block; font: 500 13px var(--font-ui); color: var(--accent); margin-bottom: 6px; }
+.title { font: 500 21px/1.25 var(--font-read); margin: 0 0 6px; letter-spacing: -.01em; }
+.link { color: inherit; text-decoration: none; }
+.link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.meta { display: block; margin: 0; color: var(--mute); font-size: 15px; }
+.bar { margin: 12px 0 8px; }
+.fund { display: flex; justify-content: space-between; font: 500 13px var(--font-num); color: var(--mute); }
+.fund b { color: var(--ink); font-weight: 500; }
+.iv, .book { display: flex; gap: 14px; align-items: center; text-decoration: none; color: inherit; min-height: var(--tap); }
+.book { align-items: flex-start; }
+.play { flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--panel); color: var(--gold); display: grid; place-items: center; }
+.ivTitle { display: block; font: 500 21px/1.25 var(--font-read); letter-spacing: -.01em; margin-bottom: 2px; }
+.spine { flex: none; width: 52px; height: 74px; border-radius: 2px 5px 5px 2px; padding: 8px 6px; font: 600 10px/1.15 var(--font-read); color: #fff; display: flex; align-items: flex-end; box-shadow: inset 3px 0 0 rgba(0, 0, 0, .25); }
+.q { display: flex; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--mute); margin-top: 10px; }

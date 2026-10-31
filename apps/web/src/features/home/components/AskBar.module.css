@@ -1,0 +1,5 @@
+.root { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r-field); padding: 0 14px; min-height: 48px; margin-bottom: 22px; }
+.root:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.root svg { flex: none; color: var(--accent); }
+.input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: 400 16px var(--font-ui); color: var(--ink); min-height: 44px; }
+.input::placeholder { color: var(--mute); }
