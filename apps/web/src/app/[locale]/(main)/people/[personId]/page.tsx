@@ -1,6 +1,16 @@
-import { ScreenPlaceholder } from '@/components/dev/ScreenPlaceholder';
+import type { Metadata } from 'next';
+import { PersonScreen } from '@/features/people';
+import { getPerson } from '@/lib/data';
 
-export default async function PersonPage({ params }: { params: Promise<{ personId: string }> }) {
-  await params;
-  return <ScreenPlaceholder name="Person" legacy="v-profile / v-gperson" />;
+type Props = { params: Promise<{ locale: string; personId: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { personId } = await params;
+  const p = await getPerson(personId);
+  return { title: `${p.name} · Meridian`, description: `${p.role}. ${p.location}` };
+}
+
+export default async function PersonPage({ params }: Props) {
+  const { locale, personId } = await params;
+  return <PersonScreen locale={locale} id={personId} />;
 }

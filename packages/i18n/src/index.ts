@@ -4,6 +4,10 @@ import enHome from '../messages/en/home.json';
 import frHome from '../messages/fr/home.json';
 import enExplore from '../messages/en/explore.json';
 import frExplore from '../messages/fr/explore.json';
+import enProfile from '../messages/en/profile.json';
+import frProfile from '../messages/fr/profile.json';
+import enCommon from '../messages/en/common.json';
+import frCommon from '../messages/fr/common.json';
 
 export const locales = ['en', 'fr'] as const;
 export type Locale = (typeof locales)[number];
@@ -11,7 +15,8 @@ export const defaultLocale: Locale = 'en';
 
 export const isLocale = (v: string): v is Locale => (locales as readonly string[]).includes(v);
 
-const messages = { en: { nav: enNav, home: enHome, explore: enExplore }, fr: { nav: frNav, home: frHome, explore: frExplore } } as const;
+const messages = { en: { nav: enNav, home: enHome, explore: enExplore, profile: enProfile, common: enCommon },
+  fr: { nav: frNav, home: frHome, explore: frExplore, profile: frProfile, common: frCommon } } as const;
 export type Messages = (typeof messages)['en'];
 
 /** Messages for a locale. More namespaces are added as screens are built. */

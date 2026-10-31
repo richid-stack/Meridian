@@ -1,1 +1,5 @@
-{}
+{
+  "notFoundTitle": "We could not find that page",
+  "notFoundBody": "It may have moved, or the link may be wrong.",
+  "goHome": "Go to Today"
+}

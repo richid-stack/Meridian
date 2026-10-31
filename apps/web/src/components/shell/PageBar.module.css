@@ -1,0 +1,5 @@
+.root { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--rule); padding-top: var(--safe-top); }
+.in { max-width: 720px; margin: 0 auto; padding: 0 8px; min-height: 56px; display: flex; align-items: center; gap: 4px; }
+.back { width: var(--tap); height: var(--tap); display: grid; place-items: center; border: 0; background: none; color: var(--ink); border-radius: 8px; cursor: pointer; }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.title { font: 600 17px var(--font-ui); }

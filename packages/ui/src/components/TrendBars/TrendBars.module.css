@@ -1,0 +1,5 @@
+.root { display: block; width: 100%; height: auto; }
+.base { stroke: rgba(233, 239, 234, .2); }
+.bar { fill: var(--gold); }
+.value { font: 500 11px var(--font-num); fill: var(--panel-ink); }
+.label { font: 400 11px var(--font-ui); fill: var(--panel-mute); }
