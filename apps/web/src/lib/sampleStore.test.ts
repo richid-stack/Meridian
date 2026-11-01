@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { addSamplePost, applyMembership, readSample, updateSample } from './sampleStore';
+import { addSampleInvestment, addSamplePost, applyMembership, readSample, setSampleAlerts, setSampleWatch, updateSample } from './sampleStore';
 
 const store = new Map<string, string>();
 beforeEach(() => {
@@ -15,7 +15,7 @@ beforeEach(() => {
 const post = { type: 'insight', id: 'local-1', author: { id: 'me', name: 'You', initials: 'Y', role: '', verified: false }, at: '2026-10-31T12:00:00.000Z', text: 'Hi', replies: 0, reposts: 0, likes: 0, likedByMe: false } as const;
 
 describe('sample store', () => {
-  it('starts empty', () => expect(readSample()).toEqual({ liked: [], votes: {}, groups: {}, posts: [] }));
+  it('starts empty', () => expect(readSample()).toEqual({ liked: [], votes: {}, groups: {}, posts: [], investments: [], watch: {} }));
   it('saves and reads back', () => {
     updateSample((s) => ({ ...s, liked: ['a'], votes: { p: 'o1' } }));
     expect(readSample()).toMatchObject({ liked: ['a'], votes: { p: 'o1' } });
@@ -24,6 +24,16 @@ describe('sample store', () => {
     addSamplePost(post);
     addSamplePost({ ...post, id: 'local-2' }, 'logistics');
     expect(readSample().posts.map((p) => [p.post.id, p.groupId])).toEqual([['local-2', 'logistics'], ['local-1', undefined]]);
+  });
+  it('keeps commitments, watch choices and the alerts setting', () => {
+    addSampleInvestment({ id: 'i1', dealId: 'aya-health-seed', amountMinor: 25_000, feeMinor: 500, status: 'committed', ref: 'MRD-AAAAAA', at: '2026-11-01T12:00:00.000Z' });
+    setSampleWatch('zuri-energy-round', false);
+    setSampleAlerts(false);
+    expect(readSample()).toMatchObject({ investments: [{ ref: 'MRD-AAAAAA' }], watch: { 'zuri-energy-round': false }, alerts: false });
+  });
+  it('drops stored commitments that no longer match the contract', () => {
+    store.set('meridian:sample:v1', JSON.stringify({ investments: [{ id: 'bad' }, { id: 'i1', dealId: 'd', amountMinor: 100, feeMinor: 2, status: 'committed', ref: 'MRD-BBBBBB', at: '2026-11-01T12:00:00.000Z' }] }));
+    expect(readSample().investments.map((i) => i.ref)).toEqual(['MRD-BBBBBB']);
   });
   it('ignores corrupt storage', () => {
     store.set('meridian:sample:v1', '{not json');

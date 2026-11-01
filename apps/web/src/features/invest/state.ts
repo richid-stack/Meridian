@@ -35,7 +35,8 @@ export const initialState = (amountDollars: number): State => ({
   step: 'amount', amountText: String(amountDollars), acks: [false, false, false], method: null, provider: null, phone: '', receipt: null, failure: null,
 });
 
-export const amountMinor = (s: State): number => deals.parseDollars(s.amountText) * 100;
+/** Not capped here: an amount over the maximum must show the "too high" message rather than quietly change. */
+export const amountMinor = (s: State): number => deals.parseDollars(s.amountText, Number.POSITIVE_INFINITY) * 100;
 export const amountError = (s: State, minMinor: number) => deals.validateAmount(amountMinor(s), minMinor);
 export const allAcked = (s: State): boolean => s.acks.every(Boolean);
 export const canLeaveAmount = (s: State, minMinor: number): boolean => amountError(s, minMinor) === null && allAcked(s);

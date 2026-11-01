@@ -503,7 +503,7 @@ const need = async (loc, msg, ms = 5000) => { await loc.waitFor({ timeout: ms })
   await pg.getByRole('group', { name: 'Round B' }).getByRole('button', { name: 'Zuri Energy' }).click();
   await pg.waitForURL(/a=kora-freight-round&b=zuri-energy-round|b=zuri-energy-round/);
   const heads = await pg.getByRole('columnheader').allInnerTexts();
-  if (new Set(heads.filter((h) => h.trim())).size !== 2) errors.push(`compare flow: both columns show the same round: ${heads.join(',')}`);
+  if (new Set(heads.filter((h) => h.trim() && h.trim() !== 'Compare rounds')).size !== 2) errors.push(`compare flow: both columns show the same round: ${heads.join(',')}`);
   await need(pg.getByText('Not investment advice.', { exact: false }).first(), 'compare flow: summary note missing');
   await pg.goto(base + '/en/compare?a=nope&b=nope', { waitUntil: 'networkidle' });
   await need(pg.getByRole('columnheader', { name: 'Aya Health' }), 'compare flow: bad ids did not fall back');
