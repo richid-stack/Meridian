@@ -25,6 +25,8 @@ describe('community sample data', () => {
   it('every attachment exists in the catalogue', () => {
     const ids = new Set(catalogue.map((c) => `${c.kind}:${c.id}`));
     for (const p of mockFeed('for-you', NOW).posts) if (p.attachment) expect(ids.has(`${p.attachment.kind}:${p.attachment.id}`)).toBe(true);
+    const titles = new Map(catalogue.map((c) => [`${c.kind}:${c.id}`, c.title]));
+    for (const p of mockFeed('for-you', NOW).posts) if (p.attachment) expect(p.attachment.title).toBe(titles.get(`${p.attachment.kind}:${p.attachment.id}`));
     for (const a of attachables()) expect(ids.has(`${a.kind}:${a.id}`), a.id).toBe(true);
   });
   it('the sample poll adds up to 100 percent', () => {

@@ -47,7 +47,7 @@ export const catalogue: CatalogueItem[] = [
   episode('empty-trucks', 'Why empty trucks cost Africa billions', 'Ama Boateng', '48 min', 'audio', 'podcast logistics freight'),
   episode('building-kora', 'Building Kora from a single route', 'Ama Boateng', '22 min', 'video', 'interview logistics freight'),
   episode('payments-rail', 'Inside the race for a continental payments rail', 'Meridian Desk', '25 min', 'video', 'explainer fintech payments media'),
-  deal('aya-health-seed', 'Aya Health', '$1.28M of $2M, 11 days left', 64, 'raising seed health clinics'),
+  deal('aya-health-seed', 'Aya Health seed', '$1.28M of $2M, 11 days left', 64, 'raising seed health clinics'),
   deal('kora-freight-round', 'Kora Freight', '$760K of $2M, 19 days left', 38, 'raising growth logistics freight'),
   deal('zuri-energy-round', 'Zuri Energy', '$310K of $1.5M, 26 days left', 21, 'raising growth energy solar'),
   story('continental-payments-rail', "The quiet race to build Africa's first continental payments rail", 'Meridian Desk', 'fintech payments media banks'),
