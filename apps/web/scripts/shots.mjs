@@ -280,10 +280,14 @@ const need = async (loc, msg, ms = 5000) => { await loc.waitFor({ timeout: ms })
 }
 {
   const { c, pg } = await fresh('discard flow');
-  await pg.goto(base + '/en/compose', { waitUntil: 'networkidle' });
+  // Cancel goes back to where the person came from, so start from the feed like a real visit.
+  await pg.goto(base + '/en/community', { waitUntil: 'networkidle' });
+  await pg.getByRole('link', { name: 'New post' }).click();
+  await pg.waitForURL(/\/compose/);
   await pg.getByRole('button', { name: 'Cancel' }).click();
   await pg.waitForURL(/\/en\/community$/);
-  await pg.goto(base + '/en/compose', { waitUntil: 'networkidle' });
+  await pg.getByRole('link', { name: 'New post' }).click();
+  await pg.waitForURL(/\/compose/);
   await pg.getByRole('textbox', { name: 'Post text' }).fill('Half a thought');
   await pg.getByRole('button', { name: 'Cancel' }).click();
   await need(pg.getByText('Discard this post?'), 'discard flow: confirmation missing');
