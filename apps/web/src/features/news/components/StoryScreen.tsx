@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { AiLabel, buttonClass } from '@meridian/ui';
-import { news } from '@meridian/domain';
+import { time } from '@meridian/domain';
 import { format, getMessages } from '@meridian/i18n';
 import { getStory } from '@/lib/data';
 import { PageBar } from '@/components/shell/PageBar';
@@ -53,7 +53,7 @@ export async function StoryScreen({ locale, id }: { locale: string; id: string }
               {s.sources.map((x) => (
                 <a key={x.source} href={x.url} target="_blank" rel="noopener noreferrer" className={styles.src}>
                   <SourceTile name={x.source} />
-                  <span><b>{x.title}</b><small>{x.source}, {news.relativeAgo(Date.parse(x.at), now, locale)}</small></span>
+                  <span><b>{x.title}</b><small>{x.source}, {time.relativeAgo(Date.parse(x.at), now, locale)}</small></span>
                 </a>
               ))}
             </div>

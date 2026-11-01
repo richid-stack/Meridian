@@ -1,12 +1,14 @@
 import {
-  CompanyProfileSchema, ExploreSchema, HomeSchema, NewsPageSchema, PersonProfileSchema, SearchResponseSchema, StorySchema,
-  type CompanyProfile, type Explore, type Home, type NewsPage, type NewsQuery, type PersonProfile, type SearchResponse, type Story,
+  AttachmentSchema, CommunityFeedSchema, CompanyProfileSchema, ExploreSchema, GroupListSchema, GroupSchema, HomeSchema, LikeResultSchema, MembershipResultSchema, PostSchema, NewsPageSchema, PersonProfileSchema, SearchResponseSchema, StorySchema,
+  type Attachment, type CommunityFeed, type CompanyProfile, type CreatePostInput, type Explore, type Group, type GroupList, type LikeResult, type MembershipResult, type Post, type Home, type NewsPage, type NewsQuery, type PersonProfile, type SearchResponse, type Story,
 } from '@meridian/contracts';
 import { entities } from '@meridian/domain';
+import { z } from 'zod';
 import { createClient } from './client';
 import { ApiError } from './errors';
 import { catalogue, exploreFixture } from './mocks/catalogue';
 import { homeFixture } from './mocks/home';
+import { attachables, mockCreatePost, mockFeed, mockGroup, mockGroups, mockLike, mockMembership, mockVote } from './mocks/community';
 import { mockNewsGet, mockNewsList } from './mocks/news';
 import { companiesFixture, peopleFixture } from './mocks/profiles';
 
@@ -17,6 +19,15 @@ export interface Api {
   search: { query(q: string, opts?: { signal?: AbortSignal }): Promise<SearchResponse> };
   entities: { getPerson(id: string): Promise<PersonProfile>; getCompany(id: string): Promise<CompanyProfile> };
   news: { list(q: NewsQuery): Promise<NewsPage>; get(id: string): Promise<Story> };
+  community: {
+    feed(tab: 'for-you' | 'following'): Promise<CommunityFeed>;
+    createPost(input: CreatePostInput): Promise<Post>;
+    like(postId: string, liked: boolean): Promise<LikeResult>;
+    vote(postId: string, optionId: string): Promise<Post>;
+    /** Things a post can attach: companies, books and deals. */
+    attachables(): Promise<Attachment[]>;
+  };
+  groups: { list(): Promise<GroupList>; get(id: string): Promise<Group>; setMembership(id: string, joined: boolean): Promise<MembershipResult> };
 }
 
 export interface ApiOptions {
@@ -42,6 +53,14 @@ export const mockApi: Api = {
     getCompany: async (id) => CompanyProfileSchema.parse(found(companiesFixture, id)),
   },
   news: { list: async (q) => mockNewsList(q), get: async (id) => mockNewsGet(id) },
+  community: {
+    feed: async (tab) => mockFeed(tab),
+    createPost: async (input) => mockCreatePost(input),
+    like: async (postId, liked) => mockLike(postId, liked),
+    vote: async (postId, optionId) => mockVote(postId, optionId),
+    attachables: async () => attachables(),
+  },
+  groups: { list: async () => mockGroups(), get: async (id) => mockGroup(id), setMembership: async (id, joined) => mockMembership(id, joined) },
 };
 
 export function createApi({ baseUrl, getToken }: ApiOptions = {}): Api {
@@ -61,6 +80,18 @@ export function createApi({ baseUrl, getToken }: ApiOptions = {}): Api {
     news: {
       list: (q) => http.get(`/v1/news?${new URLSearchParams({ region: q.region, topic: q.topic, page: String(q.page) })}`, NewsPageSchema),
       get: (sid) => http.get(`/v1/news/${id(sid)}`, StorySchema),
+    },
+    community: {
+      feed: (tab) => http.get(`/v1/community/feed?tab=${tab}`, CommunityFeedSchema),
+      createPost: (input) => http.send('POST', '/v1/community/posts', input, PostSchema),
+      like: (pid, liked) => http.send(liked ? 'PUT' : 'DELETE', `/v1/community/posts/${id(pid)}/like`, {}, LikeResultSchema),
+      vote: (pid, optionId) => http.send('POST', `/v1/community/posts/${id(pid)}/vote`, { optionId }, PostSchema),
+      attachables: () => http.get('/v1/community/attachables', z.array(AttachmentSchema)),
+    },
+    groups: {
+      list: () => http.get('/v1/groups', GroupListSchema),
+      get: (gid) => http.get(`/v1/groups/${id(gid)}`, GroupSchema),
+      setMembership: (gid, joined) => http.send('PUT', `/v1/groups/${id(gid)}/membership`, { joined }, MembershipResultSchema),
     },
   };
 }

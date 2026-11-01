@@ -23,6 +23,14 @@ const pages = [
   ['story', '/en/news/kora-abidjan-corridor', 'Mentioned'],
   ['story-fr', '/en/news/freight-gains-ground', 'Translate to English'],
   ['story-ai', '/en/news/commodity-prices-ease', 'Why it matters for African readers'],
+  ['community', '/en/community', 'Building a logistics network across borders'],
+  ['community-fr', '/fr/community', 'En direct'],
+  ['community-following', '/en/community?tab=following', 'Nia Mensah'],
+  ['community-groups', '/en/community?tab=groups', 'Your groups'],
+  ['group', '/en/groups/logistics', 'Recent posts'],
+  ['compose', '/en/compose', 'New post'],
+  ['compose-share', '/en/compose?story=kora-abidjan-corridor', 'Kora Freight opens its Abidjan corridor'],
+  ['group-404', '/en/groups/nobody', 'We could not find that page'],
 ];
 const sizes = [[390, 844], [360, 800], [1280, 800]];
 const browser = await chromium.launch();
@@ -158,6 +166,165 @@ for (const [name, path, mustSee] of pages) {
   await page.goto(base + '/en/news/continental-payments-rail', { waitUntil: 'networkidle' });
   await page.getByRole('heading', { level: 1, name: /continental payments rail/ }).waitFor({ timeout: 5000 }).catch(() => errors.push('news flow: Home lead story did not open'));
   await ctx.close();
+}
+// ---- community flows: each one starts with empty browser storage
+const fresh = async (label) => {
+  const c = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const pg = await c.newPage();
+  pg.on('pageerror', (e) => errors.push(`${label}: ${e}`));
+  return { c, pg };
+};
+const need = async (loc, msg, ms = 5000) => { await loc.waitFor({ timeout: ms }).catch(() => errors.push(msg)); };
+{
+  const { c, pg } = await fresh('community flow');
+  await pg.goto(base + '/en/community', { waitUntil: 'networkidle' });
+  const href = await pg.getByRole('link', { name: /Building a logistics network/ }).getAttribute('href');
+  if (href !== '/en/live/building-across-borders') errors.push(`community flow: live card links to ${href}`);
+  // like, then reload
+  await pg.getByRole('button', { name: /^Like: 340 likes/ }).click();
+  await need(pg.getByRole('button', { name: /^Like: 341 likes/ }), 'community flow: like did not count');
+  if ((await pg.getByRole('button', { name: /^Like: 341 likes/ }).getAttribute('aria-pressed')) !== 'true') errors.push('community flow: like not pressed');
+  await pg.reload({ waitUntil: 'networkidle' });
+  await need(pg.getByRole('button', { name: /^Like: 341 likes/ }), 'community flow: like lost after reload');
+  await pg.getByRole('button', { name: /^Like: 341 likes/ }).click();
+  await need(pg.getByRole('button', { name: /^Like: 340 likes/ }), 'community flow: unlike did not count');
+  // poll: results hidden until you vote
+  await need(pg.getByText('1,204 votes. Vote to see results.'), 'community flow: poll hint missing');
+  if (await pg.getByText('41%').count()) errors.push('community flow: poll results shown before voting');
+  await pg.getByRole('button', { name: 'Currency risk' }).click();
+  await need(pg.getByText('1,205 votes. Thanks for voting.'), 'community flow: vote did not count');
+  const top = await pg.getByRole('button', { name: /Access to capital/ }).textContent();
+  if (!top.includes('41%')) errors.push(`community flow: expected 41% for Access to capital, got ${top}`);
+  if (await pg.getByRole('button', { name: /Access to capital/ }).isEnabled()) errors.push('community flow: poll allows a second vote');
+  await pg.reload({ waitUntil: 'networkidle' });
+  await need(pg.getByText('1,205 votes. Thanks for voting.'), 'community flow: vote lost after reload');
+  // tabs
+  await pg.getByRole('link', { name: 'Following' }).click();
+  await pg.waitForURL(/tab=following/);
+  await need(pg.getByText('We spent 14 months building'), 'community flow: Following lacks a followed person');
+  if (await pg.getByText('How do you price a product').count()) errors.push('community flow: Following shows someone not followed');
+  if ((await pg.getByRole('link', { name: 'Following' }).getAttribute('aria-current')) !== 'page') errors.push('community flow: Following tab not current');
+  // groups: join moves a group up, and is remembered
+  await pg.getByRole('link', { name: 'Groups' }).click();
+  await pg.waitForURL(/tab=groups/);
+  const mine = pg.getByRole('region', { name: 'Your groups' });
+  await need(mine.getByText('Logistics and supply chain'), 'community flow: joined group missing from Your groups');
+  if (await mine.getByText('Fintech founders under 40').count()) errors.push('community flow: Fintech already joined');
+  await pg.getByRole('button', { name: /^Join: Fintech founders/ }).click();
+  await need(mine.getByText('Fintech founders under 40'), 'community flow: join did not move the group');
+  await pg.reload({ waitUntil: 'networkidle' });
+  await need(pg.getByRole('region', { name: 'Your groups' }).getByText('Fintech founders under 40'), 'community flow: join lost after reload');
+  const angels = pg.getByRole('button', { name: /Angel investors circle/ });
+  if (!(await angels.isDisabled())) errors.push('community flow: restricted group can be joined');
+  await need(pg.getByText('Verified investors only'), 'community flow: restricted note missing');
+  // group page
+  await pg.getByRole('link', { name: 'Logistics and supply chain' }).first().click();
+  await pg.waitForURL(/groups\/logistics/);
+  await need(pg.getByText('2,418 members'), 'community flow: member count missing');
+  await pg.getByRole('button', { name: 'Joined' }).click();
+  await need(pg.getByText('2,417 members'), 'community flow: leaving did not update the count');
+  await need(pg.getByRole('button', { name: 'Join group' }), 'community flow: button did not flip to Join group');
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('compose flow');
+  await pg.goto(base + '/en/community', { waitUntil: 'networkidle' });
+  await pg.getByRole('link', { name: 'New post' }).click();
+  await pg.waitForURL(/\/compose/);
+  const post = pg.getByRole('button', { name: 'Post', exact: true });
+  const box = pg.getByRole('textbox', { name: 'Post text' });
+  if (!(await post.isDisabled())) errors.push('compose flow: Post enabled with no text');
+  await box.fill('Cold chain is a logistics problem first.');
+  if (!(await post.isEnabled())) errors.push('compose flow: Post disabled with text');
+  await pg.getByRole('button', { name: 'Poll' }).click();
+  if (!(await post.isDisabled())) errors.push('compose flow: poll postable without options');
+  await pg.getByRole('textbox', { name: 'Option 1' }).fill('Yes');
+  await pg.getByRole('textbox', { name: 'Option 2' }).fill('No');
+  if (!(await post.isEnabled())) errors.push('compose flow: poll with two options not postable');
+  await pg.getByRole('button', { name: 'Add option' }).click();
+  await need(pg.getByRole('textbox', { name: 'Option 3' }), 'compose flow: Add option did nothing');
+  await pg.getByRole('button', { name: 'Insight' }).click();
+  // attach a deal, try to promise returns
+  await pg.getByRole('button', { name: 'Deal', exact: true }).click();
+  await pg.getByRole('button', { name: /Aya Health seed round/ }).click();
+  await need(pg.getByRole('button', { name: 'Remove attachment' }), 'compose flow: attachment not shown');
+  await box.fill('Guaranteed returns for every backer');
+  await need(pg.getByText('This post promises returns.'), 'compose flow: return promise not flagged');
+  if (!(await post.isDisabled())) errors.push('compose flow: return promise can be posted');
+  await box.fill('Backing the founders, with eyes open about the risk.');
+  if (!(await post.isEnabled())) errors.push('compose flow: clean deal post blocked');
+  await post.click();
+  await pg.waitForURL(/\/en\/community$/);
+  await need(pg.getByText('Backing the founders, with eyes open about the risk.'), 'compose flow: new post missing from the feed');
+  await need(pg.getByRole('link', { name: /Aya Health seed round/ }).first(), 'compose flow: attachment missing on the post');
+  await pg.reload({ waitUntil: 'networkidle' });
+  await need(pg.getByText('Backing the founders, with eyes open about the risk.'), 'compose flow: new post lost after reload');
+  // own post can be liked
+  await pg.getByRole('button', { name: /^Like: 0 likes/ }).first().click();
+  await need(pg.getByRole('button', { name: /^Like: 1 like/ }).first(), 'compose flow: liking own post failed');
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('compose poll flow');
+  await pg.goto(base + '/en/compose', { waitUntil: 'networkidle' });
+  await pg.getByRole('button', { name: 'Poll' }).click();
+  await pg.getByRole('textbox', { name: 'Post text' }).fill('Ready to ship?');
+  await pg.getByRole('textbox', { name: 'Option 1' }).fill('Yes');
+  await pg.getByRole('textbox', { name: 'Option 2' }).fill('Not yet');
+  await pg.getByRole('button', { name: 'Post', exact: true }).click();
+  await pg.waitForURL(/\/en\/community$/);
+  await need(pg.getByText('Ready to ship?'), 'compose poll flow: poll missing from the feed');
+  await pg.getByRole('button', { name: 'Not yet' }).click();
+  await need(pg.getByText('1 vote. Thanks for voting.'), 'compose poll flow: voting on own poll failed');
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('discard flow');
+  await pg.goto(base + '/en/compose', { waitUntil: 'networkidle' });
+  await pg.getByRole('button', { name: 'Cancel' }).click();
+  await pg.waitForURL(/\/en\/community$/);
+  await pg.goto(base + '/en/compose', { waitUntil: 'networkidle' });
+  await pg.getByRole('textbox', { name: 'Post text' }).fill('Half a thought');
+  await pg.getByRole('button', { name: 'Cancel' }).click();
+  await need(pg.getByText('Discard this post?'), 'discard flow: confirmation missing');
+  await pg.getByRole('button', { name: 'Keep editing' }).click();
+  if (await pg.getByText('Discard this post?').count()) errors.push('discard flow: Keep editing did not close the confirmation');
+  if ((await pg.getByRole('textbox', { name: 'Post text' }).inputValue()) !== 'Half a thought') errors.push('discard flow: text lost');
+  await pg.getByRole('button', { name: 'Cancel' }).click();
+  await pg.getByRole('button', { name: 'Discard' }).click();
+  await pg.waitForURL(/\/en\/community$/);
+  if (await pg.getByText('Half a thought').count()) errors.push('discard flow: discarded post appeared');
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('group post flow');
+  await pg.goto(base + '/en/compose?group=logistics', { waitUntil: 'networkidle' });
+  if ((await pg.getByLabel('Audience').inputValue()) !== 'group:logistics') errors.push('group post flow: audience not preselected');
+  await pg.getByRole('textbox', { name: 'Post text' }).fill('Takoradi customs update for the group.');
+  await pg.getByRole('button', { name: 'Post', exact: true }).click();
+  await pg.waitForURL(/groups\/logistics/);
+  await need(pg.getByText('Takoradi customs update for the group.'), 'group post flow: post missing from the group');
+  await pg.goto(base + '/en/community', { waitUntil: 'networkidle' });
+  if (await pg.getByText('Takoradi customs update for the group.').count()) errors.push('group post flow: group post leaked into For you');
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('share flow');
+  await pg.goto(base + '/en/news/kora-abidjan-corridor', { waitUntil: 'networkidle' });
+  await pg.getByRole('link', { name: 'Share to community' }).click();
+  await pg.waitForURL(/compose\?story=kora-abidjan-corridor/);
+  await need(pg.getByRole('button', { name: 'Remove attachment' }), 'share flow: story not attached');
+  await pg.getByRole('textbox', { name: 'Post text' }).fill('Worth reading: a third corridor.');
+  await pg.getByRole('button', { name: 'Post', exact: true }).click();
+  await pg.waitForURL(/\/en\/community$/);
+  const link = pg.locator('a[href="/en/news/kora-abidjan-corridor"]').first();
+  await need(link, 'share flow: story card missing on the post');
+  await link.click();
+  await pg.waitForURL(/news\/kora-abidjan-corridor/);
+  // unknown story id is ignored, not an error page
+  await pg.goto(base + '/en/compose?story=nope', { waitUntil: 'networkidle' });
+  await need(pg.getByRole('textbox', { name: 'Post text' }), 'share flow: bad story id broke compose');
+  await c.close();
 }
 await browser.close();
 console.log('ERRORS', JSON.stringify(errors));

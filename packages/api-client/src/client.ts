@@ -20,6 +20,17 @@ export function createClient({ baseUrl, getToken, fetchImpl }: ClientOptions) {
       if (!res.ok) throw new ApiError(res.status, 'http_error', `GET ${path} failed with ${res.status}`);
       return schema.parse(await res.json());
     },
+    async send<T>(method: 'POST' | 'PUT' | 'DELETE', path: string, body: unknown, schema: ZodType<T>, init?: RequestInit): Promise<T> {
+      const token = getToken ? await getToken() : null;
+      const res = await doFetch(`${baseUrl}${path}`, {
+        ...init,
+        method,
+        body: JSON.stringify(body),
+        headers: { accept: 'application/json', 'content-type': 'application/json', ...(token ? { authorization: `Bearer ${token}` } : {}), ...init?.headers },
+      });
+      if (!res.ok) throw new ApiError(res.status, 'http_error', `${method} ${path} failed with ${res.status}`);
+      return schema.parse(await res.json());
+    },
   };
 }
 export type Client = ReturnType<typeof createClient>;

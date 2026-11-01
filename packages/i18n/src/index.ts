@@ -6,6 +6,10 @@ import enExplore from '../messages/en/explore.json';
 import frExplore from '../messages/fr/explore.json';
 import enNews from '../messages/en/news.json';
 import frNews from '../messages/fr/news.json';
+import enCommunity from '../messages/en/community.json';
+import frCommunity from '../messages/fr/community.json';
+import enCompose from '../messages/en/compose.json';
+import frCompose from '../messages/fr/compose.json';
 import enProfile from '../messages/en/profile.json';
 import frProfile from '../messages/fr/profile.json';
 import enCommon from '../messages/en/common.json';
@@ -17,8 +21,8 @@ export const defaultLocale: Locale = 'en';
 
 export const isLocale = (v: string): v is Locale => (locales as readonly string[]).includes(v);
 
-const messages = { en: { nav: enNav, home: enHome, explore: enExplore, profile: enProfile, news: enNews, common: enCommon },
-  fr: { nav: frNav, home: frHome, explore: frExplore, profile: frProfile, news: frNews, common: frCommon } } as const;
+const messages = { en: { nav: enNav, home: enHome, explore: enExplore, profile: enProfile, news: enNews, community: enCommunity, compose: enCompose, common: enCommon },
+  fr: { nav: frNav, home: frHome, explore: frExplore, profile: frProfile, news: frNews, community: frCommunity, compose: frCompose, common: frCommon } } as const;
 export type Messages = (typeof messages)['en'];
 
 /** Messages for a locale. More namespaces are added as screens are built. */

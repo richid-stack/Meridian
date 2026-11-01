@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Story } from '@meridian/contracts';
-import { news } from '@meridian/domain';
+import { time } from '@meridian/domain';
 import { plural } from '@meridian/i18n';
 import styles from './News.module.css';
 
@@ -15,7 +15,7 @@ export function Meta({ story, now, locale, t }: { story: Story; now: number; loc
     <div className={styles.meta}>
       <SourceTile name={story.source} />
       <b>{story.source}</b>
-      <span>{news.relativeAgo(Date.parse(story.at), now, locale)}</span>
+      <span>{time.relativeAgo(Date.parse(story.at), now, locale)}</span>
       {story.lang !== 'en' ? <span className={styles.badge}>{story.lang.toUpperCase()}</span> : null}
       {GLOBAL.has(story.region) ? <span className={styles.badge}>{t.badgeGlobal}</span> : null}
     </div>

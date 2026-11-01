@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { relativeAgo } from './time';
+import { relativeAgo } from './relative';
 
 const NOW = 1_800_000_000_000;
 const min = 60_000;
