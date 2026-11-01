@@ -21,7 +21,8 @@
     "@meridian/domain": "workspace:*",
     "@meridian/api-client": "workspace:*",
     "@meridian/i18n": "workspace:*",
-    "@meridian/contracts": "workspace:*"
+    "@meridian/contracts": "workspace:*",
+    "zod": "^3.23.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
