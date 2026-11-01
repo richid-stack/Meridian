@@ -1,0 +1,141 @@
+Scope: 9 of 10 workspace projects
+packages/contracts test$ vitest run --passWithNoTests
+packages/domain test$ vitest run --passWithNoTests
+packages/i18n test$ vitest run --passWithNoTests
+packages/tokens test$ vitest run --passWithNoTests
+packages/contracts test: [1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/Meridian/Meridian/packages/contracts[39m
+packages/contracts test: [2minclude: [22m[33m**/*.{test,spec}.?(c|m)[jt]s?(x)[39m
+packages/contracts test: [2mexclude:  [22m[33m**/node_modules/**[2m, [22m**/dist/**[2m, [22m**/cypress/**[2m, [22m**/.{idea,git,cache,output,temp}/**[2m, [22m**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*[39m
+packages/contracts test: No test files found, exiting with code 0
+packages/domain test: [1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/Meridian/Meridian/packages/domain[39m
+packages/contracts test: Done
+packages/i18n test: [1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/Meridian/Meridian/packages/i18n[39m
+packages/tokens test: [1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/Meridian/Meridian/packages/tokens[39m
+packages/tokens test: [2minclude: [22m[33m**/*.{test,spec}.?(c|m)[jt]s?(x)[39m
+packages/tokens test: [2mexclude:  [22m[33m**/node_modules/**[2m, [22m**/dist/**[2m, [22m**/cypress/**[2m, [22m**/.{idea,git,cache,output,temp}/**[2m, [22m**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*[39m
+packages/tokens test: No test files found, exiting with code 0
+packages/tokens test: Done
+packages/domain test:  [32m✓[39m src/news/query.test.ts [2m([22m[2m7 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/deals/invest.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/community/draft.test.ts [2m([22m[2m20 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+packages/i18n test:  [32m✓[39m src/index.test.ts [2m([22m[2m6 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+packages/i18n test: [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+packages/i18n test: [2m      Tests [22m [1m[32m6 passed[39m[22m[90m (6)[39m
+packages/i18n test: [2m   Start at [22m 18:50:14
+packages/i18n test: [2m   Duration [22m 750ms[2m (transform 190ms, setup 0ms, collect 232ms, tests 13ms, environment 0ms, prepare 165ms)[22m
+packages/i18n test: Done
+packages/domain test:  [32m✓[39m src/deals/portfolio.test.ts [2m([22m[2m9 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/news/cluster.test.ts [2m([22m[2m8 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/entities/search.test.ts [2m([22m[2m12 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/deals/rounds.test.ts [2m([22m[2m12 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/news/normalize.test.ts [2m([22m[2m4 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/money/format.test.ts [2m([22m[2m10 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/community/poll.test.ts [2m([22m[2m6 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/deals/watch.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/deals/compare.test.ts [2m([22m[2m7 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+packages/domain test:  [2m[90m↓[39m[22m src/entities/types.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/domain test:  [32m✓[39m src/entities/trend.test.ts [2m([22m[2m4 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+packages/domain test:  [32m✓[39m src/time/relative.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+packages/domain test:  [2m[90m↓[39m[22m src/money/convert.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/domain test:  [2m[90m↓[39m[22m src/media/chapters.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/domain test:  [2m[90m↓[39m[22m src/media/resume.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/domain test:  [2m[90m↓[39m[22m src/money/rates.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/domain test: [2m Test Files [22m [1m[32m14 passed[39m[22m[2m | [22m[33m5 skipped[39m[90m (19)[39m
+packages/domain test: [2m      Tests [22m [1m[32m130 passed[39m[22m[2m | [22m[90m5 todo[39m[90m (135)[39m
+packages/domain test: [2m   Start at [22m 18:50:14
+packages/domain test: [2m   Duration [22m 2.25s[2m (transform 394ms, setup 0ms, collect 644ms, tests 142ms, environment 3ms, prepare 1.56s)[22m
+packages/domain test: Done
+apps/api test$ jest --passWithNoTests
+packages/api-client test$ vitest run --passWithNoTests
+packages/ui test$ vitest run --passWithNoTests
+packages/ui test: [1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/Meridian/Meridian/packages/ui[39m
+packages/api-client test: [1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/Meridian/Meridian/packages/api-client[39m
+packages/ui test:  [32m✓[39m src/components/Switch/Switch.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+packages/ui test:  [32m✓[39m src/components/Sparkline/Sparkline.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+packages/ui test:  [32m✓[39m src/components/TrendBars/TrendBars.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+packages/ui test:  [32m✓[39m src/components/TrendLine/TrendLine.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+packages/ui test:  [32m✓[39m src/components/Avatar/Avatar.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+packages/ui test:  [32m✓[39m src/components/MoneyText/MoneyText.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[90m 78[2mms[22m[39m
+packages/api-client test:  [32m✓[39m src/community.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 126[2mms[22m[39m
+packages/api-client test:  [32m✓[39m src/capital.test.ts [2m([22m[2m18 tests[22m[2m)[22m[90m 230[2mms[22m[39m
+packages/api-client test:  [32m✓[39m src/news.test.ts [2m([22m[2m12 tests[22m[2m)[22m[90m 218[2mms[22m[39m
+packages/ui test:  [32m✓[39m src/components/Button/Button.test.tsx [2m([22m[2m1 test[22m[2m)[22m[90m 7[2mms[22m[39m
+packages/ui test:  [2m[90m↓[39m[22m src/components/VisuallyHidden/VisuallyHidden.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+apps/api test: PASS src/modules/corrections/corrections.service.spec.ts
+packages/ui test:  [2m[90m↓[39m[22m src/components/OfflineBanner/OfflineBanner.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+apps/api test: PASS src/modules/moderation/moderation.service.spec.ts
+apps/api test: PASS src/modules/notifications/notifications.service.spec.ts
+packages/ui test:  [2m[90m↓[39m[22m src/components/Illustration/Illustration.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/SourceLabel/SourceLabel.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+apps/api test: PASS src/modules/investments/investments.service.spec.ts
+packages/api-client test:  [32m✓[39m src/profiles.test.ts [2m([22m[2m10 tests[22m[2m)[22m[90m 70[2mms[22m[39m
+apps/api test: PASS src/modules/watchlist/watchlist.service.spec.ts
+apps/api test: PASS src/modules/community/community.service.spec.ts
+apps/api test: PASS src/modules/messaging/messaging.service.spec.ts
+apps/api test: PASS src/modules/portfolio/portfolio.service.spec.ts
+apps/api test: PASS src/modules/assistant/assistant.service.spec.ts
+packages/api-client test:  [32m✓[39m src/search.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 91[2mms[22m[39m
+packages/api-client test:  [32m✓[39m src/api.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 42[2mms[22m[39m
+packages/ui test:  [2m[90m↓[39m[22m src/components/EmptyState/EmptyState.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/api-client test: [2m Test Files [22m [1m[32m6 passed[39m[22m[90m (6)[39m
+packages/api-client test: [2m      Tests [22m [1m[32m71 passed[39m[22m[90m (71)[39m
+packages/api-client test: [2m   Start at [22m 18:50:16
+packages/api-client test: [2m   Duration [22m 3.45s[2m (transform 1.04s, setup 0ms, collect 4.85s, tests 777ms, environment 1ms, prepare 1.16s)[22m
+apps/api test: PASS src/modules/markets/markets.service.spec.ts
+packages/api-client test: Done
+apps/api test: PASS src/modules/uploads/uploads.service.spec.ts
+apps/api test: PASS src/modules/entities/entities.service.spec.ts
+apps/api test: PASS src/modules/search/search.service.spec.ts
+packages/ui test:  [2m[90m↓[39m[22m src/components/IconButton/IconButton.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/ErrorState/ErrorState.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+apps/api test: PASS src/modules/groups/groups.service.spec.ts
+apps/api test: PASS src/modules/claims/claims.service.spec.ts
+apps/api test: PASS src/modules/users/users.service.spec.ts
+apps/api test: PASS src/modules/deals/deals.service.spec.ts
+apps/api test: PASS src/modules/admin/admin.service.spec.ts
+packages/ui test:  [2m[90m↓[39m[22m src/components/RiskNotice/RiskNotice.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+apps/api test: PASS src/modules/media/media.service.spec.ts
+apps/api test: PASS src/modules/live/live.service.spec.ts
+packages/ui test:  [2m[90m↓[39m[22m src/components/BottomNav/BottomNav.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+apps/api test: PASS src/modules/news/news.service.spec.ts
+apps/api test: PASS src/modules/auth/auth.service.spec.ts
+apps/api test: PASS src/modules/feed/feed.service.spec.ts
+packages/ui test:  [2m[90m↓[39m[22m src/components/Lightbox/Lightbox.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+apps/api test: Test Suites: 23 passed, 23 total
+apps/api test: Tests:       23 passed, 23 total
+apps/api test: Snapshots:   0 total
+apps/api test: Time:        4.015 s
+apps/api test: Ran all test suites.
+apps/api test: Done
+packages/ui test:  [2m[90m↓[39m[22m src/components/Skeleton/Skeleton.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/AiLabel/AiLabel.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/Cropper/Cropper.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/ListRow/ListRow.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/Field/Field.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/TopBar/TopBar.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/Sheet/Sheet.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/Toast/Toast.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/Pill/Pill.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/Rule/Rule.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/Stat/Stat.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test:  [2m[90m↓[39m[22m src/components/Tabs/Tabs.test.tsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+packages/ui test: [2m Test Files [22m [1m[32m7 passed[39m[22m[2m | [22m[33m22 skipped[39m[90m (29)[39m
+packages/ui test: [2m      Tests [22m [1m[32m19 passed[39m[22m[2m | [22m[90m22 todo[39m[90m (41)[39m
+packages/ui test: [2m   Start at [22m 18:50:16
+packages/ui test: [2m   Duration [22m 5.45s[2m (transform 813ms, setup 0ms, collect 1.57s, tests 152ms, environment 7ms, prepare 4.56s)[22m
+packages/ui test: Done
+apps/web test$ vitest run --passWithNoTests
+apps/web test: [33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+apps/web test: [1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/Meridian/Meridian/apps/web[39m
+apps/web test:  [32m✓[39m src/features/invest/state.test.ts [2m([22m[2m17 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+apps/web test:  [32m✓[39m src/lib/sampleStore.test.ts [2m([22m[2m8 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+apps/web test:  [32m✓[39m src/lib/capital.test.ts [2m([22m[2m12 tests[22m[2m)[22m[90m 29[2mms[22m[39m
+apps/web test:  [32m✓[39m src/features/explore/lib.test.ts [2m([22m[2m8 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+apps/web test:  [32m✓[39m src/features/news/lib.test.ts [2m([22m[2m6 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+apps/web test:  [32m✓[39m src/components/shell/AppShell.test.ts [2m([22m[2m6 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+apps/web test:  [32m✓[39m src/features/community/lib.test.ts [2m([22m[2m3 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+apps/web test: [2m Test Files [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+apps/web test: [2m      Tests [22m [1m[32m60 passed[39m[22m[90m (60)[39m
+apps/web test: [2m   Start at [22m 18:50:22
+apps/web test: [2m   Duration [22m 2.39s[2m (transform 681ms, setup 0ms, collect 1.19s, tests 65ms, environment 3.39s, prepare 587ms)[22m
+apps/web test: Done

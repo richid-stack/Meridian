@@ -1,0 +1,55 @@
+Scope: all 10 workspace projects
+Progress: resolved 0, reused 0, downloaded 1, added 0
+Progress: resolved 42, reused 0, downloaded 42, added 0
+Progress: resolved 53, reused 0, downloaded 47, added 0
+Progress: resolved 240, reused 0, downloaded 226, added 0
+Progress: resolved 410, reused 0, downloaded 368, added 0
+Progress: resolved 637, reused 0, downloaded 596, added 0
+Progress: resolved 864, reused 0, downloaded 781, added 0
+ WARN  5 deprecated subdependencies found: cron-parser@4.9.0, glob@11.1.0, glob@7.2.3, inflight@1.0.6, whatwg-encoding@3.1.1
+Packages: +781
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 865, reused 0, downloaded 782, added 253
+Progress: resolved 865, reused 0, downloaded 782, added 779
+Progress: resolved 865, reused 0, downloaded 782, added 781, done
+.../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+.../esbuild@0.21.5/node_modules/esbuild postinstall$ node install.js
+.../argon2@0.41.1/node_modules/argon2 install$ node-gyp-build
+.../esbuild@0.21.5/node_modules/esbuild postinstall: Done
+.../argon2@0.41.1/node_modules/argon2 install: Done
+.../node_modules/@prisma/engines postinstall: Done
+.../node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+.../node_modules/prisma preinstall: Done
+.../node_modules/@prisma/client postinstall$ node scripts/postinstall.js
+.../node_modules/@prisma/client postinstall: prisma:warn We could not find your Prisma schema in the default locations (see: https://pris.ly/d/prisma-schema-location).
+.../node_modules/@prisma/client postinstall: If you have a Prisma schema file in a custom path, you will need to run
+.../node_modules/@prisma/client postinstall: `prisma generate --schema=./path/to/your/schema.prisma` to generate Prisma Client.
+.../node_modules/@prisma/client postinstall: If you do not have a Prisma schema file yet, you can ignore this message.
+.../node_modules/@prisma/client postinstall: Done
+ WARN  Issues with peer dependencies found
+apps/api
+├─┬ webpack 5.106.2
+│ └─┬ schema-utils 4.8.1
+│   └── ✕ unmet peer webpack@^5.112.0: found 5.106.2
+├─┬ @nestjs/platform-fastify 11.2.8
+│ └── ✕ unmet peer @fastify/static@^10.1.2: found 8.3.0
+└─┬ @nestjs/swagger 8.1.1
+  ├── ✕ unmet peer @fastify/static@"^6.0.0 || ^7.0.0": found 8.3.0
+  ├── ✕ unmet peer @nestjs/common@"^9.0.0 || ^10.0.0": found 11.2.8
+  ├── ✕ unmet peer @nestjs/core@"^9.0.0 || ^10.0.0": found 11.2.8
+  └─┬ @nestjs/mapped-types 2.0.6
+    └── ✕ unmet peer @nestjs/common@"^8.0.0 || ^9.0.0 || ^10.0.0": found 11.2.8
+
+devDependencies:
++ prettier 3.9.10
++ turbo 2.11.10
++ typescript 5.9.3
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: @scarf/scarf@1.4.0, msgpackr-extract@3.0.4.         │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 12.6s using pnpm v10.28.0
