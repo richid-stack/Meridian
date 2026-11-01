@@ -106,7 +106,7 @@
   "sum_tie": "{a} et {b} sont financés à {pct} % chacun.",
   "sum_days": "{a} se termine dans {aDays}, {b} dans {bDays}.",
   "sum_cap": "Les plafonds de valorisation ({aCap} et {bCap}) sont fixés par chaque société et ne sont pas directement comparables.",
-  "sum_risk": "Risque principal, {name} : {risk}",
+  "sum_risk": "Risque principal, {name} : {risk}.",
   "openRound": "Ouvrir {name}",
   "aiLabel": "Meridian IA",
   "updateBy": "{by}, {ago}",

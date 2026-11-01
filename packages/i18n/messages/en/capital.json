@@ -106,7 +106,7 @@
   "sum_tie": "{a} and {b} are both {pct}% funded.",
   "sum_days": "{a} closes in {aDays}, {b} in {bDays}.",
   "sum_cap": "Valuation caps ({aCap} and {bCap}) are set by each company and are not directly comparable.",
-  "sum_risk": "Main risk, {name}: {risk}",
+  "sum_risk": "Main risk, {name}: {risk}.",
   "openRound": "Open {name}",
   "aiLabel": "Meridian AI",
   "updateBy": "{by}, {ago}",

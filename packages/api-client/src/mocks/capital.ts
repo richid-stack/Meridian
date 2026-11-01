@@ -8,6 +8,8 @@ import { ApiError } from '../errors';
 // Fictional sample rounds (prototype HANDOVER section 7). Real rounds need a licensed partner and legal review.
 const DAY = 86_400_000;
 const iso = (ms: number) => new Date(ms).toISOString();
+/** Start of the current UTC day. Closing dates sit on day boundaries so "days left" reads the same on every page and request. */
+const dayStart = (now: number) => Math.floor(now / DAY) * DAY;
 
 interface Row extends Omit<Deal, 'closesAt' | 'latestUpdate' | 'updateBody'> { days: number; update: { title: string; by: string; body: string; daysAgo: number } }
 
@@ -46,7 +48,7 @@ const ROWS: Row[] = [
 
 function toDeal(r: Row, now: number): Deal {
   const { days, update, ...rest } = r;
-  return DealSchema.parse({ ...rest, closesAt: iso(now + days * DAY), latestUpdate: { title: update.title, by: update.by, at: iso(now - update.daysAgo * DAY) }, updateBody: update.body });
+  return DealSchema.parse({ ...rest, closesAt: iso(dayStart(now) + days * DAY), latestUpdate: { title: update.title, by: update.by, at: iso(dayStart(now) - update.daysAgo * DAY) }, updateBody: update.body });
 }
 
 export function mockDeals(filter: DealFilter, now = Date.now()): DealList {

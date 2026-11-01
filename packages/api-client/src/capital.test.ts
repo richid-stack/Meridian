@@ -31,6 +31,19 @@ describe('rounds', () => {
   });
 });
 
+describe('closing dates', () => {
+  it('give the same days left whenever in the day they are read', () => {
+    const morning = Date.parse('2026-11-01T00:00:05.000Z');
+    const evening = Date.parse('2026-11-01T23:59:00.000Z');
+    for (const id of ids) {
+      const a = deals.daysLeft(mockDeal(id, morning).closesAt, morning);
+      const b = deals.daysLeft(mockDeal(id, morning + 7).closesAt, morning);
+      expect([id, b]).toEqual([id, a]);
+      expect(deals.daysLeft(mockDeal(id, evening).closesAt, evening)).toBe(a);
+    }
+  });
+});
+
 describe('rounds agree with the rest of the sample data', () => {
   it('search results match: title, progress, summary line', () => {
     for (const id of ids) {
