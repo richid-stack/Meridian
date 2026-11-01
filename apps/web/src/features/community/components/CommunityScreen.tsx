@@ -28,9 +28,9 @@ export async function CommunityScreen({ locale, tab }: { locale: string; tab: Co
         <Link href={`/${locale}/you`} aria-label={t.yourProfile} className={styles.me}><Avatar kind="round" name="Rich" size={32} fontSize={14} /></Link>
       } />
       <main className={styles.wrap}>
-        <nav className={styles.tabs} aria-label={t.tabsLabel}>
+        <div className={styles.tabs} role="group" aria-label={t.tabsLabel}>
           {TABS.map((x) => <Link key={x} href={tabHref(locale, x)} className={styles.tab} aria-current={x === tab ? 'page' : undefined} scroll={false}>{t[`tab_${x}`]}</Link>)}
-        </nav>
+        </div>
 
         {groups ? <GroupsPanel groups={[...groups.mine, ...groups.discover]} locale={locale} nl={nl} t={t} /> : null}
 

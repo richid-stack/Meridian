@@ -9,9 +9,10 @@
 .dcBtns { display: flex; gap: 8px; flex-wrap: wrap; }
 .seg { display: flex; gap: 8px; margin: 16px 0 0; flex-wrap: wrap; }
 .who { display: flex; align-items: center; gap: 12px; margin: 18px 0 8px; }
+.who > div { min-width: 0; flex: 1; }
 .who b { display: block; font: 600 15px var(--font-ui); }
-.aud { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--mute); }
-.select { min-height: var(--tap); padding: 0 10px; border: 1px solid var(--rule); border-radius: 10px; background: var(--bg); color: var(--ink); font: 500 14px var(--font-ui); max-width: 100%; }
+.aud { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--mute); min-width: 0; }
+.select { min-height: var(--tap); padding: 0 10px; border: 1px solid var(--rule); border-radius: 10px; background: var(--bg); color: var(--ink); font: 500 14px var(--font-ui); min-width: 0; flex: 1; max-width: 100%; text-overflow: ellipsis; }
 .select:focus-visible, .text:focus-visible, .input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .text { width: 100%; min-height: 140px; border: 0; border-top: 1px solid var(--rule); padding: 14px 0; background: none; color: var(--ink); font: 400 20px/1.5 var(--font-read); resize: vertical; }
 .text::placeholder { color: var(--mute); }
