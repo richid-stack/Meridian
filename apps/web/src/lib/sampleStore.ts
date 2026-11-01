@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PostSchema, type Post } from '@meridian/contracts';
+import { InvestmentSchema, PostSchema, type Investment, type Post } from '@meridian/contracts';
 
 /**
  * Sample mode only: keeps likes, votes, group joins and the person's own posts in this browser so every
@@ -13,6 +13,11 @@ export interface SampleState {
   votes: Record<string, string>;
   groups: Record<string, boolean>;
   posts: { post: Post; groupId?: string }[];
+  /** Commitments made in this browser (sample payments only). */
+  investments: Investment[];
+  /** Rounds watched (true) or unwatched (false) by this browser, on top of the starting list. */
+  watch: Record<string, boolean>;
+  alerts?: boolean;
 }
 
 const StoredSchema = z.object({
@@ -20,9 +25,12 @@ const StoredSchema = z.object({
   votes: z.record(z.string()).default({}),
   groups: z.record(z.boolean()).default({}),
   posts: z.array(z.object({ post: z.unknown(), groupId: z.string().optional() })).default([]),
+  investments: z.array(z.unknown()).default([]),
+  watch: z.record(z.boolean()).default({}),
+  alerts: z.boolean().optional(),
 });
 
-const empty = (): SampleState => ({ liked: [], votes: {}, groups: {}, posts: [] });
+const empty = (): SampleState => ({ liked: [], votes: {}, groups: {}, posts: [], investments: [], watch: {} });
 
 let memory: SampleState | null = null;
 
@@ -38,7 +46,11 @@ export function readSample(): SampleState {
       const ok = PostSchema.safeParse(p.post);
       return ok.success ? [{ post: ok.data, ...(p.groupId ? { groupId: p.groupId } : {}) }] : [];
     });
-    return { ...parsed.data, posts };
+    const investments = parsed.data.investments.flatMap((i) => {
+      const ok = InvestmentSchema.safeParse(i);
+      return ok.success ? [ok.data] : [];
+    });
+    return { ...parsed.data, posts, investments };
   } catch {
     return empty();
   }
@@ -64,4 +76,16 @@ export function applyMembership(g: { id: string; joined: boolean; members: numbe
   const mine = readSample().groups[g.id];
   if (mine === undefined || mine === g.joined) return { joined: g.joined, members: g.members };
   return { joined: mine, members: g.members + (mine ? 1 : -1) };
+}
+
+export function addSampleInvestment(inv: Investment): void {
+  updateSample((s) => ({ ...s, investments: [...s.investments, inv] }));
+}
+
+export function setSampleWatch(dealId: string, on: boolean): void {
+  updateSample((s) => ({ ...s, watch: { ...s.watch, [dealId]: on } }));
+}
+
+export function setSampleAlerts(on: boolean): void {
+  updateSample((s) => ({ ...s, alerts: on }));
 }

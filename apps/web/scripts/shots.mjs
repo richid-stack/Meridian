@@ -31,11 +31,24 @@ const pages = [
   ['compose', '/en/compose', 'New post'],
   ['compose-share', '/en/compose?story=kora-abidjan-corridor', 'Kora Freight opens its Abidjan corridor'],
   ['group-404', '/en/groups/nobody', 'We could not find that page'],
+  ['capital', '/en/capital', 'How community rounds work'],
+  ['capital-fr', '/fr/capital', 'Comment fonctionnent les tours communautaires'],
+  ['capital-closed', '/en/capital?filter=closed', 'No closed rounds yet'],
+  ['deal', '/en/capital/deals/aya-health-seed', 'Due diligence summary', 'focus'],
+  ['deal-fr', '/fr/capital/deals/kora-freight-round', 'Synth\u00e8se de v\u00e9rification', 'focus'],
+  ['deal-404', '/en/capital/deals/nobody', 'We could not find that page', 'focus'],
+  ['invest', '/en/capital/deals/aya-health-seed/invest?amount=500', 'Invest in Aya Health', 'focus'],
+  ['invest-fr', '/fr/capital/deals/zuri-energy-round/invest', 'Investir dans Zuri Energy', 'focus'],
+  ['portfolio', '/en/portfolio', 'Allocation by sector'],
+  ['portfolio-fr', '/fr/portfolio', 'R\u00e9partition par secteur'],
+  ['watchlist', '/en/watchlist', 'Notify me about updates'],
+  ['compare', '/en/compare', 'Comparison summary'],
+  ['compare-fr', '/fr/compare?a=zuri-energy-round&b=aya-health-seed', 'Synth\u00e8se de la comparaison'],
 ];
 const sizes = [[390, 844], [360, 800], [1280, 800]];
 const browser = await chromium.launch();
 const errors = [];
-for (const [name, path, mustSee] of pages) {
+for (const [name, path, mustSee, kind] of pages) {
   for (const [w, h] of sizes) {
     for (const scheme of ['light', 'dark']) {
       const ctx = await browser.newContext({ viewport: { width: w, height: h }, colorScheme: scheme, deviceScaleFactor: 2 });
@@ -56,7 +69,8 @@ for (const [name, path, mustSee] of pages) {
       if (small.length) errors.push(`small tap targets ${name} ${w} ${scheme}: ${small.join(' | ')}`);
       if (name !== 'design') {
         const navs = await page.evaluate(() => [...document.querySelectorAll('nav')].filter((n) => n.getBoundingClientRect().height > 0).length);
-        if (navs !== 1) errors.push(`expected exactly 1 visible nav, got ${navs}: ${name} ${w}`);
+        const wantNavs = kind === 'focus' ? 0 : 1;
+        if (navs !== wantNavs) errors.push(`expected ${wantNavs} visible nav, got ${navs}: ${name} ${w}`);
       }
       await ctx.close();
     }
@@ -328,6 +342,171 @@ const need = async (loc, msg, ms = 5000) => { await loc.waitFor({ timeout: ms })
   // unknown story id is ignored, not an error page
   await pg.goto(base + '/en/compose?story=nope', { waitUntil: 'networkidle' });
   await need(pg.getByRole('textbox', { name: 'Post text' }), 'share flow: bad story id broke compose');
+  await c.close();
+}
+// ---- Capital flows
+{
+  const { c, pg } = await fresh('capital filters');
+  await pg.goto(base + '/en/capital', { waitUntil: 'networkidle' });
+  for (const n of ['Aya Health', 'Kora Freight', 'Zuri Energy']) await need(pg.getByRole('heading', { name: n }), `capital filters: ${n} missing from All open`);
+  await pg.getByRole('button', { name: 'Closing soon' }).click();
+  await pg.waitForURL(/filter=soon/);
+  await need(pg.getByRole('heading', { name: 'Aya Health' }), 'capital filters: Closing soon lost Aya Health');
+  if (await pg.getByRole('heading', { name: 'Kora Freight' }).count()) errors.push('capital filters: Closing soon still shows Kora Freight');
+  await pg.getByRole('button', { name: 'New', exact: true }).click();
+  await need(pg.getByRole('heading', { name: 'Zuri Energy' }), 'capital filters: New lost Zuri Energy');
+  if (await pg.getByRole('heading', { name: 'Aya Health' }).count()) errors.push('capital filters: New still shows Aya Health');
+  await pg.getByRole('button', { name: 'Closed', exact: true }).click();
+  await need(pg.getByText('No closed rounds yet'), 'capital filters: closed empty state missing');
+  await pg.getByRole('link', { name: 'See open rounds' }).click();
+  await need(pg.getByRole('heading', { name: 'Kora Freight' }), 'capital filters: See open rounds did not return to the list');
+  await pg.getByRole('heading', { name: 'Kora Freight' }).click();
+  await pg.waitForURL(/capital\/deals\/kora-freight-round/);
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('watch flow');
+  await pg.goto(base + '/en/capital/deals/zuri-energy-round', { waitUntil: 'networkidle' });
+  await pg.getByRole('button', { name: 'Stop watching this round' }).click();
+  await need(pg.getByRole('button', { name: 'Watch this round' }), 'watch flow: bookmark did not change');
+  await pg.reload({ waitUntil: 'networkidle' });
+  await need(pg.getByRole('button', { name: 'Watch this round' }), 'watch flow: unwatch lost after reload');
+  await pg.goto(base + '/en/watchlist', { waitUntil: 'networkidle' });
+  await need(pg.getByRole('heading', { name: 'Aya Health' }), 'watch flow: Aya Health missing from the watchlist');
+  if (await pg.getByRole('heading', { name: 'Zuri Energy' }).count()) errors.push('watch flow: unwatched round still on the watchlist');
+  await pg.goto(base + '/en/capital', { waitUntil: 'networkidle' });
+  await need(pg.locator('div:has(> dt:text-is("Watching")) > dd:text-is("2")'), 'watch flow: Watching count on Capital did not drop to 2');
+  await pg.goto(base + '/en/watchlist', { waitUntil: 'networkidle' });
+  await pg.getByRole('button', { name: 'Stop watching Kora Freight' }).click();
+  await pg.getByRole('button', { name: 'Stop watching Aya Health' }).click();
+  await need(pg.getByText('Nothing on your watchlist'), 'watch flow: empty watchlist state missing');
+  await pg.reload({ waitUntil: 'networkidle' });
+  await need(pg.getByText('Nothing on your watchlist'), 'watch flow: empty watchlist lost after reload');
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('alerts flow');
+  await pg.goto(base + '/en/watchlist', { waitUntil: 'networkidle' });
+  const sw = pg.getByRole('switch', { name: 'Notify me about updates' });
+  if ((await sw.getAttribute('aria-checked')) !== 'true') errors.push('alerts flow: alerts should start on');
+  await sw.click();
+  if ((await sw.getAttribute('aria-checked')) !== 'false') errors.push('alerts flow: switch did not turn off');
+  await pg.reload({ waitUntil: 'networkidle' });
+  if ((await pg.getByRole('switch', { name: 'Notify me about updates' }).getAttribute('aria-checked')) !== 'false') errors.push('alerts flow: setting lost after reload');
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('invest flow');
+  await pg.goto(base + '/en/capital/deals/zuri-energy-round', { waitUntil: 'networkidle' });
+  await pg.getByRole('button', { name: '$500' }).click();
+  await pg.getByRole('link', { name: 'Continue with $500' }).click();
+  await pg.waitForURL(/invest\?amount=500/);
+  const go = pg.getByRole('button', { name: 'Continue', exact: true });
+  if (await go.isEnabled()) errors.push('invest flow: Continue enabled before the acknowledgements');
+  const amt = pg.getByRole('textbox', { name: 'Amount in dollars' });
+  await amt.fill('50');
+  await need(pg.getByText('Enter at least $100.'), 'invest flow: minimum message missing');
+  await amt.fill('500');
+  for (const l of ['I understand I could lose all of this investment.', 'I understand this investment is illiquid and may not be sold for years.']) await pg.getByLabel(l).check();
+  if (await go.isEnabled()) errors.push('invest flow: Continue enabled with two of three acknowledgements');
+  await pg.getByLabel('I have read the investment terms and the due diligence summary.').check();
+  await need(pg.getByText('$10', { exact: true }), 'invest flow: fee line missing');
+  await go.click();
+  await need(pg.getByRole('heading', { name: 'How do you want to pay?' }), 'invest flow: payment step missing');
+  if (await pg.getByRole('button', { name: 'Continue', exact: true }).isEnabled()) errors.push('invest flow: Continue enabled with no payment method');
+  await pg.getByLabel('Mobile money').check();
+  await pg.getByRole('button', { name: 'MTN MoMo' }).click();
+  await pg.getByLabel('Mobile money number').fill('123');
+  await pg.getByLabel('Mobile money number').blur();
+  await need(pg.getByText('Enter a 10-digit number starting with 0.'), 'invest flow: bad number message missing');
+  if (await pg.getByRole('button', { name: 'Continue', exact: true }).isEnabled()) errors.push('invest flow: Continue enabled with a bad number');
+  await pg.getByLabel('Mobile money number').fill('024 123 4567');
+  await pg.getByRole('button', { name: 'Continue', exact: true }).click();
+  await need(pg.getByRole('heading', { name: 'Confirm your investment' }), 'invest flow: confirm step missing');
+  await need(pg.getByText('$510', { exact: true }), 'invest flow: total on confirm wrong');
+  // back keeps what was typed
+  await pg.getByRole('button', { name: 'Back' }).click();
+  if ((await pg.getByLabel('Mobile money number').inputValue()) !== '024 123 4567') errors.push('invest flow: number lost on Back');
+  await pg.getByRole('button', { name: 'Continue', exact: true }).click();
+  await pg.getByRole('button', { name: 'Confirm and pay $510' }).click();
+  await need(pg.getByRole('heading', { name: 'Approve on your phone' }), 'invest flow: processing screen missing');
+  await need(pg.getByRole('heading', { name: 'Commitment received' }), 'invest flow: receipt missing', 8000);
+  await need(pg.getByText(/Reference MRD-[0-9A-F]{6}/), 'invest flow: reference missing');
+  await pg.getByRole('link', { name: 'View portfolio' }).click();
+  await pg.waitForURL(/\/en\/portfolio/);
+  await need(pg.getByText('$1,250', { exact: true }), 'invest flow: portfolio total did not become $1,250');
+  await need(pg.getByText('Committed $500 in Zuri Energy'), 'invest flow: activity line missing');
+  await pg.getByRole('button', { name: 'Details for Zuri Energy' }).click();
+  await need(pg.getByRole('link', { name: 'View round' }), 'invest flow: position did not expand');
+  await pg.reload({ waitUntil: 'networkidle' });
+  await need(pg.getByText('$1,250', { exact: true }), 'invest flow: commitment lost after reload');
+  await pg.goto(base + '/en/capital', { waitUntil: 'networkidle' });
+  await need(pg.locator('dd', { hasText: /^\$1,250$/ }), 'invest flow: Capital summary did not update');
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('invest again flow');
+  await pg.goto(base + '/en/capital/deals/aya-health-seed/invest?amount=100', { waitUntil: 'networkidle' });
+  for (const l of ['I understand I could lose all of this investment.', 'I understand this investment is illiquid and may not be sold for years.', 'I have read the investment terms and the due diligence summary.']) await pg.getByLabel(l).check();
+  await pg.getByRole('button', { name: 'Continue', exact: true }).click();
+  await pg.getByLabel('Card').check();
+  await pg.getByRole('button', { name: 'Continue', exact: true }).click();
+  await pg.getByRole('button', { name: 'Confirm and pay $102' }).click();
+  await need(pg.getByRole('heading', { name: 'Commitment received' }), 'invest again flow: receipt missing', 8000);
+  await pg.goto(base + '/en/portfolio', { waitUntil: 'networkidle' });
+  await need(pg.getByText('$850', { exact: true }), 'invest again flow: same round did not add to the position ($850)');
+  await need(pg.getByText('2 rounds'), 'invest again flow: adding to a round created a second position');
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('decline flow');
+  await pg.goto(base + '/en/capital/deals/aya-health-seed/invest', { waitUntil: 'networkidle' });
+  for (const l of ['I understand I could lose all of this investment.', 'I understand this investment is illiquid and may not be sold for years.', 'I have read the investment terms and the due diligence summary.']) await pg.getByLabel(l).check();
+  await pg.getByRole('button', { name: 'Continue', exact: true }).click();
+  await pg.getByLabel('Mobile money').check();
+  await pg.getByRole('button', { name: 'Telecel Cash' }).click();
+  await pg.getByLabel('Mobile money number').fill('0240000000');
+  await pg.getByRole('button', { name: 'Continue', exact: true }).click();
+  await pg.getByRole('button', { name: /^Confirm and pay/ }).click();
+  await need(pg.getByText('Payment not completed'), 'decline flow: decline screen missing', 8000);
+  await pg.getByRole('button', { name: 'Change payment method' }).click();
+  await need(pg.getByRole('heading', { name: 'How do you want to pay?' }), 'decline flow: Change payment method did not go to payment');
+  await pg.getByLabel('Card').check();
+  await pg.getByRole('button', { name: 'Continue', exact: true }).click();
+  await pg.getByRole('button', { name: /^Confirm and pay/ }).click();
+  await need(pg.getByRole('heading', { name: 'Commitment received' }), 'decline flow: paying by card after a decline failed', 8000);
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('offline flow');
+  await pg.goto(base + '/en/capital/deals/aya-health-seed/invest', { waitUntil: 'networkidle' });
+  for (const l of ['I understand I could lose all of this investment.', 'I understand this investment is illiquid and may not be sold for years.', 'I have read the investment terms and the due diligence summary.']) await pg.getByLabel(l).check();
+  await pg.getByRole('button', { name: 'Continue', exact: true }).click();
+  await pg.getByLabel('Card').check();
+  await pg.getByRole('button', { name: 'Continue', exact: true }).click();
+  await c.setOffline(true);
+  await pg.getByRole('button', { name: /^Confirm and pay/ }).click();
+  await need(pg.getByText('You are offline', { exact: false }).first(), 'offline flow: offline message missing');
+  await c.setOffline(false);
+  await pg.getByRole('button', { name: 'Try again' }).click();
+  await pg.getByRole('button', { name: /^Confirm and pay/ }).click();
+  await need(pg.getByRole('heading', { name: 'Commitment received' }), 'offline flow: retry after reconnecting failed', 8000);
+  await c.close();
+}
+{
+  const { c, pg } = await fresh('compare flow');
+  await pg.goto(base + '/en/compare', { waitUntil: 'networkidle' });
+  await need(pg.getByRole('columnheader', { name: 'Kora Freight' }), 'compare flow: default pair missing');
+  await pg.getByRole('group', { name: 'Round A' }).getByRole('button', { name: 'Zuri Energy' }).click();
+  await pg.waitForURL(/a=zuri-energy-round/);
+  await need(pg.getByRole('columnheader', { name: 'Zuri Energy' }), 'compare flow: Round A did not change');
+  await pg.getByRole('group', { name: 'Round B' }).getByRole('button', { name: 'Zuri Energy' }).click();
+  await pg.waitForURL(/a=kora-freight-round&b=zuri-energy-round|b=zuri-energy-round/);
+  const heads = await pg.getByRole('columnheader').allInnerTexts();
+  if (new Set(heads.filter((h) => h.trim())).size !== 2) errors.push(`compare flow: both columns show the same round: ${heads.join(',')}`);
+  await need(pg.getByText('Not investment advice.', { exact: false }).first(), 'compare flow: summary note missing');
+  await pg.goto(base + '/en/compare?a=nope&b=nope', { waitUntil: 'networkidle' });
+  await need(pg.getByRole('columnheader', { name: 'Aya Health' }), 'compare flow: bad ids did not fall back');
   await c.close();
 }
 await browser.close();

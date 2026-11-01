@@ -1,4 +1,7 @@
 'use client';
-export default function Error() {
-  return null; // TODO(phase5): Claim designed error state
+
+import { RouteError } from '@/components/shell/RouteError';
+
+export default function Error({ reset }: { error: Error; reset: () => void }) {
+  return <RouteError reset={reset} />;
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatCompactMoney, formatNumber, formatSignedPercent } from './format';
+import { formatCompactMoney, formatMoney, formatNumber, formatSignedPercent } from './format';
 
 describe('formatNumber', () => {
   it('groups thousands', () => expect(formatNumber(121540, 0, 'en-US')).toBe('121,540'));
@@ -18,4 +18,10 @@ describe('formatCompactMoney', () => {
     expect(formatCompactMoney(76_000_000, 'USD', 'en-US')).toBe('$760K');
     expect(formatCompactMoney(200_000_000, 'USD', 'en-US')).toBe('$2M');
   });
+});
+
+describe('formatMoney', () => {
+  it('shows cents', () => expect(formatMoney(25000, 'USD', 'en-US')).toBe('$250.00'));
+  it('can drop cents', () => expect(formatMoney(100000, 'USD', 'en-US', 0)).toBe('$1,000'));
+  it('groups thousands', () => expect(formatMoney(1234567, 'USD', 'en-US')).toBe('$12,345.67'));
 });

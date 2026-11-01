@@ -1,3 +1,5 @@
+import { CapitalSkeleton } from '@/features/capital';
+
 export default function Loading() {
-  return null; // TODO(phase5): Compare skeleton
+  return <CapitalSkeleton />;
 }

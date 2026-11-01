@@ -1,5 +1,8 @@
 {
   "notFoundTitle": "Page introuvable",
   "notFoundBody": "Elle a peut-être été déplacée, ou le lien est incorrect.",
-  "goHome": "Aller à Aujourd'hui"
+  "goHome": "Aller à Aujourd'hui",
+  "errorTitle": "Un problème est survenu",
+  "errorBody": "Nous n'avons pas pu charger cette page. Vérifiez votre connexion et réessayez.",
+  "retry": "Réessayer"
 }

@@ -1,6 +1,15 @@
-import { ScreenPlaceholder } from '@/components/dev/ScreenPlaceholder';
+import type { Metadata } from 'next';
+import { getMessages } from '@meridian/i18n';
+import { WatchlistScreen } from '@/features/watchlist';
 
-export default async function WatchlistPage() {
+export const dynamic = 'force-dynamic';
 
-  return <ScreenPlaceholder name="Watchlist" legacy="v-watch" />;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return { title: `${(getMessages(locale).capital as Record<string, string>).watchlistTitle} · Meridian` };
+}
+
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return <WatchlistScreen locale={locale} />;
 }

@@ -1,0 +1,20 @@
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 var(--margin) 56px; }
+.top { padding: 24px 0 8px; }
+.h1 { font: 500 clamp(32px, 8vw, 44px)/1.05 var(--font-read); letter-spacing: -.02em; margin: 0; }
+.pick { margin-top: 16px; }
+.pick h2 { font: 600 13px var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); margin: 0 0 8px; }
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 calc(var(--margin) * -1); padding: 0 var(--margin); }
+.chips::-webkit-scrollbar { display: none; }
+.chips > * { flex: none; }
+.tbl { width: 100%; border-collapse: collapse; margin-top: 22px; font-size: 15px; }
+.tbl th, .tbl td { text-align: left; padding: 12px 8px 12px 0; border-top: 1px solid var(--rule); vertical-align: top; }
+.tbl thead th { border-top: 0; font: 500 17px var(--font-read); }
+.tbl tbody th { font-weight: 400; color: var(--mute); width: 34%; }
+.tbl td { font-family: var(--font-num); font-size: 15px; overflow-wrap: anywhere; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sum { margin-top: 28px; }
+.sum h2 { font: 500 22px/1.2 var(--font-read); margin: 0 0 8px; }
+.sum ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: 16px; line-height: 1.5; }
+.sumNote { margin: 10px 0 0; font-size: 13px; color: var(--mute); }
+.open { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.note { margin-top: 26px; font-size: 13px; color: var(--mute); }

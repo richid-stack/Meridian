@@ -11,6 +11,11 @@ export function formatSignedPercent(pct: number, locale: string): string {
   }).format(pct / 100);
 }
 
+/** $250.00 (or $250 with decimals = 0) from minor units (cents). */
+export function formatMoney(amountMinor: number, currency: string, locale: string, decimals: 0 | 2 = 2): string {
+  return new Intl.NumberFormat(locale, { style: 'currency', currency, minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(amountMinor / 100);
+}
+
 /** $1.28M from minor units (cents). */
 export function formatCompactMoney(amountMinor: number, currency: string, locale: string): string {
   return new Intl.NumberFormat(locale, { style: 'currency', currency, notation: 'compact', minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(amountMinor / 100);

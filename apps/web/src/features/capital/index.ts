@@ -1,5 +1,3 @@
-export * from './components/CapitalLanding';
+export * from './components/CapitalScreen';
 export * from './components/DealRoom';
-export * from './components/DealCard';
-export * from './components/RoundTimeline';
-export * from './hooks/useCapital';
+export * from './components/CapitalSkeleton';

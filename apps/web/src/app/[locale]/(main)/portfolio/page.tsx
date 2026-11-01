@@ -1,6 +1,15 @@
-import { ScreenPlaceholder } from '@/components/dev/ScreenPlaceholder';
+import type { Metadata } from 'next';
+import { getMessages } from '@meridian/i18n';
+import { PortfolioScreen } from '@/features/portfolio';
 
-export default async function PortfolioPage() {
+export const dynamic = 'force-dynamic';
 
-  return <ScreenPlaceholder name="Portfolio" legacy="v-portfolio" />;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return { title: `${(getMessages(locale).capital as Record<string, string>).portfolioTitle} · Meridian` };
+}
+
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return <PortfolioScreen locale={locale} />;
 }

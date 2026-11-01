@@ -1,5 +1,3 @@
-# watchlist
+# Watchlist
 
-Prototype source: `p4`
-
-Owns: WatchlistView
+Rounds the person follows, plus the update-alerts switch. Sample mode keeps changes in this browser; with a backend the server answer is final.

@@ -6,5 +6,8 @@ describe('currentTab', () => {
   it('maps news to home', () => expect(currentTab('/en/news/abc', 'en')).toBe('home'));
   it('maps people to explore', () => expect(currentTab('/fr/people/ama', 'fr')).toBe('explore'));
   it('maps deals to capital', () => expect(currentTab('/en/capital/deals/1', 'en')).toBe('capital'));
+  it('maps portfolio, watchlist and compare to capital', () => {
+    for (const p of ['/en/portfolio', '/en/watchlist', '/en/compare']) expect(currentTab(p, 'en')).toBe('capital');
+  });
   it('maps messages to community', () => expect(currentTab('/en/messages', 'en')).toBe('community'));
 });

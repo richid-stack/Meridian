@@ -1,2 +1,1 @@
-export * from './components/WatchlistView';
-export * from './hooks/useWatchlist';
+export * from './components/WatchlistScreen';

@@ -1472,7 +1472,7 @@ export const companiesFixture: Record<string, CompanyProfile> = {
     ],
     "round": {
       "dealId": "kora-freight-round",
-      "backers": 214,
+      "backers": 215,
       "raisedMinor": 76000000,
       "targetMinor": 200000000,
       "currency": "USD"

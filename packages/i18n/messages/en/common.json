@@ -1,5 +1,8 @@
 {
   "notFoundTitle": "We could not find that page",
   "notFoundBody": "It may have moved, or the link may be wrong.",
-  "goHome": "Go to Today"
+  "goHome": "Go to Today",
+  "errorTitle": "Something went wrong",
+  "errorBody": "We could not load this page. Check your connection and try again.",
+  "retry": "Try again"
 }

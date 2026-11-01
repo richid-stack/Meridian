@@ -16,4 +16,5 @@ async function orNotFound<T>(run: () => Promise<T>): Promise<T> {
 export const getPerson = cache((id: string) => orNotFound(() => api.entities.getPerson(id)));
 export const getCompany = cache((id: string) => orNotFound(() => api.entities.getCompany(id)));
 export const getStory = cache((id: string) => orNotFound(() => api.news.get(id)));
+export const getDeal = cache((id: string) => orNotFound(() => api.capital.getDeal(id)));
 export const getGroup = cache((id: string) => orNotFound(() => api.groups.get(id)));
